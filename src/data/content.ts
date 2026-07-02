@@ -1,8 +1,157 @@
 export const navLinks = [
-  { label: 'HOME', href: '#home' },
-  { label: 'SERVICES', href: '#services' },
+  { label: 'Features', href: '#features' },
+  { label: 'Services', href: '#services' },
+  { label: 'Pricing', href: '#pricing' },
   { label: 'FAQ', href: '#faq' },
-  { label: 'CONTACT US', href: '#contact' },
+  { label: 'Contact', href: '#contact' },
+]
+
+export const heroContent = {
+  badge: "India's Trusted Tally Cloud Hosting Platform",
+  taglines: [
+    { prefix: 'Built for ', highlight: 'Bharat.', color: 'text-accent' },
+    { prefix: 'Powered by ', highlight: 'AI.', color: 'text-primary' },
+    { prefix: 'Secured in ', highlight: 'India.', color: 'text-accent-green' },
+  ],
+  description:
+    'TallyHosting delivers blazing fast, secure and AI-powered cloud hosting for Tally and business applications.',
+  features: [
+    { label: '100% Data in India' },
+    { label: 'AI-Powered Management' },
+    { label: '24x7 Expert Support' },
+  ],
+  cta: {
+    primary: { label: 'Explore Plans', href: '#pricing' },
+    secondary: { label: 'Talk to an Expert', href: '#contact' },
+  },
+  socialProof: 'Trusted by 8,000+ Businesses & 250+ Tally Partners',
+  heroImage: '/images/hero%20img.webp',
+  makeInIndiaLogo: '/images/make%20in%20india%20logo.webp',
+  trustCardFeatures: [
+    {
+      icon: 'flag',
+      title: '100% Data Residency in India',
+      description: 'Your data stays in India, always.',
+    },
+    {
+      icon: 'shield',
+      title: 'Indian Data Sovereignty',
+      description: 'We respect Indian laws. Your data. Your control.',
+    },
+    {
+      icon: 'lock',
+      title: 'Enterprise Grade Security',
+      description: 'ISO 27001, SOC 2 Compliant, 24×7 Security Monitoring.',
+    },
+    {
+      icon: 'map',
+      title: 'Built for Bharat',
+      description: 'Designed, Developed & Hosted in India.',
+    },
+  ],
+}
+
+export const heroPartnerLogos = [
+  { name: 'Tally', src: '/images/tally-logo.png' },
+  { name: 'Busy', src: '/images/busy-logo.png' },
+  { name: 'Marg', src: '/images/marg-logo.png' },
+  { name: 'SAP', src: '/images/sap-logo.png' },
+  // { name: 'Zoho', src: '/images/ZOHO_New.png' },
+]
+
+export const logoCloudLogos = [
+  ...heroPartnerLogos,
+  { name: 'AWS', src: '/images/aws-logo.png' },
+  { name: 'Azure', src: '/images/azure-logo.png' },
+  { name: 'Google Cloud', src: '/images/google-cloud-logo.png' },
+]
+
+export const heroFeatureCards = [
+  {
+    icon: 'gauge',
+    title: 'Tally Optimized',
+    description: 'Built exclusively for Tally. Faster performance, smoother experience.',
+  },
+  {
+    icon: 'shield',
+    title: 'Secure Cloud Infrastructure',
+    description: 'Advanced security, firewall, DDoS protection & encrypted data.',
+  },
+  {
+    icon: 'devices',
+    title: 'Anytime, Anywhere Access',
+    description: 'Access your Tally from desktop, mobile or browser securely.',
+  },
+  {
+    icon: 'sparkles',
+    title: 'AI-Powered Insights',
+    description: 'Smart monitoring, anomaly detection & proactive alerts with AI.',
+  },
+  {
+    icon: 'backup',
+    title: 'Automated Backup & DR',
+    description: 'Automated backup with Disaster Recovery for business continuity.',
+  },
+  {
+    icon: 'headphones',
+    title: '24x7 Expert Support',
+    description: 'Real humans. Real support. Always available when you need.',
+  },
+]
+
+export const heroStats = [
+  { value: 10000, suffix: '+', label: 'Happy Businesses', icon: 'users' },
+  { value: 250, suffix: '+', label: 'Tally Partners', icon: 'handshake' },
+  { value: 99, suffix: '.99%', label: 'Uptime Guarantee', icon: 'shield' },
+  { value: 24, suffix: '/7', label: 'Expert Support', icon: 'headphones' },
+  { value: 17, suffix: '+', label: 'Years of Trust', icon: 'award' },
+]
+
+export const partnerOffer = {
+  title: 'Launch Offer for Partners!',
+  cta: { label: 'Become a Partner', href: '#contact' },
+}
+
+export const infrastructureLogos = [
+  { name: 'AWS', src: '/images/aws-logo.png' },
+  { name: 'CtrlS', text: 'CtrlS' },
+  { name: 'NTT', text: 'NTT' },
+  { name: 'Google Cloud', src: '/images/google-cloud-logo.png' },
+  { name: 'Azure', src: '/images/azure-logo.png' },
+]
+
+export const complianceBadges = [
+  { label: 'ISO 27001', sublabel: 'Certified' },
+  { label: 'SOC 2', sublabel: 'TYPE II' },
+  { label: 'DPCI', sublabel: 'COMPLIANT' },
+]
+
+export const trustHighlights = [
+  {
+    icon: 'server',
+    title: 'No Hardware Cost',
+    description: '100% Cloud. 0% Capex.',
+  },
+  {
+    icon: 'rocket',
+    title: 'Quick Setup',
+    description: 'Get started in minutes.',
+  },
+  {
+    icon: 'trending',
+    title: 'Scalable on Demand',
+    description: 'Upgrade resources anytime.',
+  },
+  {
+    icon: 'wallet',
+    title: 'Cost Effective',
+    description: 'Pay only for what you use.',
+  },
+  {
+    icon: 'users',
+    title: 'Trusted by Experts',
+    description: 'Preferred by CA & Businesses.',
+  },
 ]
 
 export const heroSlides = [

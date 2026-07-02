@@ -1,20 +1,11 @@
 import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Cloud, ChevronDown } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { navLinks } from '../data/content'
-
-const serviceItems = [
-  'USER BASED',
-  'DEDICATED VM BASED',
-  'WEB DEVELOPMENT',
-  'WEB HOSTING',
-  'CLOUD',
-]
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [servicesOpen, setServicesOpen] = useState(false)
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
@@ -28,75 +19,51 @@ export function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-transparent'
+        scrolled
+          ? 'bg-white/90 backdrop-blur-lg shadow-sm shadow-primary/5 border-b border-gray-100/80'
+          : 'bg-white/70 backdrop-blur-md'
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          <a href="#home" className="flex items-center gap-2 group">
-            <div className="relative">
-              <Cloud className="w-8 h-8 text-primary fill-primary/20 group-hover:scale-110 transition-transform" />
-              <div className="absolute -right-1 top-1 w-4 h-0.5 bg-amber-400 rounded rotate-[-20deg]" />
-              <div className="absolute -right-2 top-2.5 w-3 h-0.5 bg-amber-400 rounded rotate-[-20deg]" />
-            </div>
-            <span className="text-2xl font-bold italic text-primary">TallyHosting</span>
+        <div className="flex items-center justify-between h-16 lg:h-20">
+          <a href="#home" className="flex-shrink-0 flex items-center group">
+            <img
+              src="/images/tallyhosting-logo.png"
+              alt="TallyHosting"
+              className="h-10 sm:h-11 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+            />
           </a>
 
-          <div className="hidden lg:flex items-center gap-8">
-            {navLinks.map((link) =>
-              link.label === 'SERVICES' ? (
-                <div
-                  key={link.label}
-                  className="relative"
-                  onMouseEnter={() => setServicesOpen(true)}
-                  onMouseLeave={() => setServicesOpen(false)}
-                >
-                  <button className="flex items-center gap-1 text-sm font-semibold tracking-wider text-gray-700 hover:text-primary transition-colors">
-                    {link.label}
-                    <ChevronDown className={`w-4 h-4 transition-transform ${servicesOpen ? 'rotate-180' : ''}`} />
-                  </button>
-                  <AnimatePresence>
-                    {servicesOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: 10 }}
-                        className="absolute top-full left-0 mt-2 w-56 bg-white rounded-xl shadow-xl border border-gray-100 py-2 overflow-hidden"
-                      >
-                        {serviceItems.map((item) => (
-                          <a
-                            key={item}
-                            href="#services"
-                            className="block px-4 py-2.5 text-sm text-gray-600 hover:bg-primary/5 hover:text-primary transition-colors"
-                          >
-                            {item}
-                          </a>
-                        ))}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              ) : (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="text-sm font-semibold tracking-wider text-gray-700 hover:text-primary transition-colors relative group"
-                >
-                  {link.label}
-                  <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary group-hover:w-full transition-all duration-300" />
-                </a>
-              )
-            )}
+          <div className="hidden lg:flex items-center justify-center gap-8 absolute left-1/2 -translate-x-1/2">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className="text-sm font-medium text-gray-600 hover:text-primary transition-colors duration-200 relative group"
+              >
+                {link.label}
+                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary rounded-full group-hover:w-full transition-all duration-300" />
+              </a>
+            ))}
+          </div>
+
+          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
             <a
               href="#contact"
-              className="px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-full hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5"
+              className="px-5 py-2.5 text-sm font-semibold text-primary border border-primary/30 rounded-xl hover:bg-primary/5 hover:border-primary transition-all duration-300"
             >
-              Get Quote
+              Partner Login
+            </a>
+            <a
+              href="#contact"
+              className="px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-dark transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
+            >
+              Customer Login
             </a>
           </div>
 
           <button
-            className="lg:hidden p-2 text-gray-700"
+            className="lg:hidden p-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -118,18 +85,27 @@ export function Navbar() {
                     key={link.label}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-sm font-semibold tracking-wider text-gray-700 hover:bg-primary/5 hover:text-primary"
+                    className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors"
                   >
                     {link.label}
                   </a>
                 ))}
-                <a
-                  href="#contact"
-                  onClick={() => setMobileOpen(false)}
-                  className="block mx-4 mt-2 px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-full text-center"
-                >
-                  Get Quote
-                </a>
+                <div className="px-4 pt-3 flex flex-col gap-2">
+                  <a
+                    href="#contact"
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-5 py-2.5 text-sm font-semibold text-primary border border-primary/30 rounded-xl text-center hover:bg-primary/5 transition-colors"
+                  >
+                    Partner Login
+                  </a>
+                  <a
+                    href="#contact"
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-xl text-center hover:bg-primary-dark transition-colors"
+                  >
+                    Customer Login
+                  </a>
+                </div>
               </div>
             </motion.div>
           )}

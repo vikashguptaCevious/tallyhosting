@@ -5,10 +5,12 @@
 
 @theme {
   --font-sans: "Inter", system-ui, sans-serif;
-  --color-primary: #0066cc;
-  --color-primary-dark: #004d99;
-  --color-primary-light: #e8f2ff;
-  --color-accent: #f59e0b;
+  --color-primary: #7b61ff;
+  --color-primary-dark: #6344f5;
+  --color-primary-light: #f3eeff;
+  --color-accent: #f97316;
+  --color-accent-green: #22c55e;
+  --color-navy: #0f172a;
 }
 
 * {
@@ -75,7 +77,7 @@ body {
 
 .hero-bullet-active {
   width: 32px;
-  background: #0066cc;
+  background: #7b61ff;
 }
 
 .hero-prev.swiper-button-disabled,
@@ -127,4 +129,31 @@ body {
 
 .animate-marquee {
   animation: marquee 30s linear infinite;
+}
+
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-16px); }
+}
+
+.animate-hero-float {
+  animation: hero-float 5s ease-in-out infinite;
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 0.4; transform: scale(1); }
+  50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.7s ease-out forwards;
 }
