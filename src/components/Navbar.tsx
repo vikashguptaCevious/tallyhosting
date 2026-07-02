@@ -39,7 +39,7 @@ export function Navbar() {
               <div className="absolute -right-1 top-1 w-4 h-0.5 bg-amber-400 rounded rotate-[-20deg]" />
               <div className="absolute -right-2 top-2.5 w-3 h-0.5 bg-amber-400 rounded rotate-[-20deg]" />
             </div>
-            <span className="text-2xl font-bold italic text-primary">TallyHost</span>
+            <span className="text-2xl font-bold italic text-primary">TallyHosting</span>
           </a>
 
           <div className="hidden lg:flex items-center gap-8">

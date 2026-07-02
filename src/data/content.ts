@@ -8,7 +8,7 @@ export const navLinks = [
 export const heroSlides = [
   {
     id: 1,
-    title: 'TallyHost',
+    title: 'TallyHosting',
     subtitle: 'Tally On Cloud',
     description:
       'Securely Work Remotely With Tally On Cloud For Accounting With Any Tally Version Anytime, Anywhere, Any device.',
@@ -135,7 +135,7 @@ export const testimonials = [
     name: 'Nikhil',
     role: 'CA',
     company: 'Kantilal Chhotalal',
-    text: 'In a 15 minute chat with Anita from tallyhost at my office, not only did we get a solution to the problem by offering us a remote tools option, but also resulted in a long term cost savings to my company.',
+    text: 'In a 15 minute chat with Anita from tallyhosting at my office, not only did we get a solution to the problem by offering us a remote tools option, but also resulted in a long term cost savings to my company.',
     avatar: 'N',
   },
   {
@@ -163,7 +163,7 @@ export const testimonials = [
     name: 'Parag Desai',
     role: 'Manager',
     company: 'Fintree Finance Pvt. Ltd.',
-    text: 'We were previously using a different cloud service in which we faced issues. In Tallyhost, we face problems only if the Internet is not available at our end.',
+    text: 'We were previously using a different cloud service in which we faced issues. In Tallyhosting, we face problems only if the Internet is not available at our end.',
     avatar: 'P',
   },
 ]

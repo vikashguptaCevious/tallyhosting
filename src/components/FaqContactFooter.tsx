@@ -88,7 +88,7 @@ export function ContactSection() {
               <div className="flex items-center gap-4">
                 <Mail className="w-6 h-6 text-amber-300" />
                 <a href="mailto:anita@tallyhost.co.in" className="hover:underline">
-                  anita@tallyhost.co.in
+                  anita@tallyhosting.co.in
                 </a>
               </div>
               <div className="flex items-center gap-4">
@@ -184,7 +184,7 @@ export function Footer() {
 
         <div className="border-t border-blue-100 pt-8 text-center">
           <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} TallyHost. Designed and Developed with ❤️
+            © {new Date().getFullYear()} All Rights Reserved
           </p>
         </div>
       </div>
