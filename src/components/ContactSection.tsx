@@ -1,15 +1,38 @@
 import { useState } from 'react'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { contactSection } from '../data/content'
+import { submitBitrixLead } from '../lib/bitrix'
 import { AnimatedSection } from './AnimatedSection'
 
 export function ContactSection() {
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 4000)
+    const formData = new FormData(e.currentTarget)
+
+    const payload = {
+      formType: 'contact' as const,
+      name: String(formData.get('name') || ''),
+      email: String(formData.get('email') || ''),
+      phone: String(formData.get('phone') || ''),
+      message: String(formData.get('message') || ''),
+    }
+
+    setSubmitting(true)
+
+    try {
+      await submitBitrixLead(payload)
+      e.currentTarget.reset()
+      setSubmitted(true)
+      setTimeout(() => setSubmitted(false), 4000)
+    } catch (error) {
+      console.error('Contact form submission failed:', error)
+      alert('Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -81,9 +104,14 @@ export function ContactSection() {
                 />
                 <button
                   type="submit"
-                  className="w-full py-3.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-all hover:shadow-lg"
+                  disabled={submitting}
+                  className="w-full py-3.5 bg-primary text-white font-semibold rounded-xl hover:bg-primary-dark transition-all hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {submitted ? `✓ ${contactSection.successMessage}` : contactSection.submitLabel}
+                  {submitted
+                    ? `✓ ${contactSection.successMessage}`
+                    : submitting
+                      ? 'Sending...'
+                      : contactSection.submitLabel}
                 </button>
               </div>
             </form>

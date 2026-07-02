@@ -12,9 +12,9 @@ export function FAQSection() {
   }
 
   return (
-    <section id="faq" className="py-16 lg:py-24 bg-gray-50">
+    <section id="faq" className="pt-0 pb-10 lg:pb-14 bg-gray-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="text-center mb-10 lg:mb-12">
+        <AnimatedSection className="text-center mb-6 lg:mb-8">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-navy mb-3">
             {faqSection.heading}
           </h2>

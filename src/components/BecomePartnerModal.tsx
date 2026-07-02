@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, ChevronDown } from 'lucide-react'
+import { PhoneInput } from 'react-international-phone'
+import 'react-international-phone/style.css'
 import { partnerForm } from '../data/content'
+import { submitBitrixLead } from '../lib/bitrix'
 
 interface BecomePartnerModalProps {
   open: boolean
@@ -15,7 +18,7 @@ const initialForm = {
   companyName: '',
   companyWebsite: '',
   workEmail: '',
-  mobile: '+91',
+  mobile: '',
   country: 'India',
   partnershipModels: [] as string[],
   interest: '',
@@ -23,6 +26,7 @@ const initialForm = {
 
 export function BecomePartnerModal({ open, onClose }: BecomePartnerModalProps) {
   const [form, setForm] = useState(initialForm)
+  const [submitting, setSubmitting] = useState(false)
 
   useEffect(() => {
     if (!open) return
@@ -46,11 +50,34 @@ export function BecomePartnerModal({ open, onClose }: BecomePartnerModalProps) {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Become a Partner Form Data:', form)
-    setForm(initialForm)
-    onClose()
+
+    const payload = {
+      formType: 'partner' as const,
+      firstName: form.firstName,
+      lastName: form.lastName,
+      companyName: form.companyName,
+      companyWebsite: form.companyWebsite,
+      workEmail: form.workEmail,
+      mobile: form.mobile,
+      country: form.country,
+      partnershipModels: form.partnershipModels,
+      interest: form.interest,
+    }
+
+    setSubmitting(true)
+
+    try {
+      await submitBitrixLead(payload)
+      setForm(initialForm)
+      onClose()
+    } catch (error) {
+      console.error('Become a Partner form submission failed:', error)
+      alert('Something went wrong. Please try again.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   const handleClose = () => {
@@ -171,20 +198,22 @@ export function BecomePartnerModal({ open, onClose }: BecomePartnerModalProps) {
 
                 <div className="grid sm:grid-cols-[140px_1fr] gap-2 sm:gap-6 items-center">
                   <label className="text-sm font-medium text-gray-700">Mobile number</label>
-                  <div className="flex gap-2">
-                    <div className="flex items-center gap-1.5 px-3 py-3 bg-white border border-gray-200 rounded-xl text-sm text-gray-700 flex-shrink-0">
-                      <span>🇮🇳</span>
-                      <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
-                    </div>
-                    <input
-                      type="tel"
-                      required
-                      placeholder={partnerForm.fields.mobile}
-                      value={form.mobile}
-                      onChange={(e) => setForm({ ...form, mobile: e.target.value })}
-                      className="flex-1 px-4 py-3 bg-white border border-gray-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-primary/40 focus:border-primary"
-                    />
-                  </div>
+                  <PhoneInput
+                    defaultCountry="in"
+                    preferredCountries={['in', 'us', 'gb', 'ae', 'sg']}
+                    value={form.mobile}
+                    onChange={(phone) => setForm({ ...form, mobile: phone })}
+                    placeholder={partnerForm.fields.mobile}
+                    required
+                    className="partner-phone-input"
+                    inputClassName="partner-phone-input__field"
+                    countrySelectorStyleProps={{
+                      buttonClassName: 'partner-phone-input__country-btn',
+                      dropdownStyleProps: {
+                        className: 'partner-phone-input__dropdown',
+                      },
+                    }}
+                  />
                 </div>
 
                 <div className="grid sm:grid-cols-[140px_1fr] gap-2 sm:gap-6 items-center">
@@ -254,9 +283,10 @@ export function BecomePartnerModal({ open, onClose }: BecomePartnerModalProps) {
                 </button>
                 <button
                   type="submit"
-                  className="px-5 py-2.5 text-sm font-bold text-navy border-2 border-navy rounded-xl bg-white hover:bg-navy hover:text-white transition-colors"
+                  disabled={submitting}
+                  className="px-5 py-2.5 text-sm font-bold text-navy border-2 border-navy rounded-xl bg-white hover:bg-navy hover:text-white transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
                 >
-                  {partnerForm.submit}
+                  {submitting ? 'Submitting...' : partnerForm.submit}
                 </button>
               </div>
             </form>
