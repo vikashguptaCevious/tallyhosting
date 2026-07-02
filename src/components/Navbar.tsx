@@ -1,17 +1,41 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X } from 'lucide-react'
-import { navLinks } from '../data/content'
+import { Menu, X, ChevronDown } from 'lucide-react'
+import { navLinks, partnerNav, partnerLoginUrl } from '../data/content'
+import { BecomePartnerModal } from './BecomePartnerModal'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [partnerOpen, setPartnerOpen] = useState(false)
+  const [mobilePartnerOpen, setMobilePartnerOpen] = useState(false)
+  const [partnerModalOpen, setPartnerModalOpen] = useState(false)
+  const partnerRef = useRef<HTMLDivElement>(null)
+
+  const openPartnerModal = () => {
+    setPartnerOpen(false)
+    setMobileOpen(false)
+    setMobilePartnerOpen(false)
+    setPartnerModalOpen(true)
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20)
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    const onClickOutside = (e: MouseEvent) => {
+      if (partnerRef.current && !partnerRef.current.contains(e.target as Node)) {
+        setPartnerOpen(false)
+      }
+    }
+    if (partnerOpen) {
+      document.addEventListener('mousedown', onClickOutside)
+    }
+    return () => document.removeEventListener('mousedown', onClickOutside)
+  }, [partnerOpen])
 
   return (
     <motion.header
@@ -20,50 +44,102 @@ export function Navbar() {
       transition={{ duration: 0.5 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? 'bg-white/90 backdrop-blur-lg shadow-sm shadow-primary/5 border-b border-gray-100/80'
-          : 'bg-white/70 backdrop-blur-md'
+          ? 'bg-white/95 backdrop-blur-lg shadow-sm border-b border-gray-100'
+          : 'bg-white/80 backdrop-blur-md'
       }`}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          <a href="#home" className="flex-shrink-0 flex items-center group">
+        <div className="flex items-center justify-between h-16 lg:h-[72px]">
+          <a href="#home" className="flex-shrink-0">
             <img
               src="/images/tallyhosting-logo.png"
               alt="TallyHosting"
-              className="h-10 sm:h-11 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+              className="h-9 sm:h-10 w-auto object-contain"
             />
           </a>
 
-          <div className="hidden lg:flex items-center justify-center gap-8 absolute left-1/2 -translate-x-1/2">
+          <div className="hidden lg:flex items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
-                className="text-sm font-medium text-gray-600 hover:text-primary transition-colors duration-200 relative group"
+                className="text-sm font-medium text-gray-600 hover:text-primary transition-colors"
               >
                 {link.label}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary rounded-full group-hover:w-full transition-all duration-300" />
               </a>
             ))}
+
+            <div
+              ref={partnerRef}
+              className="relative"
+              onMouseEnter={() => setPartnerOpen(true)}
+              onMouseLeave={() => setPartnerOpen(false)}
+            >
+              <button
+                type="button"
+                className="inline-flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-primary transition-colors"
+                aria-expanded={partnerOpen}
+                aria-haspopup="true"
+              >
+                {partnerNav.label}
+                <ChevronDown
+                  className={`w-3.5 h-3.5 opacity-50 transition-transform ${partnerOpen ? 'rotate-180' : ''}`}
+                />
+              </button>
+
+              <AnimatePresence>
+                {partnerOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-48"
+                  >
+                    <div className="bg-white rounded-xl border border-gray-100 shadow-lg shadow-primary/10 py-2 overflow-hidden">
+                    {partnerNav.items.map((item) =>
+                      'action' in item && item.action === 'modal' ? (
+                        <button
+                          key={item.label}
+                          type="button"
+                          onClick={openPartnerModal}
+                          className="block w-full text-left px-4 py-2.5 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors"
+                        >
+                          {item.label}
+                        </button>
+                      ) : (
+                        <a
+                          key={item.label}
+                          href={'href' in item ? item.href : '#contact'}
+                          target={'external' in item && item.external ? '_blank' : undefined}
+                          rel={'external' in item && item.external ? 'noopener noreferrer' : undefined}
+                          onClick={() => setPartnerOpen(false)}
+                          className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors"
+                        >
+                          {item.label}
+                        </a>
+                      )
+                    )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
             <a
-              href="#contact"
-              className="px-5 py-2.5 text-sm font-semibold text-primary border border-primary/30 rounded-xl hover:bg-primary/5 hover:border-primary transition-all duration-300"
+              href={partnerLoginUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-dark transition-colors"
             >
               Partner Login
-            </a>
-            <a
-              href="#contact"
-              className="px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-dark transition-all duration-300 hover:shadow-lg hover:shadow-primary/25 hover:-translate-y-0.5"
-            >
-              Customer Login
             </a>
           </div>
 
           <button
-            className="lg:hidden p-2 text-gray-700 rounded-lg hover:bg-gray-100 transition-colors"
+            className="lg:hidden p-2 text-gray-700 rounded-lg hover:bg-gray-100"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -85,25 +161,70 @@ export function Navbar() {
                     key={link.label}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary transition-colors"
+                    className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary"
                   >
                     {link.label}
                   </a>
                 ))}
-                <div className="px-4 pt-3 flex flex-col gap-2">
+
+                <button
+                  type="button"
+                  onClick={() => setMobilePartnerOpen(!mobilePartnerOpen)}
+                  className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary"
+                >
+                  {partnerNav.label}
+                  <ChevronDown
+                    className={`w-4 h-4 opacity-50 transition-transform ${mobilePartnerOpen ? 'rotate-180' : ''}`}
+                  />
+                </button>
+
+                <AnimatePresence>
+                  {mobilePartnerOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, height: 0 }}
+                      animate={{ opacity: 1, height: 'auto' }}
+                      exit={{ opacity: 0, height: 0 }}
+                      className="overflow-hidden bg-gray-50/80"
+                    >
+                      {partnerNav.items.map((item) =>
+                        'action' in item && item.action === 'modal' ? (
+                          <button
+                            key={item.label}
+                            type="button"
+                            onClick={openPartnerModal}
+                            className="block w-full text-left pl-8 pr-4 py-2.5 text-sm text-gray-600 hover:text-primary"
+                          >
+                            {item.label}
+                          </button>
+                        ) : (
+                          <a
+                            key={item.label}
+                            href={'href' in item ? item.href : '#contact'}
+                            target={'external' in item && item.external ? '_blank' : undefined}
+                            rel={'external' in item && item.external ? 'noopener noreferrer' : undefined}
+                            onClick={() => {
+                              setMobileOpen(false)
+                              setMobilePartnerOpen(false)
+                            }}
+                            className="block pl-8 pr-4 py-2.5 text-sm text-gray-600 hover:text-primary"
+                          >
+                            {item.label}
+                          </a>
+                        )
+                      )}
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <div className="px-4 pt-3">
                   <a
-                    href="#contact"
+                    href={partnerLoginUrl}
                     onClick={() => setMobileOpen(false)}
-                    className="block px-5 py-2.5 text-sm font-semibold text-primary border border-primary/30 rounded-xl text-center hover:bg-primary/5 transition-colors"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg text-center hover:bg-primary-dark transition-colors"
                   >
                     Partner Login
-                  </a>
-                  <a
-                    href="#contact"
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-xl text-center hover:bg-primary-dark transition-colors"
-                  >
-                    Customer Login
                   </a>
                 </div>
               </div>
@@ -111,6 +232,8 @@ export function Navbar() {
           )}
         </AnimatePresence>
       </nav>
+
+      <BecomePartnerModal open={partnerModalOpen} onClose={() => setPartnerModalOpen(false)} />
     </motion.header>
   )
 }

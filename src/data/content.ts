@@ -1,374 +1,361 @@
 export const navLinks = [
   { label: 'Features', href: '#features' },
-  { label: 'Services', href: '#services' },
+  { label: 'Solutions', href: '#solutions' },
   { label: 'Pricing', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
-  { label: 'Contact', href: '#contact' },
 ]
 
-export const heroContent = {
-  badge: "India's Trusted Tally Cloud Hosting Platform",
-  taglines: [
-    { prefix: 'Built for ', highlight: 'Bharat.', color: 'text-accent' },
-    { prefix: 'Powered by ', highlight: 'AI.', color: 'text-primary' },
-    { prefix: 'Secured in ', highlight: 'India.', color: 'text-accent-green' },
-  ],
-  description:
-    'TallyHosting delivers blazing fast, secure and AI-powered cloud hosting for Tally and business applications.',
-  features: [
-    { label: '100% Data in India' },
-    { label: 'AI-Powered Management' },
-    { label: '24x7 Expert Support' },
-  ],
-  cta: {
-    primary: { label: 'Explore Plans', href: '#pricing' },
-    secondary: { label: 'Talk to an Expert', href: '#contact' },
-  },
-  socialProof: 'Trusted by 8,000+ Businesses & 250+ Tally Partners',
-  heroImage: '/images/hero%20img.webp',
-  makeInIndiaLogo: '/images/make%20in%20india%20logo.webp',
-  trustCardFeatures: [
-    {
-      icon: 'flag',
-      title: '100% Data Residency in India',
-      description: 'Your data stays in India, always.',
-    },
-    {
-      icon: 'shield',
-      title: 'Indian Data Sovereignty',
-      description: 'We respect Indian laws. Your data. Your control.',
-    },
-    {
-      icon: 'lock',
-      title: 'Enterprise Grade Security',
-      description: 'ISO 27001, SOC 2 Compliant, 24×7 Security Monitoring.',
-    },
-    {
-      icon: 'map',
-      title: 'Built for Bharat',
-      description: 'Designed, Developed & Hosted in India.',
-    },
+export const partnerLoginUrl = 'https://partner.ceviouscloud.com'
+
+export const partnerNav = {
+  label: 'Partner',
+  items: [
+    { label: 'Become a Partner', action: 'modal' as const },
+    { label: 'Partner Login', href: partnerLoginUrl, external: true },
   ],
 }
 
-export const heroPartnerLogos = [
-  { name: 'Tally', src: '/images/tally-logo.png' },
-  { name: 'Busy', src: '/images/busy-logo.png' },
-  { name: 'Marg', src: '/images/marg-logo.png' },
-  { name: 'SAP', src: '/images/sap-logo.png' },
-  // { name: 'Zoho', src: '/images/ZOHO_New.png' },
-]
-
-export const logoCloudLogos = [
-  ...heroPartnerLogos,
-  { name: 'AWS', src: '/images/aws-logo.png' },
-  { name: 'Azure', src: '/images/azure-logo.png' },
-  { name: 'Google Cloud', src: '/images/google-cloud-logo.png' },
-]
-
-export const heroFeatureCards = [
-  {
-    icon: 'gauge',
-    title: 'Tally Optimized',
-    description: 'Built exclusively for Tally. Faster performance, smoother experience.',
+export const partnerForm = {
+  badge: 'PARTNER PROGRAM',
+  title: 'Become a Partner',
+  description: "Tell us about your business and how you'd like to partner with TallyHosting.",
+  countries: ['India', 'United States', 'United Kingdom', 'UAE', 'Singapore', 'Other'],
+  partnershipModels: [
+    'Co-marketing',
+    'Co-selling',
+    'Referral',
+    'Building solutions and integrations',
+    'Training',
+  ],
+  fields: {
+    firstName: 'Jane',
+    lastName: 'Smith',
+    companyName: 'Acme Technologies Pvt Ltd',
+    companyWebsite: 'example.com',
+    workEmail: 'jane@example.com',
+    mobile: '+91',
+    country: 'Country/Region',
+    partnershipLabel: 'What is your ideal partnership model with TallyHosting?',
+    partnershipHint: 'Select all that apply.',
+    interestLabel: 'Why are you interested in partnering with TallyHosting?',
+    interestPlaceholder:
+      "Describe the business opportunities you'd like to partner with TallyHosting on.",
   },
+  cancel: 'Cancel',
+  submit: 'Submit application',
+}
+
+export const heroContent = {
+  badge: "India's Trusted Secure Tally Cloud Platform",
+  heading: {
+    taglines: [
+      { prefix: 'Built for ', highlight: 'Bharat.', color: 'text-accent' },
+      { prefix: 'Powered by ', highlight: 'AI.', color: 'text-primary' },
+      { prefix: 'Secured in ', highlight: 'India.', color: 'text-accent-green' },
+    ],
+  },
+  description:
+    'Run your Tally from anywhere with enterprise-grade cloud infrastructure, automated backups, disaster recovery, and secure remote access.',
+  audience: {
+    prefix: 'Built for ',
+    highlight: 'Businesses, CAs & Growing Teams.',
+  },
+  featureIcons: [
+    { label: 'Secure Remote Access', icon: 'shield' },
+    { label: 'Enterprise Infrastructure', icon: 'server' },
+    { label: 'Google Backup', icon: 'cloud' },
+    { label: 'Device Binding', icon: 'lock' },
+    { label: 'Disaster Recovery', icon: 'refresh' },
+    { label: '24/7 Monitoring', icon: 'activity' },
+  ],
+  cta: {
+    primary: { label: 'Start Free Consultation', href: '#contact' },
+    secondary: { label: 'Book Live Demo', href: '#contact' },
+  },
+  heroImage: '/images/hero%20img.webp',
+  floatingCards: [
+    { label: 'Uptime', value: '99.99%' },
+    { label: 'Secure Access Anywhere', value: '' },
+    { label: 'Users Online', value: '128' },
+  ],
+}
+
+export const heroStats = [
+  { value: 10000, suffix: '+', label: 'Businesses', icon: 'building' },
+  { value: 250, suffix: '+', label: 'Tally Partners', icon: 'handshake' },
+  { value: 99.99, suffix: '%', label: 'Infrastructure Availability', icon: 'shield', isDecimal: true },
+  { value: 18, suffix: '+', label: 'Years of Trust', icon: 'award' },
+]
+
+export const whyChooseCards = [
   {
     icon: 'shield',
-    title: 'Secure Cloud Infrastructure',
-    description: 'Advanced security, firewall, DDoS protection & encrypted data.',
-  },
-  {
-    icon: 'devices',
-    title: 'Anytime, Anywhere Access',
-    description: 'Access your Tally from desktop, mobile or browser securely.',
-  },
-  {
-    icon: 'sparkles',
-    title: 'AI-Powered Insights',
-    description: 'Smart monitoring, anomaly detection & proactive alerts with AI.',
+    title: 'Enterprise Security',
+    items: ['DDoS Protection', 'SSL Encryption', 'Secure Login'],
   },
   {
     icon: 'backup',
-    title: 'Automated Backup & DR',
-    description: 'Automated backup with Disaster Recovery for business continuity.',
+    title: 'Automated Backup',
+    items: ['Google Backup', 'Encrypted Backup', 'Snapshot Restore'],
+  },
+  {
+    icon: 'globe',
+    title: 'Work From Anywhere',
+    items: ['Desktop', 'Laptop', 'Browser', 'Mobile'],
+  },
+  {
+    icon: 'zap',
+    title: 'High Performance',
+    items: ['Enterprise Hardware', 'Fast SSD Storage', 'Low Latency'],
+  },
+  {
+    icon: 'users',
+    title: 'Multi User Access',
+    items: ['Multiple Users', 'Role Based Access', 'Centralized Data'],
   },
   {
     icon: 'headphones',
     title: '24x7 Expert Support',
-    description: 'Real humans. Real support. Always available when you need.',
+    items: ['Real Engineers', 'Migration Help', 'Ticket Portal'],
   },
 ]
 
-export const heroStats = [
-  { value: 10000, suffix: '+', label: 'Happy Businesses', icon: 'users' },
-  { value: 250, suffix: '+', label: 'Tally Partners', icon: 'handshake' },
-  { value: 99, suffix: '.99%', label: 'Uptime Guarantee', icon: 'shield' },
-  { value: 24, suffix: '/7', label: 'Expert Support', icon: 'headphones' },
-  { value: 17, suffix: '+', label: 'Years of Trust', icon: 'award' },
-]
-
-export const partnerOffer = {
-  title: 'Launch Offer for Partners!',
-  cta: { label: 'Become a Partner', href: '#contact' },
+export const darkFeatureSection = {
+  heading: {
+    prefix: 'Your Business Deserves More Than ',
+    highlight: 'Basic Cloud Hosting',
+  },
+  columns: [
+    {
+      icon: 'shield',
+      title: 'Security',
+      items: ['Device Binding', 'Email MFA / 2FA', 'Login Monitoring', 'Secure Access'],
+    },
+    {
+      icon: 'backup',
+      title: 'Backup',
+      items: ['Google Backup', 'Encrypted Backup', 'Snapshot Recovery', 'Data Always Safe'],
+    },
+    {
+      icon: 'continuity',
+      title: 'Business Continuity',
+      items: ['Disaster Recovery', 'High Availability', 'Daily Monitoring', 'Zero Data Loss'],
+    },
+  ],
 }
 
-export const infrastructureLogos = [
-  { name: 'AWS', src: '/images/aws-logo.png' },
-  { name: 'CtrlS', text: 'CtrlS' },
-  { name: 'NTT', text: 'NTT' },
-  { name: 'Google Cloud', src: '/images/google-cloud-logo.png' },
-  { name: 'Azure', src: '/images/azure-logo.png' },
-]
-
-export const complianceBadges = [
-  { label: 'ISO 27001', sublabel: 'Certified' },
-  { label: 'SOC 2', sublabel: 'TYPE II' },
-  { label: 'DPCI', sublabel: 'COMPLIANT' },
-]
-
-export const trustHighlights = [
+export const howItWorksSteps = [
   {
-    icon: 'server',
-    title: 'No Hardware Cost',
-    description: '100% Cloud. 0% Capex.',
+    step: 1,
+    title: 'Choose Your Plan',
+    description: 'Select the plan that fits your business.',
   },
   {
-    icon: 'rocket',
-    title: 'Quick Setup',
-    description: 'Get started in minutes.',
+    step: 2,
+    title: 'Migration by Experts',
+    description: 'Our team migrates your Tally data securely.',
   },
   {
-    icon: 'trending',
-    title: 'Scalable on Demand',
-    description: 'Upgrade resources anytime.',
+    step: 3,
+    title: 'Secure Cloud Setup',
+    description: 'We configure, secure & optimize your cloud.',
   },
   {
-    icon: 'wallet',
-    title: 'Cost Effective',
-    description: 'Pay only for what you use.',
-  },
-  {
-    icon: 'users',
-    title: 'Trusted by Experts',
-    description: 'Preferred by CA & Businesses.',
+    step: 4,
+    title: 'Start Working Anywhere',
+    description: 'Access Tally from anywhere, anytime with total peace.',
   },
 ]
 
-export const heroSlides = [
-  {
-    id: 1,
-    title: 'TallyHosting',
-    subtitle: 'Tally On Cloud',
-    description:
-      'Securely Work Remotely With Tally On Cloud For Accounting With Any Tally Version Anytime, Anywhere, Any device.',
-    price: 'Starting @ Rs.699 /user /month',
-    image: '/images/banner-cloud.png',
-    variant: 'blue' as const,
-  },
-  {
-    id: 2,
-    title: 'Most Secure',
-    highlight: 'Tally on Cloud',
-    subtitle: 'For Tally ERP9',
-    description:
-      'Over 1.6 million businesses across 100 countries are satisfactorily using Tally on Cloud. Tally from anywhere, anytime, any OS/Device.',
-    image: '/images/banner-network.png',
-    variant: 'gradient' as const,
-  },
-  {
-    id: 3,
-    title: 'Fast Secure',
-    highlight: 'Simply Amazing',
-    bullets: [
-      'Simple & Useful',
-      'Designed for your Business',
-      'Tally data stores on enterprise-class data centre',
-      'Anytime Anywhere Any device',
-      'Automatic Tally Backup with DRaaS service',
-      '24/7 IT Support',
+export const comparisonData = {
+  typical: {
+    title: 'Typical Cloud Provider',
+    items: [
+      'Only Remote Access',
+      'No Backup',
+      'Limited Support',
+      'No Disaster Recovery',
+      'No Security Layer',
+      'No Business Continuity',
+      'No Customer Portal',
     ],
-    image: '/images/banner-laptop.png',
-    variant: 'light' as const,
+  },
+  tallyHosting: {
+    title: 'TallyHosting',
+    items: [
+      'Enterprise Infrastructure',
+      'Google Backup',
+      'Encrypted Backup',
+      'Disaster Recovery',
+      'Device Binding & 2FA',
+      '24/7 Expert Support',
+      'Customer Portal & Self Service',
+      'Business Continuity',
+      'Secure. Backed Up. Business Ready.',
+    ],
+  },
+}
+
+export const pricingPlans = [
+  {
+    name: 'Normal',
+    price: 499,
+    period: 'Month',
+    subtitle: 'Ideal for Small Businesses',
+    features: [
+      'Secure Cloud Access',
+      'Enterprise Infrastructure',
+      'DDoS Protection',
+      'Ticket Support',
+    ],
+    cta: 'Choose Normal',
+    popular: false,
+  },
+  {
+    name: 'Plus',
+    price: 599,
+    period: 'Month',
+    subtitle: 'Ideal for Growing Businesses',
+    features: [
+      'Everything in Normal +',
+      'Google Backup',
+      'Encrypted Backup',
+      'Monthly Image Snapshot',
+      'Email 2FA',
+    ],
+    cta: 'Choose Plus',
+    popular: true,
+  },
+  {
+    name: 'Secure',
+    price: 699,
+    period: 'Month',
+    subtitle: 'Ideal for CA Firms & Enterprises',
+    features: [
+      'Everything in Plus +',
+      'Device Binding',
+      'Disaster Recovery Ready',
+      'Weekly Image Snapshot',
+      'Login Audit Trail',
+      'Priority Support',
+    ],
+    cta: 'Choose Secure',
+    popular: false,
   },
 ]
 
-export const acronisFeatures = [
-  { icon: '🔒', title: 'Full Image Backup', text: 'Shield your entire system - OS files, apps, settings, the works!' },
-  { icon: '🔄', title: 'Active Disk Cloning', text: 'Clone your active Windows system effortlessly.' },
-  { icon: '🛡️', title: 'Active Protection', text: 'AI-powered defense against real-time ransomware.' },
-  { icon: '🌐', title: 'Access Anywhere', text: 'Grab files from your Acronis Cloud backup anywhere, anytime.' },
-]
+export const launchOffer = {
+  badge: 'LAUNCH OFFER',
+  title: 'First 12 Months',
+  subtitle: 'FREE Included',
+  items: ['Email 2FA', 'Google Backup', 'Migration Assistance', 'Security Setup'],
+  valueNote: 'Value Worth ₹2,000+/Year',
+}
 
-export const whyTallyCards = [
-  {
-    icon: '☁️',
-    title: 'Cloud Solution',
-    description: 'Access Tally on Cloud anywhere at anytime at your convenience.',
+export const ctaBanner = {
+  heading: {
+    prefix: 'Ready to Move Your Tally to a ',
+    highlight: 'Secure Cloud?',
   },
-  {
-    icon: '🖨️',
-    title: 'Remote Printers',
-    description: 'Generate & Print your Invoices anywhere while working in the office or at home.',
-  },
-  {
-    icon: '💰',
-    title: 'Reasonable Cost',
-    description: 'Reasonable Cost according to your requirements. Pay monthly, quarterly or yearly. No Signup fees.',
-  },
-  {
-    icon: '🔐',
-    title: 'Highly Secured & Backup',
-    description: 'With no direct access allowed to any users your Tally is safeguarded against all the attacks.',
-  },
-]
+  description:
+    'Get enterprise-grade infrastructure, automated backups, and 24/7 expert support — all in one secure platform.',
+  buttons: [
+    { label: 'Book a Demo', href: '#contact', variant: 'white' as const },
+    { label: 'Talk to an Expert', href: '#contact', variant: 'outline' as const },
+  ],
+}
 
-export const features = [
-  {
-    icon: '🌐',
-    title: 'Any Tally-Version',
-    description:
-      'Install your choice of Tally ERP9 Version. Upgrade to your choice of Tally ERP9 Version in future (Tally Subscription is Not Compulsory)',
-  },
-  {
-    icon: '⏰',
-    title: 'Access Anytime',
-    description:
-      'Work during the day or during the night. Data Center Uptime of 99.99 percent. Available 24/7 from anywhere',
-  },
-  {
-    icon: '🖨️',
-    title: 'Local Printer',
-    description:
-      'Supports printing on Local printers and from one location to another location. Centralized printer installation',
-  },
-  {
-    icon: '📱',
-    title: 'Anytime, Anywhere, Any Device Access',
-    description:
-      'Run Tally Anytime, Anywhere & on any Windows or Mac devices. Access virtually from anywhere through RDP & Web browser',
-  },
-  {
-    icon: '🔐',
-    title: 'Highly Secured and Backup',
-    description:
-      'Each user is availed with a particular VM, ensuring less chances of malicious practices. Your Tally is safeguarded against all attackers.',
-  },
-  {
-    icon: '👤',
-    title: 'User Friendly',
-    description:
-      'Your User can simply access Files online from any device at anytime. Work with exported files from any device at any time.',
-  },
-  {
-    icon: '⚙️',
-    title: 'Customizations Support',
-    description: 'Cloud Support Tally Customization (TDL) support.',
-  },
-  {
-    icon: '🔄',
-    title: 'Real-Time Database',
-    description:
-      'No need to sync between locations. One Tally License can be used for multiple locations. Centralized location of Data.',
-  },
-]
+export const faqSection = {
+  heading: 'Frequently Asked Questions',
+  subheading: 'Everything you need to know about Tally cloud hosting with TallyHosting.',
+  items: [
+    {
+      question: 'What is Tally cloud hosting?',
+      answer:
+        'Tally cloud hosting lets you run Tally on secure remote servers instead of a local PC. Your team can access Tally from anywhere with an internet connection while your data stays protected on enterprise-grade infrastructure.',
+    },
+    {
+      question: 'Is my Tally data secure on the cloud?',
+      answer:
+        'Yes. We use encrypted connections, secure access controls, and enterprise-grade data centres in India. Your Tally data is protected with automated backups and multi-layer security so your business information stays safe.',
+    },
+    {
+      question: 'Can multiple users access Tally at the same time?',
+      answer:
+        'Absolutely. TallyHosting supports multi-user remote access, so your team, accountants, and branch offices can work on Tally simultaneously from different locations without conflicts.',
+    },
+    {
+      question: 'Do you provide automated backups?',
+      answer:
+        'Yes. Automated daily backups are included with every plan. Your Tally data is backed up regularly so you can recover quickly in case of accidental deletion, hardware failure, or other disruptions.',
+    },
+    {
+      question: 'How long does migration to the cloud take?',
+      answer:
+        'Most migrations are completed within 24–48 hours. Our team handles the entire process — including data transfer, security setup, and user configuration — with minimal downtime for your business.',
+    },
+    {
+      question: 'What kind of support do you offer?',
+      answer:
+        'We provide 24/7 expert support via phone, email, and live chat. Whether you need help with setup, troubleshooting, or scaling your plan, our Tally specialists are always available.',
+    },
+  ],
+}
 
-export const testimonials = [
-  {
-    name: 'Shrikant',
-    role: 'Accounts Manager',
-    company: 'Goqii',
-    text: 'Satisfactory service and Very quick feed backs',
-    avatar: 'S',
+export const contactSection = {
+  heading: 'Get In Touch',
+  description:
+    'Ready to move your Tally to the cloud? Contact us today for a free consultation and quote.',
+  office: {
+    title: 'Mumbai Office',
+    address:
+      '2/704 Shri Ram Nagar, Purushottam Kheraj Rd, Mulund West, Mumbai, Maharashtra 400080',
   },
-  {
-    name: 'Nikhil',
-    role: 'CA',
-    company: 'Kantilal Chhotalal',
-    text: 'In a 15 minute chat with Anita from tallyhosting at my office, not only did we get a solution to the problem by offering us a remote tools option, but also resulted in a long term cost savings to my company.',
-    avatar: 'N',
+  email: 'anita@tallyhosting.co.in',
+  phone: '+91 90824 05331 / 9167423035',
+  formTitle: 'Enquiry Now',
+  submitLabel: 'Send Enquiry',
+  successMessage: 'Request Submitted!',
+  fields: {
+    name: 'Your Name',
+    email: 'Your Email',
+    phone: 'Phone Number',
+    message: 'Your Message',
   },
-  {
-    name: 'Barkha M',
-    role: 'Owner',
-    company: 'RAB House',
-    text: 'The best partner of tally! Special mention to Anita, She has helped me in every step of setting up my business and making my business digital.',
-    avatar: 'B',
-  },
-  {
-    name: 'Ritesh Chajjed',
-    role: 'Owner',
-    company: 'Accounts Solution Point',
-    text: 'Tally on clouds nice facilities, Nice management any where, Fantastic security data',
-    avatar: 'R',
-  },
-  {
-    name: 'Laxmi',
-    role: 'Accountant',
-    company: 'Black Hawk Security System Pvt. Ltd.',
-    text: 'We have received good and prompt service with reasonable fees. Would recommend to others.',
-    avatar: 'L',
-  },
-  {
-    name: 'Parag Desai',
-    role: 'Manager',
-    company: 'Fintree Finance Pvt. Ltd.',
-    text: 'We were previously using a different cloud service in which we faced issues. In Tallyhosting, we face problems only if the Internet is not available at our end.',
-    avatar: 'P',
-  },
-]
+}
 
-export const stats = [
-  { value: 8000, suffix: '+', label: 'Total Active Users', color: 'text-primary' },
-  { value: 1000, suffix: '+', label: 'No of Company', color: 'text-primary' },
-  { value: 100, suffix: '+', label: 'Daily Request', color: 'text-emerald-500' },
-  { value: 8000, suffix: '+', label: 'Total Request Handle', color: 'text-pink-500' },
-]
-
-export const trustedCompanies = [
-  'L.S. CHEMICALS',
-  'WASAN',
-  'ALPHA',
-  'BLACK HAWK',
-  'GOQii',
-  'ISPRAVA',
-  'FINTREE',
-  'KANTILAL',
-]
-
-export const services = [
-  'Web Development',
-  'Web Hosting',
-  'Professional Email',
-  'Dedicated VM based',
-  'User Based',
-]
-
-export const footerFeatures = [
-  'Anytime, Anywhere, Any Device Access',
-  'Any Tally-Version',
-  'Access Anytime',
-  'Highly Secured and Backup',
-  'User Friendly',
-  'Customizations Support',
-  'Real-Time Database',
-  'Local Printer',
-]
-
-export const faqs = [
-  {
-    q: 'What is Tally on Cloud?',
-    a: 'Tally on Cloud allows you to access your Tally ERP9 software remotely from anywhere, on any device, through secure cloud hosting.',
-  },
-  {
-    q: 'How much does it cost?',
-    a: 'Plans start at Rs.699 per user per month. We offer flexible monthly, quarterly, and yearly payment options with no signup fees.',
-  },
-  {
-    q: 'Is my data secure?',
-    a: 'Yes! Each user gets a dedicated VM with no direct access. We also offer Acronis backup protection starting at Rs.250/month for 10GB.',
-  },
-  {
-    q: 'Can I use any Tally version?',
-    a: 'Yes, you can install and upgrade to any Tally ERP9 version of your choice. Tally subscription is not compulsory.',
-  },
-]
+export const footerData = {
+  description:
+    'Enterprise-grade Tally cloud hosting with secure remote access, automated backups, and 24/7 expert support.',
+  social: [
+    { name: 'Facebook', href: '#', icon: 'facebook' },
+    { name: 'LinkedIn', href: '#', icon: 'linkedin' },
+    { name: 'YouTube', href: '#', icon: 'youtube' },
+    { name: 'Twitter', href: '#', icon: 'twitter' },
+  ],
+  columns: [
+    {
+      title: 'Product',
+      links: ['Features', 'Pricing', 'Security', 'Backup', 'Disaster Recovery'],
+    },
+    {
+      title: 'Solutions',
+      links: ['Businesses', 'CA Firms', 'Multi-Branch', 'Remote Teams'],
+    },
+    {
+      title: 'Partners',
+      links: [
+        { label: 'Partner Login', href: partnerLoginUrl, external: true },
+        { label: 'Become a Partner', action: 'modal' as const },
+      ],
+    },
+    {
+      title: 'Company',
+      links: ['About Us', 'Careers', 'Blog', 'Contact'],
+    },
+    {
+      title: 'Support',
+      links: ['Help Center', 'Ticket Portal', 'Migration Help', 'Live Chat'],
+    },
+  ],
+  makeInIndiaLogo: '/images/india-flag.png',
+}

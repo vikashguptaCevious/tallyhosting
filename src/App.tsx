@@ -1,11 +1,14 @@
 import { Navbar } from './components/Navbar'
 import { HeroPage } from './components/hero'
-import { AcronisSection } from './components/AcronisSection'
-import { WhyTallySection } from './components/WhyTallySection'
-import { FeaturesSection } from './components/FeaturesSection'
-import { TestimonialsSection } from './components/TestimonialsSection'
-import { TrustedBySection } from './components/TrustedBySection'
-import { FaqSection, ContactSection, Footer } from './components/FaqContactFooter'
+import { WhyChooseSection } from './components/WhyChooseSection'
+import { DarkFeatureSection } from './components/DarkFeatureSection'
+import { HowItWorksSection } from './components/HowItWorksSection'
+import { ComparisonSection } from './components/ComparisonSection'
+import { PricingSection } from './components/PricingSection'
+import { CTABanner } from './components/CTABanner'
+import { FAQSection } from './components/FAQSection'
+import { ContactSection } from './components/ContactSection'
+import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/Widgets'
 
 function App() {
@@ -14,12 +17,13 @@ function App() {
       <Navbar />
       <main>
         <HeroPage />
-        <AcronisSection />
-        <WhyTallySection />
-        <FeaturesSection />
-        <TestimonialsSection />
-        <TrustedBySection />
-        <FaqSection />
+        <WhyChooseSection />
+        <DarkFeatureSection />
+        <HowItWorksSection />
+        <ComparisonSection />
+        <PricingSection />
+        <CTABanner />
+        <FAQSection />
         <ContactSection />
       </main>
       <Footer />

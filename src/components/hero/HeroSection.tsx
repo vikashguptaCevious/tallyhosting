@@ -1,135 +1,121 @@
 import { motion } from 'framer-motion'
-import { ArrowRight, Headphones, CheckCircle2 } from 'lucide-react'
-import { heroContent, heroPartnerLogos } from '../../data/content'
-import { HeroCenterImage, HeroVisualMobile, TrustCard } from './HeroVisual'
+import {
+  ArrowRight,
+  Play,
+  Shield,
+  Server,
+  Cloud,
+  Lock,
+  RefreshCw,
+  Activity,
+  type LucideIcon,
+} from 'lucide-react'
+import { heroContent } from '../../data/content'
+import { HeroVisual } from './HeroVisual'
+
+const iconMap: Record<string, LucideIcon> = {
+  shield: Shield,
+  server: Server,
+  cloud: Cloud,
+  lock: Lock,
+  refresh: RefreshCw,
+  activity: Activity,
+}
 
 const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 28 },
+  initial: { opacity: 0, y: 24 },
   animate: { opacity: 1, y: 0 },
   transition: { duration: 0.6, delay, ease: 'easeOut' as const },
 })
 
-function HeroTextContent() {
-  return (
-    <>
-      <motion.span
-        {...fadeUp(0.1)}
-        className="inline-flex self-center lg:self-start items-center px-4 py-1.5 bg-primary/10 text-primary text-xs sm:text-sm font-semibold rounded-full mb-4 lg:mb-5"
-      >
-        {heroContent.badge}
-      </motion.span>
-
-      <motion.h1
-        {...fadeUp(0.2)}
-        className="space-y-1 text-[1.65rem] min-[400px]:text-[1.85rem] sm:text-4xl lg:text-[2.15rem] xl:text-[2.5rem] 2xl:text-5xl font-extrabold leading-[1.15] tracking-tight text-navy max-w-xl mx-auto lg:mx-0"
-      >
-        {heroContent.taglines.map((line) => (
-          <span key={line.highlight} className="block">
-            {line.prefix}
-            <span className={line.color}>{line.highlight}</span>
-          </span>
-        ))}
-      </motion.h1>
-
-      <motion.p
-        {...fadeUp(0.35)}
-        className="mt-5 lg:mt-6 text-sm sm:text-base text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0"
-      >
-        {heroContent.description}
-      </motion.p>
-
-      <motion.ul
-        {...fadeUp(0.45)}
-        className="mt-6 lg:mt-7 flex flex-col sm:flex-row sm:flex-wrap justify-center lg:justify-start gap-3 sm:gap-x-4 sm:gap-y-2"
-      >
-        {heroContent.features.map((feature) => (
-          <li
-            key={feature.label}
-            className="flex items-center justify-center lg:justify-start gap-2 text-sm font-medium text-gray-700"
-          >
-            <CheckCircle2 className="w-4 h-4 text-primary flex-shrink-0" />
-            {feature.label}
-          </li>
-        ))}
-      </motion.ul>
-
-      <motion.div
-        {...fadeUp(0.55)}
-        className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-3 sm:gap-4"
-      >
-        <a
-          href={heroContent.cta.primary.href}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-dark transition-all duration-300 hover:shadow-lg hover:shadow-primary/30 hover:-translate-y-0.5"
-        >
-          {heroContent.cta.primary.label}
-          <ArrowRight className="w-4 h-4" />
-        </a>
-        <a
-          href={heroContent.cta.secondary.href}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 border-2 border-primary/25 text-primary text-sm font-semibold rounded-xl hover:bg-primary/5 hover:border-primary transition-all duration-300"
-        >
-          <Headphones className="w-4 h-4" />
-          {heroContent.cta.secondary.label}
-        </a>
-      </motion.div>
-
-      <motion.p
-        {...fadeUp(0.6)}
-        className="mt-6 text-sm text-gray-500 font-medium"
-      >
-        {heroContent.socialProof}
-      </motion.p>
-
-      <motion.div
-        {...fadeUp(0.65)}
-        className="mt-5 flex flex-wrap items-center justify-center lg:justify-start gap-5 sm:gap-6"
-      >
-        {heroPartnerLogos.map((logo) => (
-          <img
-            key={logo.name}
-            src={logo.src}
-            alt={logo.name}
-            className="h-6 sm:h-7 w-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-300"
-          />
-        ))}
-      </motion.div>
-    </>
-  )
-}
-
 export function HeroSection() {
   return (
-    <section
-      id="home"
-      className="relative bg-white overflow-hidden pt-20 pb-8 lg:pt-24 lg:pb-10"
-    >
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-light/40 via-white to-white pointer-events-none z-0" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-primary/5 rounded-full blur-3xl pointer-events-none z-0" />
+    <section id="home" className="relative bg-white overflow-hidden pt-20 pb-10 lg:pt-22 lg:pb-14">
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-light/30 via-white to-white pointer-events-none" />
+      <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="hidden lg:grid lg:grid-cols-12 lg:gap-x-4 xl:gap-x-6 items-start lg:pt-2">
-          <div className="col-span-5 relative z-20 flex flex-col justify-start text-left pt-0">
-            <HeroTextContent />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 lg:gap-12 items-center">
+          {/* Top text — mobile: 1st | desktop: left column top */}
+          <div className="order-1 text-center lg:text-left">
+            <motion.span
+              {...fadeUp(0.1)}
+              className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary text-xs sm:text-sm font-semibold rounded-full mb-5"
+            >
+              <span>🇮🇳</span>
+              {heroContent.badge}
+            </motion.span>
+
+            <motion.h1
+              {...fadeUp(0.2)}
+              className="text-[1.75rem] sm:text-4xl lg:text-[2.35rem] xl:text-[2.65rem] font-extrabold leading-[1.15] tracking-tight text-navy"
+            >
+              {heroContent.heading.taglines.map((line) => (
+                <span key={line.highlight} className="block">
+                  {line.prefix}
+                  <span className={line.color}>{line.highlight}</span>
+                </span>
+              ))}
+            </motion.h1>
+
+            <motion.p
+              {...fadeUp(0.3)}
+              className="mt-5 text-sm sm:text-base text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0"
+            >
+              {heroContent.description}
+            </motion.p>
           </div>
 
-          <div className="col-span-4 relative z-10 flex items-center justify-center h-full min-h-[480px] -mx-2 xl:-mx-4 self-center pt-4">
-            <HeroCenterImage />
+          {/* VPS image — mobile: 2nd | desktop: right column */}
+          <div className="order-2 relative lg:row-span-2 -my-2 sm:my-0">
+            <HeroVisual />
           </div>
 
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, delay: 0.5 }}
-            className="col-span-3 relative z-20 flex justify-end self-start pt-0"
-          >
-            <TrustCard className="w-full max-w-[300px] xl:max-w-[320px]" />
-          </motion.div>
-        </div>
+          {/* Bottom content — mobile: 3rd | desktop: left column bottom */}
+          <div className="order-3 text-center lg:text-left max-lg:-mt-2 sm:mt-0">
+            <motion.p {...fadeUp(0.35)} className="text-sm sm:text-base text-gray-700">
+              {heroContent.audience.prefix}
+              <span className="font-bold text-navy">{heroContent.audience.highlight}</span>
+            </motion.p>
 
-        <div className="lg:hidden flex flex-col text-center pt-0 pb-4">
-          <HeroTextContent />
-          <div className="mt-8">
-            <HeroVisualMobile />
+            <motion.div
+              {...fadeUp(0.4)}
+              className="mt-7 grid grid-cols-3 sm:grid-cols-6 gap-3 max-w-xl mx-auto lg:mx-0"
+            >
+              {heroContent.featureIcons.map((item) => {
+                const Icon = iconMap[item.icon]
+                return (
+                  <div key={item.label} className="flex flex-col items-center gap-1.5">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Icon className="w-4 h-4 text-primary" strokeWidth={1.75} />
+                    </div>
+                    <span className="text-[9px] sm:text-[10px] text-gray-600 font-medium text-center leading-tight">
+                      {item.label}
+                    </span>
+                  </div>
+                )
+              })}
+            </motion.div>
+
+            <motion.div
+              {...fadeUp(0.5)}
+              className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-3"
+            >
+              <a
+                href={heroContent.cta.primary.href}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25"
+              >
+                {heroContent.cta.primary.label}
+                <ArrowRight className="w-4 h-4" />
+              </a>
+              <a
+                href={heroContent.cta.secondary.href}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 border-2 border-primary/30 text-primary text-sm font-semibold rounded-xl hover:bg-primary/5 transition-all"
+              >
+                <Play className="w-4 h-4 fill-primary" />
+                {heroContent.cta.secondary.label}
+              </a>
+            </motion.div>
           </div>
         </div>
       </div>
