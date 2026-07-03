@@ -5,13 +5,11 @@ export const navLinks = [
 ]
 
 export const partnerLoginUrl = 'https://partner.ceviouscloud.com'
+export const customerLoginUrl = 'http://customer.tallyhosting.com/'
 
 export const partnerNav = {
   label: 'Partner',
-  items: [
-    { label: 'Become a Partner', action: 'modal' as const },
-    { label: 'Partner Login', href: partnerLoginUrl, external: true },
-  ],
+  items: [{ label: 'Become a Partner', action: 'modal' as const }],
 }
 
 export const partnerForm = {
@@ -343,10 +341,7 @@ export const footerData = {
     },
     {
       title: 'Partners',
-      links: [
-        { label: 'Partner Login', href: partnerLoginUrl, external: true },
-        { label: 'Become a Partner', action: 'modal' as const },
-      ],
+      links: [{ label: 'Become a Partner', action: 'modal' as const }],
     },
     {
       title: 'Company',
