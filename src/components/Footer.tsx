@@ -22,7 +22,7 @@ export function Footer() {
                 <img
                   src="/images/tallyhosting-logo.png"
                   alt="TallyHosting"
-                  className="h-10 sm:h-11 w-auto object-contain"
+                  className="h-12 sm:h-14 w-auto object-contain"
                 />
               </a>
               <p className="text-sm text-gray-400 leading-relaxed mb-5">{footerData.description}</p>
@@ -73,18 +73,22 @@ export function Footer() {
                         )
                       }
 
-                      return (
-                        <li key={link.label}>
-                          <a
-                            href={link.href}
-                            target={link.external ? '_blank' : undefined}
-                            rel={link.external ? 'noopener noreferrer' : undefined}
-                            className="text-sm text-gray-400 hover:text-white transition-colors"
-                          >
-                            {link.label}
-                          </a>
-                        </li>
-                      )
+                      if ('href' in link) {
+                        return (
+                          <li key={link.label}>
+                            <a
+                              href={link.href as string}
+                              target={'external' in link && link.external ? '_blank' : undefined}
+                              rel={'external' in link && link.external ? 'noopener noreferrer' : undefined}
+                              className="text-sm text-gray-400 hover:text-white transition-colors"
+                            >
+                              {link.label}
+                            </a>
+                          </li>
+                        )
+                      }
+
+                      return null
                     })}
                   </ul>
                 </div>

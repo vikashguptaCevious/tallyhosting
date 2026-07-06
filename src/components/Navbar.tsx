@@ -54,7 +54,7 @@ export function Navbar() {
             <img
               src="/images/tallyhosting-logo.png"
               alt="TallyHosting"
-              className="h-9 sm:h-10 w-auto object-contain"
+              className="h-14 sm:h-16 w-auto object-contain"
             />
           </a>
 
@@ -110,7 +110,7 @@ export function Navbar() {
                       ) : (
                         <a
                           key={item.label}
-                          href={'href' in item ? item.href : '#contact'}
+                          href={'href' in item ? (item.href as string) : '#contact'}
                           target={'external' in item && item.external ? '_blank' : undefined}
                           rel={'external' in item && item.external ? 'noopener noreferrer' : undefined}
                           onClick={() => setPartnerOpen(false)}
@@ -199,7 +199,7 @@ export function Navbar() {
                         ) : (
                           <a
                             key={item.label}
-                            href={'href' in item ? item.href : '#contact'}
+                            href={'href' in item ? (item.href as string) : '#contact'}
                             target={'external' in item && item.external ? '_blank' : undefined}
                             rel={'external' in item && item.external ? 'noopener noreferrer' : undefined}
                             onClick={() => {
