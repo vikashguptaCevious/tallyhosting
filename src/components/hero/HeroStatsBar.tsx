@@ -45,7 +45,7 @@ function StatItem({
   return (
     <div
       ref={ref}
-      className="flex flex-1 items-center justify-center gap-2.5 px-2.5 lg:px-3 py-4 sm:py-5 border-r border-gray-100 last:border-r-0 min-w-0"
+      className="flex flex-1 items-center justify-start lg:justify-center gap-2.5 px-4 lg:px-3 py-4 sm:py-5 border-r border-gray-100 last:border-r-0 min-w-0"
     >
       <div className="w-9 h-9 lg:w-10 lg:h-10 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
         <Icon className="w-4 h-4 lg:w-[18px] lg:h-[18px] text-primary" strokeWidth={1.75} />
@@ -65,7 +65,7 @@ function StatItem({
 
 function MobileSupportStat() {
   return (
-    <div className="flex flex-1 items-center justify-center gap-2.5 px-2.5 py-4 sm:py-5 border-r border-gray-100 min-w-0 lg:hidden">
+    <div className="flex flex-1 items-center justify-start gap-2.5 px-4 py-4 sm:py-5 border-r border-gray-100 min-w-0 lg:hidden">
       <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
         <Headphones className="w-4 h-4 text-primary" strokeWidth={1.75} />
       </div>
