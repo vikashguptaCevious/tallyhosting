@@ -81,7 +81,7 @@ export function HeroVisual() {
         <img
           src={heroContent.heroAbsoluteImage}
           alt="Secure Tally Cloud VPS"
-          className="relative z-10 w-[70%] sm:w-[66%] lg:w-[60%] h-auto object-contain max-h-[240px] sm:max-h-[320px] lg:max-h-[380px] xl:max-h-[410px] -translate-x-6 -translate-y-2 sm:-translate-x-8 sm:-translate-y-3 lg:-translate-x-10 lg:-translate-y-4 drop-shadow-[0_20px_50px_rgba(123,97,255,0.25)]"
+          className="relative z-10 w-[70%] sm:w-[66%] lg:w-[60%] h-auto object-contain max-h-[240px] sm:max-h-[320px] lg:max-h-[380px] xl:max-h-[410px] translate-x-0 -translate-y-1 sm:-translate-x-8 sm:-translate-y-3 lg:-translate-x-10 lg:-translate-y-4 mx-auto drop-shadow-[0_20px_50px_rgba(123,97,255,0.25)]"
           draggable={false}
         />
 

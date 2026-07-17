@@ -4,6 +4,7 @@ import {
   Handshake,
   CircleCheck,
   Globe,
+  Headphones,
   type LucideIcon,
 } from 'lucide-react'
 import { heroStats, heroPartners } from '../../data/content'
@@ -62,6 +63,20 @@ function StatItem({
   )
 }
 
+function MobileSupportStat() {
+  return (
+    <div className="flex flex-1 items-center justify-center gap-2.5 px-2.5 py-4 sm:py-5 border-r border-gray-100 min-w-0 lg:hidden">
+      <div className="w-9 h-9 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
+        <Headphones className="w-4 h-4 text-primary" strokeWidth={1.75} />
+      </div>
+      <div className="text-left whitespace-nowrap">
+        <div className="text-base font-extrabold text-navy leading-none">24×7</div>
+        <p className="mt-1 text-[11px] text-gray-600 font-bold whitespace-nowrap">Support</p>
+      </div>
+    </div>
+  )
+}
+
 function PartnerBadge({ label, name }: { label: string; name: string }) {
   return (
     <div className="flex items-center gap-1.5 px-1.5 lg:px-2 py-1.5 flex-shrink-0">
@@ -96,6 +111,7 @@ export function HeroStatsBar() {
             {heroStats.map((stat) => (
               <StatItem key={stat.label} {...stat} />
             ))}
+            <MobileSupportStat />
           </div>
 
           <div className="flex items-center justify-center gap-1.5 lg:gap-2 px-3 lg:px-4 py-3 lg:py-0 border-t lg:border-t-0 lg:border-l border-gray-100 flex-shrink-0">

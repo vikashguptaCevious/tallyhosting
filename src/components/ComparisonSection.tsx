@@ -68,6 +68,13 @@ export function ComparisonSection() {
                   </ul>
                 </div>
 
+                {/* Mobile: VS between stacked cards */}
+                <div className="relative z-20 flex items-center justify-center sm:hidden -my-1">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full border border-primary/70 bg-[#090527] text-base font-extrabold shadow-[0_0_30px_rgba(123,97,255,0.8)]">
+                    VS
+                  </div>
+                </div>
+
                 <div className="w-full overflow-hidden rounded-2xl border border-primary/40 bg-gradient-to-b from-primary/15 to-white/[0.04]">
                   <div className="flex items-center gap-3 border-b border-white/10 px-4 py-4 sm:px-5">
                     <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 text-primary">
@@ -90,6 +97,7 @@ export function ComparisonSection() {
                   </ul>
                 </div>
 
+                {/* Desktop/tablet: VS centered between side-by-side cards */}
                 <div className="absolute left-1/2 top-1/2 z-20 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-primary/70 bg-[#090527] text-base font-extrabold shadow-[0_0_30px_rgba(123,97,255,0.8)] sm:flex lg:h-14 lg:w-14 lg:text-lg">
                   VS
                 </div>
