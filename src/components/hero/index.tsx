@@ -1,13 +1,8 @@
 import { HeroSection } from './HeroSection'
-import { HeroStatsBar } from './HeroStatsBar'
 
 export function HeroPage() {
-  return (
-    <>
-      <HeroSection />
-      <HeroStatsBar />
-    </>
-  )
+  return <HeroSection />
 }
 
-export { HeroSection, HeroStatsBar }
+export { HeroSection }
+export { HeroStatsBar } from './HeroStatsBar'

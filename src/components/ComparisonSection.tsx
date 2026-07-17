@@ -1,36 +1,66 @@
-import { X, Check } from 'lucide-react'
+import {
+  X,
+  Check,
+  CloudUpload,
+  ShieldCheck,
+  DatabaseBackup,
+  Server,
+  MonitorCheck,
+  UsersRound,
+  type LucideIcon,
+} from 'lucide-react'
 import { comparisonData, heroContent } from '../data/content'
 import { AnimatedSection } from './AnimatedSection'
 
+const featureStrip: Array<{ label: string; detail: string; icon: LucideIcon }> = [
+  { label: 'Google Backup', detail: 'Included', icon: DatabaseBackup },
+  { label: 'Disaster Recovery', detail: 'Ready', icon: ShieldCheck },
+  { label: 'Enterprise', detail: 'Infrastructure', icon: Server },
+  { label: 'Device', detail: 'Binding', icon: MonitorCheck },
+  { label: 'Email', detail: '2FA', icon: ShieldCheck },
+  { label: '24×7', detail: 'Experts', icon: UsersRound },
+]
+
 export function ComparisonSection() {
   return (
-    <section className="py-8 lg:py-12 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <AnimatedSection className="text-center mb-6 lg:mb-10">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-navy">
-            Why Choose <span className="text-primary">TallyHosting</span> Over Others?
-          </h2>
-        </AnimatedSection>
+    <section className="relative w-full overflow-hidden rounded-[2rem] bg-[#05031f] py-10 text-white lg:rounded-[2.5rem] lg:py-14">
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_48%,rgba(111,52,255,0.2),transparent_34%),radial-gradient(circle_at_8%_10%,rgba(99,68,245,0.12),transparent_30%)]" />
+      <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(123,97,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(123,97,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
 
-        <div className="grid lg:grid-cols-[1.15fr_0.85fr] gap-8 lg:gap-10 items-center">
-          <AnimatedSection delay={0.1}>
-            <div className="relative rounded-2xl border border-gray-200 bg-white shadow-sm overflow-hidden">
-              <div className="grid grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)]">
-                {/* Typical Cloud Provider */}
-                <div>
-                  <div className="bg-rose-50 px-3 py-3.5 sm:px-4 sm:py-4 text-center border-b border-rose-100">
-                    <h3 className="text-xs sm:text-sm lg:text-base font-bold text-rose-600 leading-tight">
-                      {comparisonData.typical.title}
-                    </h3>
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+          <AnimatedSection className="relative z-10 mx-auto mb-8 max-w-4xl text-center">
+            <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-[11px] font-bold tracking-[0.12em] text-primary sm:text-xs">
+              WHY CHOOSE TALLYHOSTING
+            </span>
+            <h2 className="mt-4 text-2xl font-extrabold leading-tight sm:text-3xl lg:text-4xl">
+              Why Businesses Choose <span className="text-primary">TallyHosting</span> Over
+              <span className="block">Traditional Cloud Providers</span>
+            </h2>
+            <p className="mx-auto mt-4 max-w-2xl text-sm leading-relaxed text-white/60 sm:text-base">
+              Enterprise security, automated backups, business continuity and performance—
+              everything your accounting business needs in one managed cloud platform.
+            </p>
+          </AnimatedSection>
+
+          {/* Cards + visual — full width, lg se side-by-side */}
+          <div className="relative z-10 grid w-full gap-6 lg:grid-cols-[1.15fr_0.85fr] lg:items-stretch lg:gap-8">
+            <AnimatedSection delay={0.1} className="w-full min-w-0">
+              <div className="relative grid w-full gap-4 sm:grid-cols-2 sm:gap-5">
+                <div className="w-full overflow-hidden rounded-2xl border border-rose-400/25 bg-gradient-to-b from-rose-500/10 to-white/[0.035]">
+                  <div className="flex items-center gap-3 border-b border-white/10 px-4 py-4 sm:px-5">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-rose-500/10 text-rose-400">
+                      <CloudUpload className="h-5 w-5" />
+                    </span>
+                    <h3 className="font-bold text-rose-400">{comparisonData.typical.title}</h3>
                   </div>
-                  <ul className="p-3 sm:p-5 pr-2 sm:pr-3 space-y-2.5 sm:space-y-3">
+                  <ul className="space-y-0 px-4 py-3 sm:px-5">
                     {comparisonData.typical.items.map((item) => (
                       <li
                         key={item}
-                        className="flex items-start gap-2 sm:gap-2.5 text-[11px] sm:text-sm text-gray-700 leading-snug"
+                        className="flex items-center gap-3 border-b border-white/[0.07] py-2.5 text-xs text-white/80 last:border-0 sm:text-sm"
                       >
-                        <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-rose-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <X className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" strokeWidth={3} />
+                        <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-rose-500">
+                          <X className="h-3 w-3 text-white" strokeWidth={3} />
                         </span>
                         {item}
                       </li>
@@ -38,46 +68,76 @@ export function ComparisonSection() {
                   </ul>
                 </div>
 
-                {/* VS badge — center column */}
-                <div className="flex items-center justify-center px-3 sm:px-4 border-x border-gray-100 self-stretch">
-                  <div className="w-11 h-11 sm:w-14 sm:h-14 rounded-full bg-white border-2 border-gray-200 shadow-lg flex items-center justify-center flex-shrink-0">
-                    <span className="font-extrabold text-primary text-sm sm:text-lg">VS</span>
+                <div className="w-full overflow-hidden rounded-2xl border border-primary/40 bg-gradient-to-b from-primary/15 to-white/[0.04]">
+                  <div className="flex items-center gap-3 border-b border-white/10 px-4 py-4 sm:px-5">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 text-primary">
+                      <CloudUpload className="h-5 w-5" />
+                    </span>
+                    <h3 className="font-bold text-primary">{comparisonData.tallyHosting.title}</h3>
                   </div>
-                </div>
-
-                {/* TallyHosting */}
-                <div>
-                  <div className="bg-emerald-50 px-3 py-3.5 sm:px-4 sm:py-4 text-center border-b border-emerald-100">
-                    <h3 className="text-xs sm:text-sm lg:text-base font-bold text-emerald-600 leading-tight">
-                      {comparisonData.tallyHosting.title}
-                    </h3>
-                  </div>
-                  <ul className="p-3 sm:p-5 pl-2 sm:pl-3 space-y-2.5 sm:space-y-3">
+                  <ul className="space-y-0 px-4 py-3 sm:px-5">
                     {comparisonData.tallyHosting.items.map((item) => (
                       <li
                         key={item}
-                        className="flex items-start gap-2 sm:gap-2.5 text-[11px] sm:text-sm text-gray-700 leading-snug"
+                        className="flex items-center gap-3 border-b border-white/[0.07] py-2.5 text-xs text-white/90 last:border-0 sm:text-sm"
                       >
-                        <span className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-white" strokeWidth={3} />
+                        <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-emerald-500">
+                          <Check className="h-3 w-3 text-white" strokeWidth={3} />
                         </span>
                         {item}
                       </li>
                     ))}
                   </ul>
                 </div>
-              </div>
-            </div>
-          </AnimatedSection>
 
-          <AnimatedSection delay={0.2} className="hidden lg:flex justify-center items-center">
-            <img
-              src={heroContent.heroImage}
-              alt="TallyHosting Infrastructure"
-              className="w-full max-w-[420px] xl:max-w-[480px] h-auto object-contain"
-            />
+                <div className="absolute left-1/2 top-1/2 z-20 hidden h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-primary/70 bg-[#090527] text-base font-extrabold shadow-[0_0_30px_rgba(123,97,255,0.8)] sm:flex lg:h-14 lg:w-14 lg:text-lg">
+                  VS
+                </div>
+              </div>
+            </AnimatedSection>
+
+            <AnimatedSection
+              delay={0.2}
+              className="relative flex min-h-[280px] w-full items-center justify-center lg:min-h-0"
+            >
+              <div className="absolute h-56 w-56 rounded-full bg-primary/25 blur-3xl lg:h-64 lg:w-64" />
+              <div className="absolute left-[8%] top-[24%] flex h-11 w-11 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+                <CloudUpload className="h-5 w-5" />
+              </div>
+              <div className="absolute right-[6%] top-[18%] flex h-11 w-11 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <div className="absolute right-[8%] bottom-[18%] flex h-11 w-11 items-center justify-center rounded-full border border-primary/30 bg-primary/10 text-primary">
+                <UsersRound className="h-5 w-5" />
+              </div>
+              <img
+                src={heroContent.heroImage}
+                alt="TallyHosting secure cloud infrastructure"
+                className="relative z-10 w-full max-w-[420px] object-contain drop-shadow-[0_0_45px_rgba(123,97,255,0.45)] lg:max-w-none"
+                draggable={false}
+              />
+            </AnimatedSection>
+          </div>
+
+          <AnimatedSection
+            delay={0.25}
+            className="relative z-10 mt-7 grid w-full grid-cols-2 overflow-hidden rounded-2xl border border-primary/25 bg-white/[0.035] sm:grid-cols-3 lg:grid-cols-6"
+          >
+            {featureStrip.map(({ label, detail, icon: Icon }) => (
+              <div
+                key={`${label}-${detail}`}
+                className="flex items-center gap-3 border-b border-r border-white/10 px-3 py-4 last:border-r-0 sm:px-4"
+              >
+                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                  <Icon className="h-5 w-5" strokeWidth={1.7} />
+                </span>
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-white sm:text-sm">{label}</p>
+                  <p className="text-[11px] text-white/50 sm:text-xs">{detail}</p>
+                </div>
+              </div>
+            ))}
           </AnimatedSection>
-        </div>
       </div>
     </section>
   )

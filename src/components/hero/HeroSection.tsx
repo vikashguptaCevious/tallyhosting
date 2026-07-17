@@ -1,121 +1,129 @@
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
-  Play,
+  Globe,
   Shield,
-  Server,
-  Cloud,
-  Lock,
-  RefreshCw,
-  Activity,
+  ShieldCheck,
+  Rocket,
   type LucideIcon,
 } from 'lucide-react'
 import { heroContent } from '../../data/content'
 import { HeroVisual } from './HeroVisual'
+import { HeroStatsBar } from './HeroStatsBar'
 
 const iconMap: Record<string, LucideIcon> = {
+  globe: Globe,
   shield: Shield,
-  server: Server,
-  cloud: Cloud,
-  lock: Lock,
-  refresh: RefreshCw,
-  activity: Activity,
+  shieldCheck: ShieldCheck,
+  rocket: Rocket,
 }
 
 const fadeUp = (delay: number) => ({
-  initial: { opacity: 0, y: 24 },
+  initial: { opacity: 0, y: 16 },
   animate: { opacity: 1, y: 0 },
-  transition: { duration: 0.6, delay, ease: 'easeOut' as const },
+  transition: { duration: 0.5, delay, ease: 'easeOut' as const },
 })
 
 export function HeroSection() {
   return (
-    <section id="home" className="relative bg-white overflow-hidden pt-20 pb-10 lg:pt-22 lg:pb-14">
-      <div className="absolute inset-0 bg-gradient-to-br from-primary-light/30 via-white to-white pointer-events-none" />
-      <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl pointer-events-none" />
+    <section id="home" className="relative overflow-x-clip pb-8 lg:pb-10">
+      {/* Navbar spacer — visual starts flush below this */}
+      <div className="h-16 lg:h-[72px]" />
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-8 lg:gap-12 items-center">
-          {/* Top text — mobile: 1st | desktop: left column top */}
-          <div className="order-1 text-center lg:text-left">
-            <motion.span
-              {...fadeUp(0.1)}
-              className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary/10 text-primary text-xs sm:text-sm font-semibold rounded-full mb-5"
-            >
-              <span>🇮🇳</span>
-              {heroContent.badge}
-            </motion.span>
+      {/* Section gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#f8f5ff] via-[#f5f0ff] to-[#efe9ff] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-[#f8f5ff]/30 to-transparent pointer-events-none" />
 
-            <motion.h1
-              {...fadeUp(0.2)}
-              className="text-[1.75rem] sm:text-4xl lg:text-[2.35rem] xl:text-[2.65rem] font-extrabold leading-[1.15] tracking-tight text-navy"
-            >
-              {heroContent.heading.taglines.map((line) => (
-                <span key={line.highlight} className="block">
-                  {line.prefix}
-                  <span className={line.color}>{line.highlight}</span>
-                </span>
-              ))}
-            </motion.h1>
+      <div className="relative">
+        {/* Right visual — chipka top + right edge (desktop only) */}
+        <div className="hidden lg:block absolute top-0 right-0 bottom-0 w-[54%] xl:w-[52%] z-10">
+          <HeroVisual />
+        </div>
 
-            <motion.p
-              {...fadeUp(0.3)}
-              className="mt-5 text-sm sm:text-base text-gray-600 leading-relaxed max-w-xl mx-auto lg:mx-0"
-            >
-              {heroContent.description}
-            </motion.p>
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/*
+            Mobile order: intro → image → buttons/tags
+            Desktop: left column = intro + buttons/tags, right = absolute visual
+          */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-0 items-start min-h-0 lg:min-h-[480px] xl:min-h-[500px]">
+            <div className="contents lg:flex lg:flex-col lg:pr-6 lg:pt-10 lg:pb-2 lg:text-left">
+              {/* Intro — always first */}
+              <div className="order-1 text-center lg:text-left pt-7 sm:pt-8 lg:pt-0 pb-2">
+                <motion.span
+                  {...fadeUp(0.05)}
+                  className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-primary/10 text-primary text-xs sm:text-sm font-bold tracking-wide rounded-full mb-4"
+                >
+                  <Shield className="w-4 h-4" strokeWidth={2.25} />
+                  {heroContent.badge}
+                </motion.span>
+
+                <motion.h1
+                  {...fadeUp(0.1)}
+                  className="text-[2.15rem] sm:text-5xl lg:text-[2.85rem] xl:text-[3.35rem] font-extrabold leading-[1.08] tracking-tight text-navy"
+                >
+                  <span className="block">{heroContent.heading.line1}</span>
+                  <span className="block text-primary">{heroContent.heading.line2}</span>
+                </motion.h1>
+
+                <motion.p
+                  {...fadeUp(0.15)}
+                  className="mt-4 sm:mt-5 text-base sm:text-lg text-gray-600 leading-relaxed max-w-lg mx-auto lg:mx-0"
+                >
+                  {heroContent.description}
+                </motion.p>
+              </div>
+
+              {/* Buttons + tags — mobile: after image (order-3), desktop: under intro */}
+              <div className="order-3 text-center lg:text-left">
+                <motion.div
+                  {...fadeUp(0.2)}
+                  className="mt-5 sm:mt-6 lg:mt-7 flex flex-col sm:flex-row justify-center lg:justify-start gap-3"
+                >
+                  <a
+                    href={heroContent.cta.primary.href}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-white text-sm sm:text-base font-semibold rounded-xl hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25"
+                  >
+                    {heroContent.cta.primary.label}
+                    <ArrowRight className="w-4 h-4" />
+                  </a>
+                  <a
+                    href={heroContent.cta.secondary.href}
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white border border-gray-200 text-navy text-sm sm:text-base font-semibold rounded-xl hover:border-primary/30 hover:bg-primary/5 transition-all"
+                  >
+                    {heroContent.cta.secondary.label}
+                  </a>
+                </motion.div>
+
+                <motion.div
+                  {...fadeUp(0.25)}
+                  className="mt-6 sm:mt-7 lg:mt-8 grid grid-cols-4 gap-2 lg:flex lg:flex-wrap lg:items-center lg:justify-start lg:gap-x-7 lg:gap-y-3"
+                >
+                  {heroContent.featureIcons.map((item) => {
+                    const Icon = iconMap[item.icon]
+                    return (
+                      <div
+                        key={item.label}
+                        className="flex flex-col items-center gap-1 text-center lg:inline-flex lg:flex-row lg:items-center lg:gap-2 lg:whitespace-nowrap lg:text-left"
+                      >
+                        <Icon className="w-5 h-5 text-primary flex-shrink-0" strokeWidth={1.75} />
+                        <span className="text-[10px] leading-tight text-primary font-bold sm:text-xs lg:text-sm">
+                          {item.label}
+                        </span>
+                      </div>
+                    )
+                  })}
+                </motion.div>
+              </div>
+            </div>
+
+            {/* Mobile image — between intro and buttons */}
+            <div className="order-2 lg:hidden">
+              <HeroVisual />
+            </div>
           </div>
 
-          {/* VPS image — mobile: 2nd | desktop: right column */}
-          <div className="order-2 relative lg:row-span-2 -my-2 sm:my-0">
-            <HeroVisual />
-          </div>
-
-          {/* Bottom content — mobile: 3rd | desktop: left column bottom */}
-          <div className="order-3 text-center lg:text-left max-lg:-mt-2 sm:mt-0">
-            <motion.p {...fadeUp(0.35)} className="text-sm sm:text-base text-gray-700">
-              {heroContent.audience.prefix}
-              <span className="font-bold text-navy">{heroContent.audience.highlight}</span>
-            </motion.p>
-
-            <motion.div
-              {...fadeUp(0.4)}
-              className="mt-7 grid grid-cols-3 sm:grid-cols-6 gap-3 max-w-xl mx-auto lg:mx-0"
-            >
-              {heroContent.featureIcons.map((item) => {
-                const Icon = iconMap[item.icon]
-                return (
-                  <div key={item.label} className="flex flex-col items-center gap-1.5">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Icon className="w-4 h-4 text-primary" strokeWidth={1.75} />
-                    </div>
-                    <span className="text-[9px] sm:text-[10px] text-gray-600 font-medium text-center leading-tight">
-                      {item.label}
-                    </span>
-                  </div>
-                )
-              })}
-            </motion.div>
-
-            <motion.div
-              {...fadeUp(0.5)}
-              className="mt-8 flex flex-col sm:flex-row justify-center lg:justify-start gap-3"
-            >
-              <a
-                href={heroContent.cta.primary.href}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-white text-sm font-semibold rounded-xl hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25"
-              >
-                {heroContent.cta.primary.label}
-                <ArrowRight className="w-4 h-4" />
-              </a>
-              <a
-                href={heroContent.cta.secondary.href}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 border-2 border-primary/30 text-primary text-sm font-semibold rounded-xl hover:bg-primary/5 transition-all"
-              >
-                <Play className="w-4 h-4 fill-primary" />
-                {heroContent.cta.secondary.label}
-              </a>
-            </motion.div>
+          <div className="mt-5 sm:mt-6 lg:-mt-8 xl:-mt-10 relative z-30">
+            <HeroStatsBar />
           </div>
         </div>
       </div>

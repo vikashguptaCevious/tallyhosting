@@ -43,45 +43,48 @@ export const partnerForm = {
 }
 
 export const heroContent = {
-  badge: "India's Trusted Secure Tally Cloud Platform",
+  badge: 'ENTERPRISE-GRADE TALLY CLOUD',
   heading: {
-    taglines: [
-      { prefix: 'Built for ', highlight: 'Bharat.', color: 'text-accent' },
-      { prefix: 'Powered by ', highlight: 'AI.', color: 'text-primary' },
-      { prefix: 'Secured in ', highlight: 'India.', color: 'text-accent-green' },
-    ],
+    line1: "India's Most Secure",
+    line2: 'Tally Cloud Platform',
   },
   description:
-    'Run your Tally from anywhere with enterprise-grade cloud infrastructure, automated backups, disaster recovery, and secure remote access.',
-  audience: {
-    prefix: 'Built for ',
-    highlight: 'Businesses, CAs & Growing Teams.',
-  },
+    'Enterprise-grade Tally Cloud with advanced security, automated backup, disaster recovery and expert support.',
   featureIcons: [
-    { label: 'Secure Remote Access', icon: 'shield' },
-    { label: 'Enterprise Infrastructure', icon: 'server' },
-    { label: 'Google Backup', icon: 'cloud' },
-    { label: 'Device Binding', icon: 'lock' },
-    { label: 'Disaster Recovery', icon: 'refresh' },
-    { label: '24/7 Monitoring', icon: 'activity' },
+    { label: 'Run Tally Anywhere', icon: 'globe' },
+    { label: 'Securely', icon: 'shield' },
+    { label: 'Reliably', icon: 'shieldCheck' },
+    { label: 'Effortlessly', icon: 'rocket' },
   ],
   cta: {
-    primary: { label: 'Start Free Consultation', href: '#contact' },
-    secondary: { label: 'Book Live Demo', href: '#contact' },
+    primary: { label: 'Start 14-Day Free Trial', href: '#contact' },
+    secondary: { label: 'View Pricing', href: '#pricing' },
   },
+  /** Product visual used in feature / comparison sections */
   heroImage: '/images/hero%20img.webp',
+  /** Hero background (India landmarks) */
+  heroBgImage: '/images/Exact%20BG%20(1).webp',
+  /** Hero foreground VPS / cloud shield (absolute layer) */
+  heroAbsoluteImage: '/images/absolute%20(1).webp',
   floatingCards: [
-    { label: 'Uptime', value: '99.99%' },
-    { label: 'Secure Access Anywhere', value: '' },
-    { label: 'Users Online', value: '128' },
+    { highlight: '256-bit', label: 'Encryption', icon: 'lock' },
+    { highlight: 'Multi-layer', label: 'Security', icon: 'shieldPlus' },
+    { highlight: 'Our 2FA', label: 'Secure Access', icon: 'userShield' },
+    { highlight: 'Automated', label: 'Backup', icon: 'refresh' },
   ],
 }
 
 export const heroStats = [
-  { value: 10000, suffix: '+', label: 'Businesses', icon: 'building' },
-  { value: 250, suffix: '+', label: 'Tally Partners', icon: 'handshake' },
-  { value: 99.99, suffix: '%', label: 'Infrastructure Availability', icon: 'shield', isDecimal: true },
-  { value: 18, suffix: '+', label: 'Years of Trust', icon: 'award' },
+  { value: 25000, suffix: '+', label: 'Cloud Users', icon: 'users' },
+  { value: 18, suffix: '+', label: 'Years Experience', icon: 'award' },
+  { value: 100, suffix: '+', label: 'Partners', icon: 'handshake' },
+  { value: 99.9, suffix: '%', label: 'Availability', icon: 'check', isDecimal: true, decimals: 1 },
+  { value: 10, suffix: '+', label: 'Countries', icon: 'globe' },
+]
+
+export const heroPartners = [
+  { label: 'Hosted On', name: 'AWS' },
+  { label: 'Powered by', name: 'CloudOrc' },
 ]
 
 export const whyChooseCards = [

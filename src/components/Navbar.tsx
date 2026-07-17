@@ -39,18 +39,18 @@ export function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      initial={{ y: 0, opacity: 1 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         scrolled
-          ? 'bg-white/95 backdrop-blur-lg shadow-sm border-b border-gray-100'
-          : 'bg-white/80 backdrop-blur-md'
+          ? 'bg-[#f8f5ff]/95 backdrop-blur-lg shadow-sm border-b border-primary/5'
+          : 'bg-[#f8f5ff]/90'
       }`}
     >
-      <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 lg:h-[72px]">
-          <a href="#home" className="flex-shrink-0">
+      <nav className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative flex items-center justify-between h-16 lg:h-[72px] w-full">
+          <a href="#home" className="flex-shrink-0 relative z-10">
             <img
               src="/images/tallyhosting-logo.png"
               alt="TallyHosting"
@@ -127,14 +127,20 @@ export function Navbar() {
             </div>
           </div>
 
-          <div className="hidden lg:flex items-center gap-3 flex-shrink-0">
+          <div className="hidden lg:flex items-center gap-3 flex-shrink-0 relative z-10">
             <a
               href={customerLoginUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-dark transition-colors"
+              className="px-5 py-2.5 bg-white border border-gray-200 text-navy text-sm font-semibold rounded-lg hover:border-primary/30 hover:bg-primary/5 transition-colors"
             >
               Login
+            </a>
+            <a
+              href="#contact"
+              className="px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-dark transition-colors whitespace-nowrap"
+            >
+              Start 14-Day Free Trial
             </a>
           </div>
 
@@ -153,7 +159,7 @@ export function Navbar() {
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
-              className="lg:hidden bg-white border-t border-gray-100 overflow-hidden"
+              className="lg:hidden bg-[#f8f5ff]/98 border-t border-primary/5 overflow-hidden"
             >
               <div className="py-4 space-y-1">
                 {navLinks.map((link) => (
@@ -216,15 +222,22 @@ export function Navbar() {
                   )}
                 </AnimatePresence>
 
-                <div className="px-4 pt-3">
+                <div className="px-4 pt-3 space-y-2">
                   <a
                     href={customerLoginUrl}
                     onClick={() => setMobileOpen(false)}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="block px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg text-center hover:bg-primary-dark transition-colors"
+                    className="block px-5 py-2.5 bg-white border border-gray-200 text-navy text-sm font-semibold rounded-lg text-center hover:border-primary/30 transition-colors"
                   >
                     Login
+                  </a>
+                  <a
+                    href="#contact"
+                    onClick={() => setMobileOpen(false)}
+                    className="block px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg text-center hover:bg-primary-dark transition-colors"
+                  >
+                    Start 14-Day Free Trial
                   </a>
                 </div>
               </div>

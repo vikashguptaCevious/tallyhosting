@@ -17,10 +17,10 @@ function App() {
       <Navbar />
       <main>
         <HeroPage />
+        <ComparisonSection />
         <WhyChooseSection />
         <DarkFeatureSection />
         <HowItWorksSection />
-        <ComparisonSection />
         <PricingSection />
         <CTABanner />
         <FAQSection />

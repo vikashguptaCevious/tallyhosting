@@ -10,7 +10,7 @@ const iconMap: Record<string, LucideIcon> = {
 
 export function DarkFeatureSection() {
   return (
-    <section id="solutions" className="py-16 lg:py-24 bg-navy relative overflow-hidden">
+    <section id="solutions" className="relative overflow-hidden rounded-[2rem] bg-navy py-16 lg:rounded-[2.5rem] lg:py-24">
       <div className="absolute inset-0 bg-gradient-to-br from-navy via-[#1a1040] to-navy pointer-events-none" />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
