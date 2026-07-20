@@ -1,9 +1,11 @@
 import { Navbar } from './components/Navbar'
 import { HeroPage } from './components/hero'
-import { WhyChooseSection } from './components/WhyChooseSection'
 import { DarkFeatureSection } from './components/DarkFeatureSection'
 import { HowItWorksSection } from './components/HowItWorksSection'
 import { ComparisonSection } from './components/ComparisonSection'
+import { PartnersSection } from './components/PartnersSection'
+import { TrustedBySection } from './components/TrustedBySection'
+import { AdvancedSecuritySection } from './components/AdvancedSecuritySection'
 import { PricingSection } from './components/PricingSection'
 import { CTABanner } from './components/CTABanner'
 import { FAQSection } from './components/FAQSection'
@@ -18,7 +20,9 @@ function App() {
       <main>
         <HeroPage />
         <ComparisonSection />
-        <WhyChooseSection />
+        <PartnersSection />
+        <TrustedBySection />
+        <AdvancedSecuritySection />
         <DarkFeatureSection />
         <HowItWorksSection />
         <PricingSection />

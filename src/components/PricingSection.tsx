@@ -4,7 +4,7 @@ import { AnimatedSection } from './AnimatedSection'
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="py-16 lg:py-24 bg-gray-50">
+    <section id="pricing" className="pt-16 pb-10 lg:pt-20 lg:pb-12 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection className="text-center mb-12 lg:mb-16">
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-navy">

@@ -6,11 +6,13 @@ import { BecomePartnerModal } from './BecomePartnerModal'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [partnerOpen, setPartnerOpen] = useState(false)
   const [mobilePartnerOpen, setMobilePartnerOpen] = useState(false)
   const [partnerModalOpen, setPartnerModalOpen] = useState(false)
   const partnerRef = useRef<HTMLDivElement>(null)
+  const lastScrollY = useRef(0)
 
   const openPartnerModal = () => {
     setPartnerOpen(false)
@@ -20,10 +22,29 @@ export function Navbar() {
   }
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', onScroll)
+    const onScroll = () => {
+      const currentY = window.scrollY
+      setScrolled(currentY > 20)
+
+      // Always show near top, or when scrolling up; hide when scrolling down
+      if (currentY < 80) {
+        setHidden(false)
+      } else if (currentY > lastScrollY.current + 4) {
+        setHidden(true)
+      } else if (currentY < lastScrollY.current - 4) {
+        setHidden(false)
+      }
+
+      lastScrollY.current = currentY
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
+
+  useEffect(() => {
+    if (mobileOpen) setHidden(false)
+  }, [mobileOpen])
 
   useEffect(() => {
     const onClickOutside = (e: MouseEvent) => {
@@ -39,9 +60,9 @@ export function Navbar() {
 
   return (
     <motion.header
-      initial={{ y: 0, opacity: 1 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0 }}
+      initial={{ y: 0 }}
+      animate={{ y: hidden && !mobileOpen ? '-100%' : 0 }}
+      transition={{ duration: 0.28, ease: 'easeInOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${
         scrolled
           ? 'bg-[#f8f5ff]/95 backdrop-blur-lg shadow-sm border-b border-primary/5'

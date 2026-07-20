@@ -30,9 +30,10 @@ export function HeroSection() {
       {/* Navbar spacer — visual starts flush below this */}
       <div className="h-16 lg:h-[72px]" />
 
-      {/* Section gradient */}
+      {/* Section gradient — bottom settles on shared pink for seamless join */}
       <div className="absolute inset-0 bg-gradient-to-br from-[#f8f5ff] via-[#f5f0ff] to-[#efe9ff] pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-white/70 via-[#f8f5ff]/30 to-transparent pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-[#f8f5ff]/20 to-transparent pointer-events-none" />
+      <div className="absolute inset-x-0 bottom-0 h-24 bg-[#efe9ff] pointer-events-none" />
 
       <div className="relative">
         {/* Right visual — chipka top + right edge (desktop only) */}

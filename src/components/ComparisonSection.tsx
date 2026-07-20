@@ -23,11 +23,16 @@ const featureStrip: Array<{ label: string; detail: string; icon: LucideIcon }> =
 
 export function ComparisonSection() {
   return (
-    <section className="relative w-full overflow-hidden rounded-[2rem] bg-[#05031f] py-10 text-white lg:rounded-[2.5rem] lg:py-14">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_48%,rgba(111,52,255,0.2),transparent_34%),radial-gradient(circle_at_8%_10%,rgba(99,68,245,0.12),transparent_30%)]" />
-      <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(123,97,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(123,97,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
+    <section className="relative w-full -mt-6 bg-[#efe9ff] pt-6 pb-0">
+      {/* Bottom only fades to white — top = exact hero bottom pink */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-gray-100" />
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+      {/* Dark card — corners sit on #efe9ff (same as hero) */}
+      <div className="relative z-10 w-full overflow-hidden rounded-[2rem] bg-[#05031f] pt-10 pb-5 text-white lg:rounded-[2.5rem] lg:pt-14 lg:pb-5">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_48%,rgba(111,52,255,0.2),transparent_34%),radial-gradient(circle_at_8%_10%,rgba(99,68,245,0.12),transparent_30%)]" />
+        <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(123,97,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(123,97,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
+
+        <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
           <AnimatedSection className="relative z-10 mx-auto mb-8 max-w-4xl text-center">
             <span className="inline-flex rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-[11px] font-bold tracking-[0.12em] text-primary sm:text-xs">
               WHY CHOOSE TALLYHOSTING
@@ -146,6 +151,7 @@ export function ComparisonSection() {
               </div>
             ))}
           </AnimatedSection>
+        </div>
       </div>
     </section>
   )
