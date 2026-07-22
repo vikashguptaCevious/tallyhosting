@@ -1,4 +1,11 @@
+import { API_URL } from '../config/env'
+
 export const LEAD_SOURCE = 'Lead from TallyHosting'
+
+function bitrixLeadEndpoint(): string {
+  const base = API_URL.replace(/\/+$/, '')
+  return base ? `${base}/api/bitrix/lead` : '/api/bitrix/lead'
+}
 
 export type ContactLeadPayload = {
   formType: 'contact'
@@ -32,7 +39,7 @@ export type BitrixLeadResponse = {
 export async function submitBitrixLead(payload: LeadPayload): Promise<BitrixLeadResponse> {
   console.log(`${LEAD_SOURCE} — form submission:`, payload)
 
-  const response = await fetch('/api/bitrix/lead', {
+  const response = await fetch(bitrixLeadEndpoint(), {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),

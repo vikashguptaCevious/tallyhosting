@@ -5,9 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "dev:uat": "vite --mode uat",
+    "dev:production": "vite --mode production",
     "build": "tsc -b && vite build",
-    "lint": "oxlint",
-    "preview": "vite preview"
+    "build:production": "tsc -b && vite build --mode production",
+    "build:uat": "tsc -b && vite build --mode uat",
+    "preview": "vite preview",
+    "preview:uat": "vite preview --mode uat",
+    "lint": "oxlint"
   },
   "dependencies": {
     "framer-motion": "^12.40.0",

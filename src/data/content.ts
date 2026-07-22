@@ -1,11 +1,15 @@
+import { CUSTOMER_PORTAL_URL, PARTNER_PORTAL_URL } from '../config/env'
+
 export const navLinks = [
   { label: 'Features', href: '#features' },
   { label: 'Solutions', href: '#solutions' },
   { label: 'Pricing', href: '#pricing' },
 ]
 
-export const partnerLoginUrl = 'https://partner.ceviouscloud.com'
-export const customerLoginUrl = 'http://customer.tallyhosting.com/'
+/** @deprecated Prefer importing from `../config/env` directly */
+export const partnerLoginUrl = PARTNER_PORTAL_URL
+/** @deprecated Prefer importing from `../config/env` directly */
+export const customerLoginUrl = CUSTOMER_PORTAL_URL
 
 export const partnerNav = {
   label: 'Partner',
@@ -307,12 +311,12 @@ export const contactSection = {
   description:
     'Ready to move your Tally to the cloud? Contact us today for a free consultation and quote.',
   office: {
-    title: 'Mumbai Office',
+    title: 'Noida Office',
     address:
-      '2/704 Shri Ram Nagar, Purushottam Kheraj Rd, Mulund West, Mumbai, Maharashtra 400080',
+      'C-89, 2nd Floor, Sector-2, Noida, Uttar Pradesh, 201301, India',
   },
-  email: 'anita@tallyhosting.co.in',
-  phone: '+91 90824 05331 / 9167423035',
+  email: 'contact@tallyhosting.com',
+  phone: '+91 9205022262',
   formTitle: 'Enquiry Now',
   submitLabel: 'Send Enquiry',
   successMessage: 'Request Submitted!',

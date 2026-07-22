@@ -3,23 +3,10 @@ import {
   Check,
   CloudUpload,
   ShieldCheck,
-  DatabaseBackup,
-  Server,
-  MonitorCheck,
   UsersRound,
-  type LucideIcon,
 } from 'lucide-react'
 import { comparisonData, heroContent } from '../data/content'
 import { AnimatedSection } from './AnimatedSection'
-
-const featureStrip: Array<{ label: string; detail: string; icon: LucideIcon }> = [
-  { label: 'Google Backup', detail: 'Included', icon: DatabaseBackup },
-  { label: 'Disaster Recovery', detail: 'Ready', icon: ShieldCheck },
-  { label: 'Enterprise', detail: 'Infrastructure', icon: Server },
-  { label: 'Device', detail: 'Binding', icon: MonitorCheck },
-  { label: 'Email', detail: '2FA', icon: ShieldCheck },
-  { label: '24×7', detail: 'Experts', icon: UsersRound },
-]
 
 export function ComparisonSection() {
   return (
@@ -28,7 +15,7 @@ export function ComparisonSection() {
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-gray-100" />
 
       {/* Dark card — corners sit on #efe9ff (same as hero) */}
-      <div className="relative z-10 w-full overflow-hidden rounded-[2rem] bg-[#05031f] pt-10 pb-5 text-white lg:rounded-[2.5rem] lg:pt-14 lg:pb-5">
+      <div className="relative z-10 w-full overflow-hidden rounded-[2rem] bg-[#05031f] pt-10 pb-10 text-white lg:rounded-[2.5rem] lg:pt-14 lg:pb-12">
         <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_48%,rgba(111,52,255,0.2),transparent_34%),radial-gradient(circle_at_8%_10%,rgba(99,68,245,0.12),transparent_30%)]" />
         <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(123,97,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(123,97,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
 
@@ -131,26 +118,6 @@ export function ComparisonSection() {
               />
             </AnimatedSection>
           </div>
-
-          <AnimatedSection
-            delay={0.25}
-            className="relative z-10 mt-7 grid w-full grid-cols-2 overflow-hidden rounded-2xl border border-primary/25 bg-white/[0.035] sm:grid-cols-3 lg:grid-cols-6"
-          >
-            {featureStrip.map(({ label, detail, icon: Icon }) => (
-              <div
-                key={`${label}-${detail}`}
-                className="flex items-center gap-3 border-b border-r border-white/10 px-3 py-4 last:border-r-0 sm:px-4"
-              >
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
-                  <Icon className="h-5 w-5" strokeWidth={1.7} />
-                </span>
-                <div className="min-w-0">
-                  <p className="text-xs font-semibold text-white sm:text-sm">{label}</p>
-                  <p className="text-[11px] text-white/50 sm:text-xs">{detail}</p>
-                </div>
-              </div>
-            ))}
-          </AnimatedSection>
         </div>
       </div>
     </section>

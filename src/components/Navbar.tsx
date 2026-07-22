@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown } from 'lucide-react'
-import { navLinks, partnerNav, customerLoginUrl } from '../data/content'
+import { CUSTOMER_PORTAL_URL } from '../config/env'
+import { navLinks, partnerNav } from '../data/content'
 import { BecomePartnerModal } from './BecomePartnerModal'
 
 export function Navbar() {
@@ -150,7 +151,7 @@ export function Navbar() {
 
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0 relative z-10">
             <a
-              href={customerLoginUrl}
+              href={CUSTOMER_PORTAL_URL}
               target="_blank"
               rel="noopener noreferrer"
               className="px-5 py-2.5 bg-white border border-gray-200 text-navy text-sm font-semibold rounded-lg hover:border-primary/30 hover:bg-primary/5 transition-colors"
@@ -245,7 +246,7 @@ export function Navbar() {
 
                 <div className="px-4 pt-3 space-y-2">
                   <a
-                    href={customerLoginUrl}
+                    href={CUSTOMER_PORTAL_URL}
                     onClick={() => setMobileOpen(false)}
                     target="_blank"
                     rel="noopener noreferrer"
