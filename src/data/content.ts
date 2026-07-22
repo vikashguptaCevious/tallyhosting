@@ -67,7 +67,7 @@ export const heroContent = {
   /** Hero foreground VPS / cloud shield (absolute layer) */
   heroAbsoluteImage: '/images/absolute%20(1).webp',
   floatingCards: [
-    { highlight: '256-bit', label: 'Encryption', icon: 'lock' },
+    { highlight: 'HA-Cloud', label: 'Infrastructure', icon: 'cloud' },
     { highlight: 'Multi-layer', label: 'Security', icon: 'shieldPlus' },
     { highlight: 'Our 2FA', label: 'Secure Access', icon: 'userShield' },
     { highlight: 'Automated', label: 'Backup', icon: 'refresh' },

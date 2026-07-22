@@ -36,8 +36,22 @@ export function ContactSection() {
   }
 
   return (
-    <section id="contact" className="py-16 lg:py-24 bg-gradient-to-br from-primary to-primary-dark text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section
+      id="contact"
+      className="relative overflow-hidden bg-gradient-to-r from-navy via-[#2a1f5c] to-primary py-16 text-white lg:py-24"
+    >
+      <div
+        className="pointer-events-none absolute inset-0 opacity-50"
+        style={{
+          backgroundImage: `
+            linear-gradient(rgba(255, 255, 255, 0.14) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.14) 1px, transparent 1px)
+          `,
+          backgroundSize: '36px 36px',
+        }}
+      />
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <AnimatedSection>
             <h2 className="text-3xl sm:text-4xl font-extrabold mb-6">{contactSection.heading}</h2>

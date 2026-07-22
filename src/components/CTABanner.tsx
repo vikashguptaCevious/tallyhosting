@@ -9,13 +9,13 @@ export function CTABanner() {
         <AnimatedSection>
           <div className="relative bg-gradient-to-r from-navy via-[#2a1f5c] to-primary rounded-3xl px-8 py-8 lg:px-16 lg:py-10 text-center overflow-hidden">
             <div
-              className="absolute inset-0 pointer-events-none opacity-40"
+              className="absolute inset-0 pointer-events-none opacity-50"
               style={{
                 backgroundImage: `
-                  linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px),
-                  linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)
+                  linear-gradient(rgba(255,255,255,0.14) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(255,255,255,0.14) 1px, transparent 1px)
                 `,
-                backgroundSize: '48px 48px',
+                backgroundSize: '36px 36px',
               }}
             />
 

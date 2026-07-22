@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { motion } from 'framer-motion'
 import {
-  Lock,
+  Cloud,
   ShieldPlus,
   UserRoundCog,
   RefreshCw,
@@ -10,7 +10,7 @@ import {
 import { heroContent } from '../../data/content'
 
 const iconMap: Record<string, LucideIcon> = {
-  lock: Lock,
+  cloud: Cloud,
   shieldPlus: ShieldPlus,
   userShield: UserRoundCog,
   refresh: RefreshCw,

@@ -128,7 +128,7 @@ body {
 }
 
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 45s linear infinite;
 }
 
 @keyframes hero-float {
