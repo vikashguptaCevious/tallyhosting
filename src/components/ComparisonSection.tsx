@@ -10,13 +10,13 @@ import { AnimatedSection } from './AnimatedSection'
 
 export function ComparisonSection() {
   return (
-    <section className="relative w-full -mt-6 bg-[#efe9ff] pt-6 pb-0">
+    <section className="relative w-full bg-[#efe9ff] pt-2 pb-0">
       {/* Bottom only fades to white — top = exact hero bottom pink */}
       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-gray-100" />
 
-      {/* Dark card — corners sit on #efe9ff (same as hero) */}
-      <div className="relative z-10 w-full overflow-hidden rounded-[2rem] bg-[#05031f] pt-10 pb-10 text-white lg:rounded-[2.5rem] lg:pt-14 lg:pb-12">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_48%,rgba(111,52,255,0.2),transparent_34%),radial-gradient(circle_at_8%_10%,rgba(99,68,245,0.12),transparent_30%)]" />
+      {/* Dark card — flat top edge so the join stays perfectly horizontal */}
+      <div className="relative z-10 w-full overflow-hidden rounded-none rounded-b-[2rem] bg-[#05031f] pt-10 pb-10 text-white lg:rounded-b-[2.5rem] lg:pt-14 lg:pb-12">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_75%_48%,rgba(111,52,255,0.2),transparent_34%),radial-gradient(circle_at_40%_0%,rgba(99,68,245,0.1),transparent_28%)]" />
         <div className="pointer-events-none absolute inset-0 opacity-20 [background-image:linear-gradient(rgba(123,97,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(123,97,255,0.08)_1px,transparent_1px)] [background-size:48px_48px]" />
 
         <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">

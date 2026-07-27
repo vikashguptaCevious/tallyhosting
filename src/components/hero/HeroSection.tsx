@@ -30,10 +30,11 @@ export function HeroSection() {
       {/* Navbar spacer — visual starts flush below this */}
       <div className="h-16 lg:h-[72px]" />
 
-      {/* Section gradient — bottom settles on shared pink for seamless join */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#f8f5ff] via-[#f5f0ff] to-[#efe9ff] pointer-events-none" />
+      {/* Section gradient — soft fade, no hard mid-hero cut */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[#f8f5ff] via-[#f5f0ff] to-[#efe9ff] pointer-events-none" />
       <div className="absolute inset-0 bg-gradient-to-r from-white/50 via-[#f8f5ff]/20 to-transparent pointer-events-none" />
-      <div className="absolute inset-x-0 bottom-0 h-24 bg-[#efe9ff] pointer-events-none" />
+      {/* Pink only behind stats bar (low) — keeps full-width join straight */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[15] h-[6.5rem] bg-[#efe9ff] sm:h-28 lg:h-[7.5rem]" />
 
       <div className="relative">
         {/* Right visual — chipka top + right edge (desktop only) */}

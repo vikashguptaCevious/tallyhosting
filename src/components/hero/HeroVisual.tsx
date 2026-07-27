@@ -76,6 +76,7 @@ export function HeroVisual() {
           {/* Soft edge blends so the right-side image feels part of the section */}
           <div className="absolute inset-y-0 left-0 w-[18%] bg-gradient-to-r from-[#f8f5ff] via-[#f8f5ff]/35 to-transparent pointer-events-none" />
           <div className="absolute inset-x-0 top-0 h-[10%] bg-gradient-to-b from-[#f8f5ff]/50 to-transparent pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-0 h-[18%] bg-gradient-to-t from-[#efe9ff] via-[#efe9ff]/70 to-transparent pointer-events-none" />
         </div>
 
         <img
