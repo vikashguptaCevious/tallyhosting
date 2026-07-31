@@ -12,6 +12,7 @@ import { FAQSection } from './components/FAQSection'
 import { ContactSection } from './components/ContactSection'
 import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/Widgets'
+import { ToastHost } from './components/ToastHost'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
       </main>
       <Footer />
       <ScrollToTop />
+      <ToastHost />
     </div>
   )
 }

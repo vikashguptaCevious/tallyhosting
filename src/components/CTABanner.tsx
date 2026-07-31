@@ -1,8 +1,12 @@
+import { useState } from 'react'
 import { Headphones } from 'lucide-react'
 import { ctaBanner } from '../data/content'
 import { AnimatedSection } from './AnimatedSection'
+import { DemoRequestModal } from './DemoRequestModal'
 
 export function CTABanner() {
+  const [demoOpen, setDemoOpen] = useState(false)
+
   return (
     <section className="pt-4 pb-12 lg:pt-6 lg:pb-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -29,24 +33,41 @@ export function CTABanner() {
             </p>
 
             <div className="relative flex flex-col sm:flex-row justify-center gap-4">
-              {ctaBanner.buttons.map((btn) => (
-                <a
-                  key={btn.label}
-                  href={btn.href}
-                  className={
-                    btn.variant === 'white'
-                      ? 'inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-primary text-sm font-semibold rounded-xl hover:bg-gray-100 transition-colors'
-                      : 'inline-flex items-center justify-center gap-2 px-8 py-3.5 border-2 border-white/40 text-white text-sm font-semibold rounded-xl hover:bg-white/10 transition-colors'
-                  }
-                >
-                  {btn.variant === 'outline' && <Headphones className="w-4 h-4" />}
-                  {btn.label}
-                </a>
-              ))}
+              {ctaBanner.buttons.map((btn) => {
+                if ('action' in btn && btn.action === 'demo') {
+                  return (
+                    <button
+                      key={btn.label}
+                      type="button"
+                      onClick={() => setDemoOpen(true)}
+                      className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-primary text-sm font-semibold rounded-xl hover:bg-gray-100 transition-colors"
+                    >
+                      {btn.label}
+                    </button>
+                  )
+                }
+
+                return (
+                  <a
+                    key={btn.label}
+                    href={btn.href}
+                    className={
+                      btn.variant === 'outline'
+                        ? 'inline-flex items-center justify-center gap-2 px-8 py-3.5 border-2 border-white/40 text-white text-sm font-semibold rounded-xl hover:bg-white/10 transition-colors'
+                        : 'inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-primary text-sm font-semibold rounded-xl hover:bg-gray-100 transition-colors'
+                    }
+                  >
+                    {btn.variant === 'outline' && <Headphones className="w-4 h-4" />}
+                    {btn.label}
+                  </a>
+                )
+              })}
             </div>
           </div>
         </AnimatedSection>
       </div>
+
+      <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     </section>
   )
 }

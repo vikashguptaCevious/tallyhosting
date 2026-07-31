@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -8,6 +9,7 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { heroContent } from '../../data/content'
+import { DemoRequestModal } from '../DemoRequestModal'
 import { HeroVisual } from './HeroVisual'
 import { HeroStatsBar } from './HeroStatsBar'
 
@@ -25,6 +27,8 @@ const fadeUp = (delay: number) => ({
 })
 
 export function HeroSection() {
+  const [demoOpen, setDemoOpen] = useState(false)
+
   return (
     <section id="home" className="relative overflow-x-clip pb-8 lg:pb-10">
       {/* Navbar spacer — visual starts flush below this */}
@@ -81,13 +85,14 @@ export function HeroSection() {
                   {...fadeUp(0.2)}
                   className="mt-5 sm:mt-6 lg:mt-7 flex flex-col sm:flex-row justify-center lg:justify-start gap-3"
                 >
-                  <a
-                    href={heroContent.cta.primary.href}
+                  <button
+                    type="button"
+                    onClick={() => setDemoOpen(true)}
                     className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-primary text-white text-sm sm:text-base font-semibold rounded-xl hover:bg-primary-dark transition-all hover:shadow-lg hover:shadow-primary/25"
                   >
                     {heroContent.cta.primary.label}
                     <ArrowRight className="w-4 h-4" />
-                  </a>
+                  </button>
                   <a
                     href={heroContent.cta.secondary.href}
                     className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white border border-gray-200 text-navy text-sm sm:text-base font-semibold rounded-xl hover:border-primary/30 hover:bg-primary/5 transition-all"
@@ -129,6 +134,8 @@ export function HeroSection() {
           </div>
         </div>
       </div>
+
+      <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     </section>
   )
 }

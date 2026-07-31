@@ -214,3 +214,41 @@ body {
 .partner-phone-input__dropdown .react-international-phone-country-selector-dropdown__list-item--focused {
   background-color: color-mix(in srgb, var(--color-primary) 8%, white);
 }
+
+.demo-phone-input {
+  width: 100%;
+}
+
+.demo-phone-input.react-international-phone-input-container {
+  --react-international-phone-height: 40px;
+  --react-international-phone-border-radius: 12px;
+  --react-international-phone-border-color: #e5e7eb;
+  --react-international-phone-font-size: 14px;
+  --react-international-phone-background-color: #ffffff;
+  --react-international-phone-country-selector-background-color: #ffffff;
+  --react-international-phone-country-selector-background-color-hover: #f9fafb;
+}
+
+.demo-phone-input .react-international-phone-country-selector-button {
+  min-width: 88px;
+  padding: 0 10px;
+  border-radius: 12px 0 0 12px;
+  border-color: #e5e7eb;
+}
+
+.demo-phone-input .demo-phone-input__field,
+.demo-phone-input .react-international-phone-input {
+  flex: 1;
+  width: 100%;
+  padding: 0 14px;
+  border-radius: 0 12px 12px 0;
+  border-color: #e5e7eb;
+  font-size: 14px;
+}
+
+.demo-phone-input .demo-phone-input__field:focus,
+.demo-phone-input .react-international-phone-input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 40%, transparent);
+}

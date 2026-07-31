@@ -4,6 +4,7 @@ import { Menu, X, ChevronDown } from 'lucide-react'
 import { CUSTOMER_PORTAL_URL } from '../config/env'
 import { navLinks, partnerNav } from '../data/content'
 import { BecomePartnerModal } from './BecomePartnerModal'
+import { DemoRequestModal } from './DemoRequestModal'
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false)
@@ -12,6 +13,7 @@ export function Navbar() {
   const [partnerOpen, setPartnerOpen] = useState(false)
   const [mobilePartnerOpen, setMobilePartnerOpen] = useState(false)
   const [partnerModalOpen, setPartnerModalOpen] = useState(false)
+  const [demoModalOpen, setDemoModalOpen] = useState(false)
   const partnerRef = useRef<HTMLDivElement>(null)
   const lastScrollY = useRef(0)
 
@@ -158,12 +160,13 @@ export function Navbar() {
             >
               Login
             </a>
-            <a
-              href="#contact"
+            <button
+              type="button"
+              onClick={() => setDemoModalOpen(true)}
               className="px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg hover:bg-primary-dark transition-colors whitespace-nowrap"
             >
               Start 14-Day Free Trial
-            </a>
+            </button>
           </div>
 
           <button
@@ -254,13 +257,16 @@ export function Navbar() {
                   >
                     Login
                   </a>
-                  <a
-                    href="#contact"
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg text-center hover:bg-primary-dark transition-colors"
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setMobileOpen(false)
+                      setDemoModalOpen(true)
+                    }}
+                    className="block w-full px-5 py-2.5 bg-primary text-white text-sm font-semibold rounded-lg text-center hover:bg-primary-dark transition-colors"
                   >
                     Start 14-Day Free Trial
-                  </a>
+                  </button>
                 </div>
               </div>
             </motion.div>
@@ -269,6 +275,7 @@ export function Navbar() {
       </nav>
 
       <BecomePartnerModal open={partnerModalOpen} onClose={() => setPartnerModalOpen(false)} />
+      <DemoRequestModal open={demoModalOpen} onClose={() => setDemoModalOpen(false)} />
     </motion.header>
   )
 }
