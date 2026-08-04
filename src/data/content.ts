@@ -1,9 +1,10 @@
 import { CUSTOMER_PORTAL_URL, PARTNER_PORTAL_URL } from '../config/env'
 
 export const navLinks = [
-  { label: 'Features', href: '#features' },
-  { label: 'Solutions', href: '#solutions' },
-  { label: 'Pricing', href: '#pricing' },
+  { label: 'Features', href: '/#features' },
+  { label: 'Solutions', href: '/#solutions' },
+  { label: 'Pricing', href: '/#pricing' },
+  { label: 'Blogs', href: '/blog' },
 ]
 
 /** @deprecated Prefer importing from `../config/env` directly */
@@ -431,7 +432,12 @@ export const footerData = {
     },
     {
       title: 'Company',
-      links: ['About Us', 'Careers', 'Blog', 'Contact'],
+      links: [
+        'About Us',
+        'Careers',
+        { label: 'Blog', href: '/blog' },
+        { label: 'Contact', href: '/#contact' },
+      ],
     },
     {
       title: 'Support',

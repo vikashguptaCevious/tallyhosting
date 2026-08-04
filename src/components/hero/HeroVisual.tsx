@@ -55,10 +55,14 @@ function CardIcon({
   if (icon === 'tally') {
     return (
       <img
-        src="/images/tally-optimize-icon.png"
+        src="/images/tally-prime-logo.png"
         alt=""
         aria-hidden
-        className={`${sizeClass} rounded-[2px] object-cover`}
+        className={
+          size === 'sm'
+            ? 'h-5 w-5 object-contain'
+            : 'h-7 w-7 object-contain'
+        }
         draggable={false}
       />
     )

@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, Globe } from 'lucide-react'
 import { CUSTOMER_PORTAL_URL } from '../config/env'
@@ -116,7 +117,7 @@ export function Navbar() {
     >
       <nav className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative flex items-center justify-between h-16 lg:h-[72px] w-full">
-          <a href="#home" className="flex-shrink-0 relative z-10">
+          <Link to="/" className="flex-shrink-0 relative z-10">
             <img
               src="/images/tallyhosting-logo.png"
               alt="TallyHosting"
@@ -124,21 +125,32 @@ export function Navbar() {
                 isSaudi ? '[filter:hue-rotate(-125deg)_saturate(1.35)_brightness(0.95)]' : ''
               }`}
             />
-          </a>
+          </Link>
 
           <div className="hidden lg:flex items-center justify-center gap-7 absolute left-1/2 -translate-x-1/2">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className={`text-sm font-medium text-gray-600 transition-colors ${
-                  isSaudi ? 'hover:text-[#087a3c]' : 'hover:text-primary'
-                }`}
-              >
-                {link.label}
-              </a>
-            ))}
-
+            {navLinks.map((link) =>
+              link.href.startsWith('/') && !link.href.startsWith('/#') ? (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className={`text-sm font-medium text-gray-600 transition-colors ${
+                    isSaudi ? 'hover:text-[#087a3c]' : 'hover:text-primary'
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className={`text-sm font-medium text-gray-600 transition-colors ${
+                    isSaudi ? 'hover:text-[#087a3c]' : 'hover:text-primary'
+                  }`}
+                >
+                  {link.label}
+                </a>
+              ),
+            )}
             <div
               ref={partnerRef}
               className="relative"
@@ -309,16 +321,27 @@ export function Navbar() {
               }`}
             >
               <div className="py-4 space-y-1">
-                {navLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    onClick={() => setMobileOpen(false)}
-                    className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary"
-                  >
-                    {link.label}
-                  </a>
-                ))}
+                {navLinks.map((link) =>
+                  link.href.startsWith('/') && !link.href.startsWith('/#') ? (
+                    <Link
+                      key={link.label}
+                      to={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary"
+                    >
+                      {link.label}
+                    </Link>
+                  ) : (
+                    <a
+                      key={link.label}
+                      href={link.href}
+                      onClick={() => setMobileOpen(false)}
+                      className="block px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary"
+                    >
+                      {link.label}
+                    </a>
+                  ),
+                )}
 
                 <button
                   type="button"

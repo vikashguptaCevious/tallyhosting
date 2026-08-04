@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { footerData } from '../data/content'
 import { useCountry } from '../context/CountryContext'
 import { BecomePartnerModal } from './BecomePartnerModal'
@@ -21,7 +22,7 @@ export function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-6 gap-10 mb-12">
             <div className="lg:col-span-1">
-              <a href="#home" className="inline-block mb-4">
+              <Link to="/" className="inline-block mb-4">
                 <img
                   src="/images/tallyhosting-logo.png"
                   alt="TallyHosting"
@@ -29,7 +30,7 @@ export function Footer() {
                     isSaudi ? '[filter:hue-rotate(-125deg)_saturate(1.35)_brightness(0.95)]' : ''
                   }`}
                 />
-              </a>
+              </Link>
               <p className="text-sm text-gray-400 leading-relaxed mb-5">{footerData.description}</p>
               <div className="flex gap-3">
                 {socialLinks.map((s) => (
@@ -79,16 +80,33 @@ export function Footer() {
                       }
 
                       if ('href' in link) {
+                        const href = link.href as string
+                        const isInternal =
+                          href.startsWith('/') && !href.startsWith('/#') && !href.startsWith('http')
+
                         return (
                           <li key={link.label}>
-                            <a
-                              href={link.href as string}
-                              target={'external' in link && link.external ? '_blank' : undefined}
-                              rel={'external' in link && link.external ? 'noopener noreferrer' : undefined}
-                              className="text-sm text-gray-400 hover:text-white transition-colors"
-                            >
-                              {link.label}
-                            </a>
+                            {isInternal ? (
+                              <Link
+                                to={href}
+                                className="text-sm text-gray-400 hover:text-white transition-colors"
+                              >
+                                {link.label}
+                              </Link>
+                            ) : (
+                              <a
+                                href={href}
+                                target={'external' in link && link.external ? '_blank' : undefined}
+                                rel={
+                                  'external' in link && link.external
+                                    ? 'noopener noreferrer'
+                                    : undefined
+                                }
+                                className="text-sm text-gray-400 hover:text-white transition-colors"
+                              >
+                                {link.label}
+                              </a>
+                            )}
                           </li>
                         )
                       }
