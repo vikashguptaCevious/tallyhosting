@@ -38,7 +38,7 @@ export function ContactSection() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden bg-gradient-to-r from-navy via-[#2a1f5c] to-primary py-16 text-white lg:py-24"
+      className="theme-dark-gradient relative overflow-hidden py-16 text-white lg:py-24"
     >
       <div
         className="pointer-events-none absolute inset-0 opacity-50"

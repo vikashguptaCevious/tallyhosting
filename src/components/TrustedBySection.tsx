@@ -60,7 +60,7 @@ const trustCards: TrustCard[] = [
     role: 'Retail Chain Owner',
     initials: 'AK',
     icon: Cloud,
-    accent: 'bg-violet-100 text-violet-700',
+    accent: 'bg-primary/15 text-primary',
   },
   {
     quote:
@@ -90,7 +90,7 @@ const trustCards: TrustCard[] = [
     role: 'Export Business',
     initials: 'NK',
     icon: Headphones,
-    accent: 'bg-indigo-100 text-indigo-700',
+    accent: 'bg-primary/15 text-primary',
   },
 ]
 

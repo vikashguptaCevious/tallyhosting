@@ -111,7 +111,9 @@ export function AdvancedSecuritySection() {
                   <img
                     src={feature.image}
                     alt={feature.imageAlt}
-                    className="h-full w-full object-contain"
+                    className={`h-full w-full object-contain ${
+                      feature.icon === 'aws' ? '' : 'country-accent-image'
+                    }`}
                     draggable={false}
                   />
                 </div>

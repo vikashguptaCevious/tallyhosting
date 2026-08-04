@@ -13,28 +13,31 @@ import { ContactSection } from './components/ContactSection'
 import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/Widgets'
 import { ToastHost } from './components/ToastHost'
+import { CountryProvider } from './context/CountryContext'
 
 function App() {
   return (
-    <div className="min-h-screen bg-white text-gray-800 antialiased">
-      <Navbar />
-      <main>
-        <HeroPage />
-        <ComparisonSection />
-        <PartnersSection />
-        <TrustedBySection />
-        <AdvancedSecuritySection />
-        <DarkFeatureSection />
-        <HowItWorksSection />
-        <PricingSection />
-        <CTABanner />
-        <FAQSection />
-        <ContactSection />
-      </main>
-      <Footer />
-      <ScrollToTop />
-      <ToastHost />
-    </div>
+    <CountryProvider>
+      <div className="min-h-screen bg-white text-gray-800 antialiased">
+        <Navbar />
+        <main>
+          <HeroPage />
+          <ComparisonSection />
+          <PartnersSection />
+          <TrustedBySection />
+          <AdvancedSecuritySection />
+          <DarkFeatureSection />
+          <HowItWorksSection />
+          <PricingSection />
+          <CTABanner />
+          <FAQSection />
+          <ContactSection />
+        </main>
+        <Footer />
+        <ScrollToTop />
+        <ToastHost />
+      </div>
+    </CountryProvider>
   )
 }
 

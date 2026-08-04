@@ -61,7 +61,7 @@ export const heroContent = {
     { label: 'Effortlessly', icon: 'rocket' },
   ],
   cta: {
-    primary: { label: 'Start 14-Day Free Trial', href: '#contact' },
+    primary: { label: 'Start 7-Day Free Trial', href: '#contact' },
     secondary: { label: 'View Pricing', href: '#pricing' },
   },
   /** Product visual used in feature / comparison sections */
@@ -72,9 +72,9 @@ export const heroContent = {
   heroAbsoluteImage: '/images/absolute%20(1).webp',
   floatingCards: [
     { highlight: 'HA-Cloud', label: 'Infrastructure', icon: 'cloud' },
-    { highlight: 'Multi-layer', label: 'Security', icon: 'shieldPlus' },
-    { highlight: 'Our 2FA', label: 'Secure Access', icon: 'userShield' },
-    { highlight: 'Automated', label: 'Backup', icon: 'refresh' },
+    { highlight: 'Tally Optimize', label: 'Performance', icon: 'tally' },
+    { highlight: '2FA Security', label: 'Secure Access', icon: 'userShield' },
+    { highlight: 'Automatic Google', label: 'Backup', icon: 'google' },
   ],
 }
 

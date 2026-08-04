@@ -1,8 +1,12 @@
 import { Check, Gift } from 'lucide-react'
 import { pricingPlans, launchOffer } from '../data/content'
+import { useCountry } from '../context/CountryContext'
 import { AnimatedSection } from './AnimatedSection'
 
 export function PricingSection() {
+  const { countryId } = useCountry()
+  const isSaudi = countryId === 'saudi-arabia'
+
   return (
     <section id="pricing" className="pt-16 pb-10 lg:pt-20 lg:pb-12 bg-gray-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,12 +22,18 @@ export function PricingSection() {
               <div
                 className={`relative h-full flex flex-col bg-white rounded-2xl border shadow-sm overflow-hidden ${
                   plan.popular
-                    ? 'border-primary shadow-lg shadow-primary/10 ring-2 ring-primary/20'
+                    ? isSaudi
+                      ? 'border-[#087a3c] shadow-lg shadow-[#087a3c]/10 ring-2 ring-[#087a3c]/20'
+                      : 'border-primary shadow-lg shadow-primary/10 ring-2 ring-primary/20'
                     : 'border-gray-100'
                 }`}
               >
                 {plan.popular && (
-                  <div className="bg-primary text-white text-center text-xs font-bold py-2 tracking-wider uppercase">
+                  <div
+                    className={`text-white text-center text-xs font-bold py-2 tracking-wider uppercase ${
+                      isSaudi ? 'bg-[#087a3c]' : 'bg-primary'
+                    }`}
+                  >
                     Most Popular
                   </div>
                 )}
@@ -39,7 +49,12 @@ export function PricingSection() {
                   <ul className="space-y-3 flex-1 mb-8">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-2.5 text-sm text-gray-600">
-                        <Check className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" strokeWidth={2.5} />
+                        <Check
+                          className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
+                            isSaudi ? 'text-[#087a3c]' : 'text-primary'
+                          }`}
+                          strokeWidth={2.5}
+                        />
                         {feature}
                       </li>
                     ))}
@@ -49,8 +64,12 @@ export function PricingSection() {
                     href="#contact"
                     className={`block text-center py-3 rounded-xl text-sm font-semibold transition-colors ${
                       plan.popular
-                        ? 'bg-primary text-white hover:bg-primary-dark'
-                        : 'border-2 border-primary/30 text-primary hover:bg-primary/5'
+                        ? isSaudi
+                          ? 'bg-[#087a3c] text-white hover:bg-[#066b34]'
+                          : 'bg-primary text-white hover:bg-primary-dark'
+                        : isSaudi
+                          ? 'border-2 border-[#087a3c]/30 text-[#087a3c] hover:bg-[#087a3c]/5'
+                          : 'border-2 border-primary/30 text-primary hover:bg-primary/5'
                     }`}
                   >
                     {plan.cta}
@@ -61,7 +80,13 @@ export function PricingSection() {
           ))}
 
           <AnimatedSection delay={0.35}>
-            <div className="h-full bg-gradient-to-br from-primary to-primary-dark rounded-2xl p-6 lg:p-8 text-white flex flex-col min-w-[240px]">
+            <div
+              className={`h-full rounded-2xl p-6 lg:p-8 text-white flex flex-col min-w-[240px] ${
+                isSaudi
+                  ? 'bg-gradient-to-br from-[#0a9250] to-[#05602e]'
+                  : 'bg-gradient-to-br from-primary to-primary-dark'
+              }`}
+            >
               <span className="inline-block self-start text-[10px] font-bold tracking-widest uppercase bg-white/20 px-3 py-1 rounded-full mb-4">
                 {launchOffer.badge}
               </span>

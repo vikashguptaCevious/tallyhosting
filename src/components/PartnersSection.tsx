@@ -91,7 +91,7 @@ export function PartnersSection() {
         </AnimatedSection>
 
         <AnimatedSection delay={0.08}>
-          <div className="w-full overflow-hidden rounded-2xl border border-primary/15 bg-white shadow-[0_12px_40px_rgba(123,97,255,0.12)]">
+          <div className="w-full overflow-hidden rounded-2xl border border-primary/15 bg-white shadow-xl shadow-primary/10">
             <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6 px-6 py-7 sm:gap-x-12 sm:px-10 sm:py-8 lg:justify-evenly lg:gap-x-8 lg:px-12 lg:py-9">
               {partners.map((partner) => (
                 <div key={partner.name} className="flex items-center justify-center">

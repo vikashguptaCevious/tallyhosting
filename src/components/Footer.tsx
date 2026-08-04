@@ -1,9 +1,12 @@
 import { useState } from 'react'
 import { footerData } from '../data/content'
+import { useCountry } from '../context/CountryContext'
 import { BecomePartnerModal } from './BecomePartnerModal'
 
 export function Footer() {
   const [partnerModalOpen, setPartnerModalOpen] = useState(false)
+  const { countryId } = useCountry()
+  const isSaudi = countryId === 'saudi-arabia'
 
   const socialLinks = [
     { name: 'Facebook', label: 'f' },
@@ -22,7 +25,9 @@ export function Footer() {
                 <img
                   src="/images/tallyhosting-logo.png"
                   alt="TallyHosting"
-                  className="h-12 sm:h-14 w-auto object-contain"
+                  className={`h-12 sm:h-14 w-auto object-contain ${
+                    isSaudi ? '[filter:hue-rotate(-125deg)_saturate(1.35)_brightness(0.95)]' : ''
+                  }`}
                 />
               </a>
               <p className="text-sm text-gray-400 leading-relaxed mb-5">{footerData.description}</p>

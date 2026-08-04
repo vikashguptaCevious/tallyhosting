@@ -1,0 +1,128 @@
+{
+  "defaultCountryId": "india",
+  "options": [
+    {
+      "id": "india",
+      "label": "India",
+      "contentKey": "india",
+      "flag": "🇮🇳",
+      "flagImg": "https://cdn.ipwhois.io/flags/in.svg"
+    },
+    {
+      "id": "saudi-arabia",
+      "label": "Saudi Arabia",
+      "contentKey": "saudiArabia",
+      "flag": "🇸🇦",
+      "flagImg": "https://cdn.ipwhois.io/flags/sa.svg"
+    },
+    {
+      "id": "other",
+      "label": "Other",
+      "contentKey": "india",
+      "flag": "🌐",
+      "flagImg": ""
+    }
+  ],
+  "content": {
+    "india": {
+      "locale": "en",
+      "dir": "ltr",
+      "badge": "ENTERPRISE-GRADE TALLY CLOUD",
+      "heading": {
+        "line1": "India's Most Secure",
+        "line2": "Tally Cloud Platform"
+      },
+      "description": "Enterprise-grade Tally Cloud with advanced security, automated backup, disaster recovery and expert support.",
+      "featureIcons": [
+        { "label": "Run Tally Anywhere", "icon": "globe" },
+        { "label": "Securely", "icon": "shield" },
+        { "label": "Reliably", "icon": "shieldCheck" },
+        { "label": "Effortlessly", "icon": "rocket" }
+      ],
+      "cta": {
+        "primary": { "label": "Start 7-Day Free Trial", "href": "#contact" },
+        "secondary": { "label": "View Pricing", "href": "#pricing" }
+      },
+      "visualMode": "layered",
+      "heroBgImage": "/images/Exact%20BG%20(1).webp",
+      "heroAbsoluteImage": "/images/absolute%20(1).webp",
+      "heroCompositeImage": "",
+      "sectionImage": "/images/hero%20img.webp",
+      "floatingCards": [
+        { "highlight": "HA-Cloud", "label": "Infrastructure", "icon": "cloud" },
+        { "highlight": "Tally Optimize", "label": "Performance", "icon": "tally" },
+        { "highlight": "2FA Security", "label": "Secure Access", "icon": "userShield" },
+        { "highlight": "Automatic Google", "label": "Backup", "icon": "google" }
+      ],
+      "stats": [
+        { "value": 25000, "suffix": "+", "label": "Cloud Users", "icon": "users" },
+        { "value": 18, "suffix": "+", "label": "Years Experience", "icon": "award" },
+        { "value": 100, "suffix": "+", "label": "Partners", "icon": "handshake" },
+        {
+          "value": 99.9,
+          "suffix": "%",
+          "label": "Availability",
+          "icon": "check",
+          "isDecimal": true,
+          "decimals": 1
+        },
+        { "value": 10, "suffix": "+", "label": "Countries", "icon": "globe" }
+      ],
+      "hostedIn": "Hosted in India",
+      "partners": [
+        { "label": "Hosted On", "name": "AWS" },
+        { "label": "Powered by", "name": "CloudOrc" }
+      ]
+    },
+    "saudiArabia": {
+      "locale": "en",
+      "dir": "ltr",
+      "badge": "ENTERPRISE-GRADE TALLY CLOUD",
+      "heading": {
+        "line1": "Saudi Arabia's Most Secure",
+        "line2": "Tally Cloud Platform"
+      },
+      "description": "Enterprise-grade Tally Cloud with advanced security, automated backup, disaster recovery and expert support.",
+      "featureIcons": [
+        { "label": "Run Tally Anywhere", "icon": "globe" },
+        { "label": "Securely", "icon": "shield" },
+        { "label": "Reliably", "icon": "shieldCheck" },
+        { "label": "Effortlessly", "icon": "rocket" }
+      ],
+      "cta": {
+        "primary": { "label": "Start 7-Day Free Trial", "href": "#contact" },
+        "secondary": { "label": "View Pricing", "href": "#pricing" }
+      },
+      "visualMode": "composite",
+      "heroBgImage": "",
+      "heroAbsoluteImage": "",
+      "heroCompositeImage": "/images/hero%20img.png",
+      "sectionImage": "/images/hero%20img.png",
+      "floatingCards": [
+        { "highlight": "HA-Cloud", "label": "Infrastructure", "icon": "cloud" },
+        { "highlight": "Tally Optimize", "label": "Performance", "icon": "tally" },
+        { "highlight": "2FA Security", "label": "Secure Access", "icon": "userShield" },
+        { "highlight": "Automatic Google", "label": "Backup", "icon": "google" }
+      ],
+      "stats": [
+        { "value": 25000, "suffix": "+", "label": "Cloud Users", "icon": "users" },
+        { "value": 18, "suffix": "+", "label": "Years Experience", "icon": "award" },
+        { "value": 100, "suffix": "+", "label": "Partners", "icon": "handshake" },
+        {
+          "value": 99.9,
+          "suffix": "%",
+          "label": "Availability",
+          "icon": "check",
+          "isDecimal": true,
+          "decimals": 1
+        },
+        { "value": 10, "suffix": "+", "label": "Countries", "icon": "globe" }
+      ],
+      "hostedIn": "Hosted in Saudi Arabia",
+      "partners": [
+        { "label": "Hosted On", "name": "AWS" },
+        { "label": "Powered by", "name": "CloudOrc" }
+      ]
+    }
+  }
+}

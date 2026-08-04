@@ -11,7 +11,7 @@ export function CTABanner() {
     <section className="pt-4 pb-12 lg:pt-6 lg:pb-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <AnimatedSection>
-          <div className="relative bg-gradient-to-r from-navy via-[#2a1f5c] to-primary rounded-3xl px-8 py-8 lg:px-16 lg:py-10 text-center overflow-hidden">
+          <div className="theme-dark-gradient relative rounded-3xl px-8 py-8 lg:px-16 lg:py-10 text-center overflow-hidden">
             <div
               className="absolute inset-0 pointer-events-none opacity-50"
               style={{
