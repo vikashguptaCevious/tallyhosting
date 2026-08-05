@@ -2,7 +2,7 @@ import { defineConfig, loadEnv, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import type { Connect } from 'vite'
-import { createBitrixLeadHandler } from './server/bitrix-lead.ts'
+import { createBitrixLeadHandler } from './server/bitrix-lead.mjs'
 
 function bitrixLeadApi(env: Record<string, string>): Plugin {
   const handler = createBitrixLeadHandler(env)

@@ -1,31 +1,13 @@
-import type { IncomingMessage, ServerResponse } from 'node:http'
-
 const LEAD_SOURCE_TAG = 'Lead from TallyHosting'
 
-type ContactLeadPayload = {
-  formType: 'contact'
-  name: string
-  email: string
-  phone?: string
-  message?: string
-}
+/**
+ * @typedef {{ formType: 'contact', name: string, email: string, phone?: string, message?: string }} ContactLeadPayload
+ * @typedef {{ formType: 'partner', firstName: string, lastName: string, companyName: string, companyWebsite?: string, workEmail: string, mobile: string, country: string, partnershipModels: string[], interest?: string }} PartnerLeadPayload
+ * @typedef {ContactLeadPayload | PartnerLeadPayload} LeadPayload
+ */
 
-type PartnerLeadPayload = {
-  formType: 'partner'
-  firstName: string
-  lastName: string
-  companyName: string
-  companyWebsite?: string
-  workEmail: string
-  mobile: string
-  country: string
-  partnershipModels: string[]
-  interest?: string
-}
-
-type LeadPayload = ContactLeadPayload | PartnerLeadPayload
-
-function readBody(req: IncomingMessage): Promise<string> {
+/** @param {import('node:http').IncomingMessage} req */
+function readBody(req) {
   return new Promise((resolve, reject) => {
     let body = ''
     req.on('data', (chunk) => {
@@ -36,7 +18,8 @@ function readBody(req: IncomingMessage): Promise<string> {
   })
 }
 
-function splitName(fullName: string) {
+/** @param {string} fullName */
+function splitName(fullName) {
   const parts = fullName.trim().split(/\s+/)
   return {
     firstName: parts[0] || fullName,
@@ -44,7 +27,11 @@ function splitName(fullName: string) {
   }
 }
 
-function buildBitrixFields(payload: LeadPayload, assignedById: number) {
+/**
+ * @param {LeadPayload} payload
+ * @param {number} assignedById
+ */
+function buildBitrixFields(payload, assignedById) {
   if (payload.formType === 'contact') {
     const { firstName, lastName } = splitName(payload.name)
 
@@ -94,11 +81,34 @@ function buildBitrixFields(payload: LeadPayload, assignedById: number) {
   }
 }
 
-export function createBitrixLeadHandler(env: Record<string, string>) {
+/** @param {Record<string, string | undefined>} env */
+export function createBitrixLeadHandler(env) {
   const webhookUrl = env.BITRIX_WEBHOOK_URL?.replace(/\/$/, '')
   const assignedById = Number(env.BITRIX_ASSIGNED_BY_ID) || 3940
+  const allowedOrigins = (env.LEAD_ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean)
 
-  return async (req: IncomingMessage, res: ServerResponse) => {
+  /**
+   * @param {import('node:http').IncomingMessage} req
+   * @param {import('node:http').ServerResponse} res
+   */
+  return async (req, res) => {
+    const origin = req.headers.origin
+    if (origin && (allowedOrigins.includes('*') || allowedOrigins.includes(origin))) {
+      res.setHeader('Access-Control-Allow-Origin', origin)
+      res.setHeader('Vary', 'Origin')
+      res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+      res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+    }
+
+    if (req.method === 'OPTIONS') {
+      res.statusCode = 204
+      res.end()
+      return
+    }
+
     if (req.method !== 'POST') {
       res.statusCode = 405
       res.setHeader('Content-Type', 'application/json')
@@ -115,7 +125,7 @@ export function createBitrixLeadHandler(env: Record<string, string>) {
 
     try {
       const rawBody = await readBody(req)
-      const payload = JSON.parse(rawBody) as LeadPayload
+      const payload = /** @type {LeadPayload} */ (JSON.parse(rawBody))
 
       console.log(`${LEAD_SOURCE_TAG} — creating Bitrix lead:`, payload)
 
@@ -127,11 +137,7 @@ export function createBitrixLeadHandler(env: Record<string, string>) {
         body: JSON.stringify({ fields }),
       })
 
-      const bitrixData = (await bitrixResponse.json()) as {
-        result?: number
-        error?: string
-        error_description?: string
-      }
+      const bitrixData = await bitrixResponse.json()
 
       console.log(`${LEAD_SOURCE_TAG} — Bitrix API result:`, bitrixData)
 
@@ -142,7 +148,7 @@ export function createBitrixLeadHandler(env: Record<string, string>) {
           JSON.stringify({
             success: false,
             error: bitrixData.error_description || bitrixData.error || 'Bitrix API request failed',
-          })
+          }),
         )
         return
       }
@@ -158,7 +164,7 @@ export function createBitrixLeadHandler(env: Record<string, string>) {
         JSON.stringify({
           success: false,
           error: error instanceof Error ? error.message : 'Unexpected server error',
-        })
+        }),
       )
     }
   }

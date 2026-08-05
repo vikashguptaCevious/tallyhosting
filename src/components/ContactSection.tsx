@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { contactSection } from '../data/content'
 import { submitBitrixLead } from '../lib/bitrix'
+import { showToast } from '../lib/toast'
 import { AnimatedSection } from './AnimatedSection'
 
 export function ContactSection() {
@@ -10,7 +11,8 @@ export function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const formData = new FormData(e.currentTarget)
+    const form = e.currentTarget
+    const formData = new FormData(form)
 
     const payload = {
       formType: 'contact' as const,
@@ -24,12 +26,16 @@ export function ContactSection() {
 
     try {
       await submitBitrixLead(payload)
-      e.currentTarget.reset()
+      form.reset()
       setSubmitted(true)
+      showToast(contactSection.successMessage, 'success')
       setTimeout(() => setSubmitted(false), 4000)
     } catch (error) {
       console.error('Contact form submission failed:', error)
-      alert('Something went wrong. Please try again.')
+      showToast(
+        error instanceof Error ? error.message : 'Something went wrong. Please try again.',
+        'error',
+      )
     } finally {
       setSubmitting(false)
     }

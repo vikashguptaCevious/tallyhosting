@@ -12,6 +12,7 @@
     "build:uat": "tsc -b && vite build --mode uat",
     "preview": "vite preview",
     "preview:uat": "vite preview --mode uat",
+    "start": "node server/index.mjs",
     "lint": "oxlint"
   },
   "dependencies": {
