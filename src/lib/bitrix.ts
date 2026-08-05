@@ -112,16 +112,14 @@ export async function submitBitrixLead(payload: LeadPayload): Promise<BitrixLead
   const rawBody = await response.text()
   let bitrix: {
     result?: number
+    leadId?: number
+    success?: boolean
     error?: string
     error_description?: string
   } | null = null
 
   try {
-    bitrix = JSON.parse(rawBody) as {
-      result?: number
-      error?: string
-      error_description?: string
-    }
+    bitrix = JSON.parse(rawBody)
   } catch {
     bitrix = null
   }
@@ -130,13 +128,19 @@ export async function submitBitrixLead(payload: LeadPayload): Promise<BitrixLead
 
   if (!bitrix) {
     throw new Error(
-      `Lead endpoint returned HTTP ${response.status}. Check nginx /api/bitrix/lead → Bitrix proxy.`,
+      `Lead endpoint returned HTTP ${response.status} (not JSON). Check nginx /api/bitrix/lead → Bitrix proxy.`,
     )
   }
 
-  if (!response.ok || bitrix.error) {
-    throw new Error(bitrix.error_description || bitrix.error || 'Failed to create lead in Bitrix24')
+  // Bitrix replies { result: <leadId> }; the older Node proxy replied { success, leadId }.
+  const leadId = bitrix.result ?? bitrix.leadId
+  if (response.ok && !bitrix.error && (leadId || bitrix.success)) {
+    return { success: true, leadId }
   }
 
-  return { success: true, leadId: bitrix.result }
+  throw new Error(
+    bitrix.error_description ||
+      bitrix.error ||
+      `Failed to create lead in Bitrix24 (HTTP ${response.status}): ${rawBody.slice(0, 200)}`,
+  )
 }
