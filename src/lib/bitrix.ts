@@ -1,11 +1,9 @@
 import { API_URL } from '../config/env'
 
 export const LEAD_SOURCE = 'Lead from TallyHosting'
+const ASSIGNED_BY_ID = 3940
 
 function bitrixLeadEndpoint(): string {
-  const explicitUrl = (import.meta.env.VITE_BITRIX_LEAD_URL ?? '').trim().replace(/\/+$/, '')
-  if (explicitUrl) return explicitUrl
-
   const base = API_URL.replace(/\/+$/, '')
   return base ? `${base}/api/bitrix/lead` : '/api/bitrix/lead'
 }
@@ -39,8 +37,65 @@ export type BitrixLeadResponse = {
   error?: string
 }
 
+function splitName(fullName: string) {
+  const parts = fullName.trim().split(/\s+/)
+  return {
+    firstName: parts[0] || fullName,
+    lastName: parts.slice(1).join(' '),
+  }
+}
+
+/** Build the Bitrix crm.lead.add `fields` object (nginx proxies this body as-is). */
+function buildBitrixFields(payload: LeadPayload) {
+  if (payload.formType === 'contact') {
+    const { firstName, lastName } = splitName(payload.name)
+    return {
+      TITLE: `${LEAD_SOURCE} - Contact Us`,
+      NAME: firstName,
+      LAST_NAME: lastName || undefined,
+      EMAIL: [{ VALUE: payload.email, VALUE_TYPE: 'WORK' }],
+      PHONE: payload.phone ? [{ VALUE: payload.phone, VALUE_TYPE: 'WORK' }] : undefined,
+      COMMENTS: [
+        LEAD_SOURCE,
+        '',
+        'Form: Contact Us',
+        '',
+        'Message:',
+        payload.message?.trim() || 'N/A',
+      ].join('\n'),
+      SOURCE_DESCRIPTION: LEAD_SOURCE,
+      ASSIGNED_BY_ID,
+    }
+  }
+
+  return {
+    TITLE: `${LEAD_SOURCE} - Become a Partner`,
+    NAME: payload.firstName,
+    LAST_NAME: payload.lastName,
+    COMPANY_TITLE: payload.companyName,
+    EMAIL: [{ VALUE: payload.workEmail, VALUE_TYPE: 'WORK' }],
+    PHONE: [{ VALUE: payload.mobile, VALUE_TYPE: 'WORK' }],
+    COMMENTS: [
+      LEAD_SOURCE,
+      '',
+      'Form: Become a Partner',
+      `Country: ${payload.country}`,
+      payload.companyWebsite ? `Website: ${payload.companyWebsite}` : '',
+      `Partnership Models: ${payload.partnershipModels.join(', ') || 'N/A'}`,
+      '',
+      'Interest:',
+      payload.interest?.trim() || 'N/A',
+    ]
+      .filter(Boolean)
+      .join('\n'),
+    SOURCE_DESCRIPTION: LEAD_SOURCE,
+    ASSIGNED_BY_ID,
+  }
+}
+
 export async function submitBitrixLead(payload: LeadPayload): Promise<BitrixLeadResponse> {
   const endpoint = bitrixLeadEndpoint()
+  const body = { fields: buildBitrixFields(payload) }
   console.log(`${LEAD_SOURCE} — form submission:`, payload)
 
   let response: Response
@@ -48,34 +103,40 @@ export async function submitBitrixLead(payload: LeadPayload): Promise<BitrixLead
     response = await fetch(endpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(body),
     })
   } catch {
     throw new Error('Could not reach the server. Please check your connection and try again.')
   }
 
   const rawBody = await response.text()
-  let result: BitrixLeadResponse | null = null
+  let bitrix: {
+    result?: number
+    error?: string
+    error_description?: string
+  } | null = null
+
   try {
-    result = JSON.parse(rawBody) as BitrixLeadResponse
+    bitrix = JSON.parse(rawBody) as {
+      result?: number
+      error?: string
+      error_description?: string
+    }
   } catch {
-    result = null
+    bitrix = null
   }
 
-  console.log(`${LEAD_SOURCE} — Bitrix response:`, result ?? rawBody)
+  console.log(`${LEAD_SOURCE} — Bitrix response:`, bitrix ?? rawBody)
 
-  // A non-JSON reply means the request never reached the lead handler — typically a
-  // static host answering POST /api/bitrix/lead itself (405) instead of the Node server.
-  if (!result) {
+  if (!bitrix) {
     throw new Error(
-      `Lead endpoint "${endpoint}" is not available (HTTP ${response.status}). ` +
-        'Run the Node server (npm start) behind this domain, or set VITE_BITRIX_LEAD_URL to a host that serves it.',
+      `Lead endpoint returned HTTP ${response.status}. Check nginx /api/bitrix/lead → Bitrix proxy.`,
     )
   }
 
-  if (!response.ok || !result.success) {
-    throw new Error(result.error || 'Failed to create lead in Bitrix24')
+  if (!response.ok || bitrix.error) {
+    throw new Error(bitrix.error_description || bitrix.error || 'Failed to create lead in Bitrix24')
   }
 
-  return result
+  return { success: true, leadId: bitrix.result }
 }
