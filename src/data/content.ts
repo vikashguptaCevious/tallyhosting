@@ -201,10 +201,20 @@ export const comparisonData = {
   },
 }
 
-export const pricingPlans = [
-  {
+export type PricingPlan = {
+  name: string
+  price: number
+  currency: string
+  period: string
+  subtitle: string
+  features: string[]
+  cta: string
+  popular: boolean
+}
+
+const sharedPlanCopy = {
+  normal: {
     name: 'Normal',
-    price: 499,
     period: 'Month',
     subtitle: 'Ideal for Small Businesses',
     features: [
@@ -216,9 +226,8 @@ export const pricingPlans = [
     cta: 'Choose Normal',
     popular: false,
   },
-  {
+  plus: {
     name: 'Plus',
-    price: 599,
     period: 'Month',
     subtitle: 'Ideal for Growing Businesses',
     features: [
@@ -226,14 +235,12 @@ export const pricingPlans = [
       'Google Backup',
       'Encrypted Backup',
       'Monthly Image Snapshot',
-      'Email 2FA',
     ],
     cta: 'Choose Plus',
     popular: true,
   },
-  {
+  secure: {
     name: 'Secure',
-    price: 699,
     period: 'Month',
     subtitle: 'Ideal for CA Firms & Enterprises',
     features: [
@@ -247,14 +254,32 @@ export const pricingPlans = [
     cta: 'Choose Secure',
     popular: false,
   },
+}
+
+/** India pricing (INR) */
+export const pricingPlansIndia: PricingPlan[] = [
+  { ...sharedPlanCopy.normal, price: 499, currency: '₹' },
+  { ...sharedPlanCopy.plus, price: 599, currency: '₹' },
+  { ...sharedPlanCopy.secure, price: 699, currency: '₹' },
 ]
+
+/** Saudi Arabia pricing (EUR) */
+export const pricingPlansSaudi: PricingPlan[] = [
+  { ...sharedPlanCopy.normal, price: 399, currency: '€' },
+  { ...sharedPlanCopy.plus, price: 499, currency: '€' },
+  { ...sharedPlanCopy.secure, price: 599, currency: '€' },
+]
+
+/** @deprecated Prefer country-specific lists via PricingSection */
+export const pricingPlans = pricingPlansIndia
 
 export const launchOffer = {
   badge: 'LAUNCH OFFER',
   title: 'First 12 Months',
   subtitle: 'FREE Included',
-  items: ['Email 2FA', 'Google Backup', 'Migration Assistance', 'Security Setup'],
+  items: ['Google Backup', 'Migration Assistance', 'Security Setup'],
   valueNote: 'Value Worth ₹2,000+/Year',
+  valueNoteSaudi: 'Value Worth €50+/Year',
 }
 
 export const ctaBanner = {

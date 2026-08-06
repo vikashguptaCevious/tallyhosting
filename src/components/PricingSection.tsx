@@ -1,11 +1,17 @@
 import { Check, Gift } from 'lucide-react'
-import { pricingPlans, launchOffer } from '../data/content'
+import {
+  launchOffer,
+  pricingPlansIndia,
+  pricingPlansSaudi,
+} from '../data/content'
 import { useCountry } from '../context/CountryContext'
 import { AnimatedSection } from './AnimatedSection'
 
 export function PricingSection() {
   const { countryId } = useCountry()
   const isSaudi = countryId === 'saudi-arabia'
+  const pricingPlans = isSaudi ? pricingPlansSaudi : pricingPlansIndia
+  const valueNote = isSaudi ? launchOffer.valueNoteSaudi : launchOffer.valueNote
 
   return (
     <section id="pricing" className="pt-16 pb-10 lg:pt-20 lg:pb-12 bg-gray-100">
@@ -42,7 +48,10 @@ export function PricingSection() {
                   <h3 className="text-lg font-bold text-navy">{plan.name}</h3>
                   <p className="text-xs text-gray-500 mt-1">{plan.subtitle}</p>
                   <div className="mt-3 mb-6">
-                    <span className="text-3xl font-extrabold text-navy">₹{plan.price}</span>
+                    <span className="text-3xl font-extrabold text-navy">
+                      {plan.currency}
+                      {plan.price}
+                    </span>
                     <span className="text-sm text-gray-500">/{plan.period}</span>
                   </div>
 
@@ -103,7 +112,7 @@ export function PricingSection() {
                 ))}
               </ul>
 
-              <p className="mt-4 text-sm font-semibold text-amber-200">{launchOffer.valueNote}</p>
+              <p className="mt-4 text-sm font-semibold text-amber-200">{valueNote}</p>
 
               <div className="mt-4 flex justify-center">
                 <div className="w-20 h-20 rounded-2xl bg-white/10 flex items-center justify-center">

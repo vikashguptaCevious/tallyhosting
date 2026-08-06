@@ -38,7 +38,6 @@ export function Navbar() {
   const [partnerOpen, setPartnerOpen] = useState(false)
   const [mobilePartnerOpen, setMobilePartnerOpen] = useState(false)
   const [countryOpen, setCountryOpen] = useState(false)
-  const [mobileCountryOpen, setMobileCountryOpen] = useState(false)
   const [partnerModalOpen, setPartnerModalOpen] = useState(false)
   const [demoModalOpen, setDemoModalOpen] = useState(false)
   const partnerRef = useRef<HTMLDivElement>(null)
@@ -57,7 +56,6 @@ export function Navbar() {
   const selectCountry = (id: CountryId) => {
     setCountryId(id)
     setCountryOpen(false)
-    setMobileCountryOpen(false)
     setMobileOpen(false)
   }
 
@@ -214,66 +212,6 @@ export function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center gap-3 flex-shrink-0 relative z-10">
-            <div ref={countryRef} className="relative">
-              <button
-                type="button"
-                onClick={() => setCountryOpen((open) => !open)}
-                className={`inline-flex items-center gap-1.5 px-3 py-2.5 bg-white border text-navy text-sm font-semibold rounded-lg transition-colors ${
-                  isSaudi
-                    ? 'border-[#d7e8dc] hover:border-[#087a3c]/40 hover:bg-[#e8f5ec]'
-                    : 'border-gray-200 hover:border-primary/30 hover:bg-primary/5'
-                }`}
-                aria-expanded={countryOpen}
-                aria-haspopup="listbox"
-                aria-label="Select country"
-              >
-                <CountryFlag flagImg={selectedOption.flagImg} label={selectedOption.label} />
-                <span className="max-w-[7.5rem] truncate">{selectedOption.label}</span>
-                <ChevronDown
-                  className={`w-3.5 h-3.5 opacity-50 transition-transform ${countryOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-
-              <AnimatePresence>
-                {countryOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 8 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute top-full right-0 pt-2 w-48 z-20"
-                  >
-                    <div
-                      role="listbox"
-                      className="bg-white rounded-xl border border-gray-100 shadow-lg shadow-primary/10 py-2 overflow-hidden"
-                    >
-                      {options.map((option) => (
-                        <button
-                          key={option.id}
-                          type="button"
-                          role="option"
-                          aria-selected={option.id === selectedOption.id}
-                          onClick={() => selectCountry(option.id as CountryId)}
-                          className={`flex w-full items-center gap-2 px-4 py-2.5 text-sm transition-colors ${
-                            option.id === selectedOption.id
-                              ? isSaudi
-                                ? 'bg-[#e8f5ec] text-[#087a3c] font-semibold'
-                                : 'bg-primary/5 text-primary font-semibold'
-                              : isSaudi
-                                ? 'text-gray-700 hover:bg-[#e8f5ec] hover:text-[#087a3c]'
-                                : 'text-gray-700 hover:bg-primary/5 hover:text-primary'
-                          }`}
-                        >
-                          <CountryFlag flagImg={option.flagImg} label={option.label} />
-                          {option.label}
-                        </button>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-
             <a
               href={CUSTOMER_PORTAL_URL}
               target="_blank"
@@ -297,6 +235,77 @@ export function Navbar() {
             >
               Start 7-Day Free Trial
             </button>
+
+            <div ref={countryRef} className="relative">
+              <button
+                type="button"
+                onClick={() => setCountryOpen((open) => !open)}
+                className={`inline-flex h-[42px] items-center gap-1.5 bg-white border rounded-lg px-2.5 transition-colors ${
+                  isSaudi
+                    ? 'border-[#d7e8dc] hover:border-[#087a3c]/40 hover:bg-[#e8f5ec]'
+                    : 'border-gray-200 hover:border-primary/30 hover:bg-primary/5'
+                }`}
+                aria-expanded={countryOpen}
+                aria-haspopup="listbox"
+                aria-label={`Select country. Current country: ${selectedOption.label}`}
+                title={selectedOption.label}
+              >
+                <CountryFlag
+                  flagImg={selectedOption.flagImg}
+                  label={selectedOption.label}
+                  className="h-5 w-7"
+                />
+                <ChevronDown
+                  className={`h-3.5 w-3.5 text-gray-500 transition-transform ${
+                    countryOpen ? 'rotate-180' : ''
+                  }`}
+                  aria-hidden
+                />
+              </button>
+
+              <AnimatePresence>
+                {countryOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 8 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-full right-0 pt-2 z-20 w-48"
+                  >
+                    <div
+                      role="listbox"
+                      className="rounded-xl border border-gray-100 bg-white py-1.5 shadow-lg shadow-primary/10 overflow-hidden"
+                    >
+                      {options.map((option) => (
+                        <button
+                          key={option.id}
+                          type="button"
+                          role="option"
+                          aria-selected={option.id === selectedOption.id}
+                          onClick={() => selectCountry(option.id as CountryId)}
+                          className={`flex w-full items-center gap-2.5 px-3.5 py-2.5 text-sm transition-colors ${
+                            option.id === selectedOption.id
+                              ? isSaudi
+                                ? 'bg-[#e8f5ec] text-[#087a3c] font-semibold'
+                                : 'bg-primary/5 text-primary font-semibold'
+                              : isSaudi
+                                ? 'text-gray-700 hover:bg-[#e8f5ec] hover:text-[#087a3c]'
+                                : 'text-gray-700 hover:bg-primary/5 hover:text-primary'
+                          }`}
+                        >
+                          <CountryFlag
+                            flagImg={option.flagImg}
+                            label={option.label}
+                            className="h-4 w-5"
+                          />
+                          {option.label}
+                        </button>
+                      ))}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
 
           <button
@@ -394,47 +403,6 @@ export function Navbar() {
                   )}
                 </AnimatePresence>
 
-                <button
-                  type="button"
-                  onClick={() => setMobileCountryOpen(!mobileCountryOpen)}
-                  className="w-full flex items-center justify-between px-4 py-3 text-sm font-medium text-gray-700 hover:bg-primary/5 hover:text-primary"
-                >
-                  <span className="inline-flex items-center gap-2">
-                    <CountryFlag flagImg={selectedOption.flagImg} label={selectedOption.label} />
-                    Country: {selectedOption.label}
-                  </span>
-                  <ChevronDown
-                    className={`w-4 h-4 opacity-50 transition-transform ${mobileCountryOpen ? 'rotate-180' : ''}`}
-                  />
-                </button>
-
-                <AnimatePresence>
-                  {mobileCountryOpen && (
-                    <motion.div
-                      initial={{ opacity: 0, height: 0 }}
-                      animate={{ opacity: 1, height: 'auto' }}
-                      exit={{ opacity: 0, height: 0 }}
-                      className="overflow-hidden bg-gray-50/80"
-                    >
-                      {options.map((option) => (
-                        <button
-                          key={option.id}
-                          type="button"
-                          onClick={() => selectCountry(option.id as CountryId)}
-                          className={`flex w-full items-center gap-2 pl-8 pr-4 py-2.5 text-sm ${
-                            option.id === selectedOption.id
-                              ? 'text-primary font-semibold'
-                              : 'text-gray-600 hover:text-primary'
-                          }`}
-                        >
-                          <CountryFlag flagImg={option.flagImg} label={option.label} />
-                          {option.label}
-                        </button>
-                      ))}
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
                 <div className="px-4 pt-3 space-y-2">
                   <a
                     href={CUSTOMER_PORTAL_URL}
@@ -459,6 +427,30 @@ export function Navbar() {
                   >
                     Start 7-Day Free Trial
                   </button>
+
+                  <div className="space-y-1.5 pt-1">
+                    {options.map((option) => (
+                      <button
+                        key={option.id}
+                        type="button"
+                        onClick={() => selectCountry(option.id as CountryId)}
+                        className={`flex w-full items-center gap-2.5 rounded-lg border px-3.5 py-2.5 text-sm transition-colors ${
+                          option.id === selectedOption.id
+                            ? isSaudi
+                              ? 'border-[#087a3c]/40 bg-[#e8f5ec] text-[#087a3c] font-semibold'
+                              : 'border-primary/40 bg-primary/5 text-primary font-semibold'
+                            : 'border-gray-200 bg-white text-gray-700 hover:border-primary/30'
+                        }`}
+                      >
+                        <CountryFlag
+                          flagImg={option.flagImg}
+                          label={option.label}
+                          className="h-4 w-5"
+                        />
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               </div>
             </motion.div>
