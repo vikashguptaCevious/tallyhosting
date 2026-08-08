@@ -265,9 +265,9 @@ export const pricingPlansIndia: PricingPlan[] = [
 
 /** Saudi Arabia pricing (EUR) */
 export const pricingPlansSaudi: PricingPlan[] = [
-  { ...sharedPlanCopy.normal, price: 399, currency: '€' },
-  { ...sharedPlanCopy.plus, price: 499, currency: '€' },
-  { ...sharedPlanCopy.secure, price: 599, currency: '€' },
+  { ...sharedPlanCopy.normal, price: 399, currency: 'AED ' },
+  { ...sharedPlanCopy.plus, price: 499, currency: 'AED ' },
+  { ...sharedPlanCopy.secure, price: 599, currency: 'AED ' },
 ]
 
 /** @deprecated Prefer country-specific lists via PricingSection */
@@ -279,7 +279,7 @@ export const launchOffer = {
   subtitle: 'FREE Included',
   items: ['Google Backup', 'Migration Assistance', 'Security Setup'],
   valueNote: 'Value Worth ₹2,000+/Year',
-  valueNoteSaudi: 'Value Worth €50+/Year',
+  valueNoteSaudi: 'Value Worth AED 50+/Year',
 }
 
 export const ctaBanner = {
