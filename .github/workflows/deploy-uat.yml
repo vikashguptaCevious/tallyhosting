@@ -10,6 +10,11 @@ concurrency:
   group: deploy-uat
   cancel-in-progress: true
 
+env:
+  UAT_SSH_HOST: 163.223.144.28
+  UAT_SSH_USER: ubuntu
+  UAT_SSH_PORT: "22"
+
 jobs:
   deploy:
     name: Build & deploy to uat.tallyhosting.com
@@ -46,6 +51,6 @@ jobs:
       - name: Deploy to server (/var/www/tallyhosting)
         run: |
           rsync -avzr --delete \
-            -e "ssh -o StrictHostKeyChecking=accept-new -o ConnectTimeout=30" \
+            -e "ssh -p ${{ env.UAT_SSH_PORT }} -o StrictHostKeyChecking=accept-new -o ConnectTimeout=30" \
             dist/ \
-            "${{ secrets.UAT_SSH_USER }}@${{ secrets.UAT_SSH_HOST }}:/var/www/tallyhosting/"
+            "${{ env.UAT_SSH_USER }}@${{ env.UAT_SSH_HOST }}:/var/www/tallyhosting/"
