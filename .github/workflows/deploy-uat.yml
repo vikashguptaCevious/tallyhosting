@@ -35,9 +35,12 @@ jobs:
         run: npm run build:uat
 
       - name: Setup SSH key
-        uses: webfactory/ssh-agent@v0.9.0
-        with:
-          ssh-private-key: ${{ secrets.UAT_SSH_PRIVATE_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.UAT_SSH_PRIVATE_KEY }}" | base64 -d > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/deploy_key
 
       - name: Add server to known hosts
         run: ssh-keyscan -H "${{ secrets.UAT_SSH_HOST }}" >> ~/.ssh/known_hosts
