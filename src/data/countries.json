@@ -68,7 +68,6 @@
         },
         { "value": 10, "suffix": "+", "label": "Countries", "icon": "globe" }
       ],
-      "hostedIn": "Hosted in India",
       "partners": [
         { "label": "Hosted On", "name": "AWS" },
         { "label": "Powered by", "name": "CloudOrc" }
@@ -118,7 +117,6 @@
         },
         { "value": 10, "suffix": "+", "label": "Countries", "icon": "globe" }
       ],
-      "hostedIn": "Hosted in Saudi Arabia",
       "partners": [
         { "label": "Hosted On", "name": "AWS" },
         { "label": "Powered by", "name": "CloudOrc" }

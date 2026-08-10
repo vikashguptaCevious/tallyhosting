@@ -145,17 +145,6 @@ export function HeroStatsBar() {
           </div>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-1.5 lg:gap-2 px-3 lg:px-4 py-3 lg:py-0 border-t lg:border-t-0 lg:border-l border-gray-100 flex-shrink-0">
-            <div className="flex items-center gap-1.5 px-1.5 lg:px-2 py-1.5">
-              <MapPin
-                className={`w-3.5 h-3.5 flex-shrink-0 ${
-                  isSaudi ? 'text-[#087a3c]' : 'text-primary'
-                }`}
-                strokeWidth={2}
-              />
-              <span className="text-[11px] lg:text-xs text-navy font-bold whitespace-nowrap">
-                {content.hostedIn}
-              </span>
-            </div>
             {content.partners.map((partner) => (
               <PartnerBadge key={partner.name} {...partner} />
             ))}
