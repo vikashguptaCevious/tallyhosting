@@ -10,15 +10,10 @@ concurrency:
   group: deploy-uat
   cancel-in-progress: true
 
-env:
-  UAT_SSH_HOST: 163.223.144.28
-  UAT_SSH_USER: ubuntu
-  UAT_SSH_PORT: "22"
-
 jobs:
   deploy:
     name: Build & deploy to uat.tallyhosting.com
-    runs-on: ubuntu-latest
+    runs-on: [self-hosted, linux, uat]
 
     steps:
       - name: Checkout code
@@ -39,18 +34,6 @@ jobs:
       - name: Build for UAT
         run: npm run build:uat
 
-      - name: Setup SSH key
+      - name: Deploy to /var/www/tallyhosting
         run: |
-          install -m 700 -d ~/.ssh
-          echo "${{ secrets.UAT_SSH_PRIVATE_KEY }}" | tr -d ' \t\r\n' | base64 --ignore-garbage -d > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/deploy_key
-
-      - name: Deploy to server (/var/www/tallyhosting)
-        run: |
-          rsync -avzr --delete \
-            -e "ssh -p ${{ env.UAT_SSH_PORT }} -o StrictHostKeyChecking=accept-new -o ConnectTimeout=30" \
-            dist/ \
-            "${{ env.UAT_SSH_USER }}@${{ env.UAT_SSH_HOST }}:/var/www/tallyhosting/"
+          rsync -avzr --delete dist/ /var/www/tallyhosting/
