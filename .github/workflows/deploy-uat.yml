@@ -11,6 +11,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  # UAT server public IP: 163.223.144.288
   UAT_SSH_HOST: 163.223.144.288
   UAT_SSH_USER: ubuntu
   UAT_SSH_PORT: "22"
