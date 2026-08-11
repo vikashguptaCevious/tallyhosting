@@ -11,11 +11,14 @@ concurrency:
   cancel-in-progress: true
 
 env:
+  UAT_SSH_HOST: 163.223.144.28
+  UAT_SSH_USER: ubuntu
+  UAT_SSH_PORT: "22"
   UAT_DEPLOY_PATH: /var/www/tallyhosting
 
 jobs:
-  build:
-    name: Build UAT
+  deploy:
+    name: Build & deploy to uat.tallyhosting.com
     runs-on: ubuntu-latest
 
     steps:
@@ -37,24 +40,18 @@ jobs:
       - name: Build for UAT
         run: npm run build:uat
 
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: uat-dist
-          path: dist/
-          retention-days: 1
+      - name: Setup SSH key
+        run: |
+          install -m 700 -d ~/.ssh
+          echo "${{ secrets.UAT_SSH_PRIVATE_KEY }}" | tr -d ' \t\r\n' | base64 --ignore-garbage -d > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/deploy_key
 
-  deploy:
-    name: Deploy to uat.tallyhosting.com
-    needs: build
-    runs-on: [self-hosted, linux, uat]
-
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: uat-dist
-          path: dist/
-
-      - name: Deploy to server folder
-        run: rsync -avzr --delete dist/ "${{ env.UAT_DEPLOY_PATH }}/"
+      - name: Deploy to server
+        run: |
+          rsync -avzr --delete \
+            -e "ssh -p ${{ env.UAT_SSH_PORT }} -o StrictHostKeyChecking=accept-new -o ConnectTimeout=30" \
+            dist/ \
+            "${{ env.UAT_SSH_USER }}@${{ env.UAT_SSH_HOST }}:${{ env.UAT_DEPLOY_PATH }}/"
