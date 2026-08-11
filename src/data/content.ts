@@ -437,10 +437,17 @@ export const footerData = {
   description:
     'Enterprise-grade Tally cloud hosting with secure remote access, automated backups, and 24/7 expert support.',
   social: [
-    { name: 'Facebook', href: '#', icon: 'facebook' },
-    { name: 'LinkedIn', href: '#', icon: 'linkedin' },
-    { name: 'YouTube', href: '#', icon: 'youtube' },
-    { name: 'Twitter', href: '#', icon: 'twitter' },
+    { name: 'Instagram', href: 'https://www.instagram.com/tallyhosting', icon: 'instagram' },
+    {
+      name: 'Facebook',
+      href: 'https://www.facebook.com/profile.php?id=61590513163769#',
+      icon: 'facebook',
+    },
+    {
+      name: 'LinkedIn',
+      href: 'https://www.linkedin.com/company/tallyhosting',
+      icon: 'linkedin',
+    },
   ],
   columns: [
     {
