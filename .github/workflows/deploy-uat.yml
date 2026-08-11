@@ -14,7 +14,7 @@ concurrency:
 env:
   UAT_SSH_HOST: 163.223.144.228
   UAT_SSH_USER: ubuntu
-  UAT_SSH_PORT: "22"
+  UAT_SSH_PORT: "2222"
   UAT_DEPLOY_PATH: /var/www/tallyhosting
 
 jobs:
@@ -24,47 +24,30 @@ jobs:
 
     steps:
 
-      # --------------------------------------------------
       # 1. Checkout
-      # --------------------------------------------------
       - name: Checkout code
         uses: actions/checkout@v4
 
-
-      # --------------------------------------------------
       # 2. Node.js
-      # --------------------------------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: npm
 
-
-      # --------------------------------------------------
       # 3. Install dependencies
-      # --------------------------------------------------
       - name: Install dependencies
         run: npm ci
 
-
-      # --------------------------------------------------
       # 4. Lint
-      # --------------------------------------------------
       - name: Lint
         run: npm run lint
 
-
-      # --------------------------------------------------
       # 5. Build UAT
-      # --------------------------------------------------
       - name: Build for UAT
         run: npm run build:uat
 
-
-      # --------------------------------------------------
       # 6. Setup SSH key
-      # --------------------------------------------------
       - name: Setup SSH key
         run: |
           install -m 700 -d ~/.ssh
@@ -80,11 +63,8 @@ jobs:
 
           echo "SSH private key loaded successfully."
 
-
-      # --------------------------------------------------
-      # 7. TEST NETWORK - NO SSH KEY INVOLVED
-      # --------------------------------------------------
-      - name: Test TCP 22 from GitHub Runner
+      # 7. Test TCP 2222 from GitHub Runner
+      - name: Test TCP 2222 from GitHub Runner
         run: |
           echo "=========================================="
           echo "Testing TCP connection"
@@ -92,24 +72,18 @@ jobs:
           echo "Port: $UAT_SSH_PORT"
           echo "=========================================="
 
-          timeout 10 bash -c \
-            "</dev/tcp/$UAT_SSH_HOST/$UAT_SSH_PORT"
-
-          if [ $? -eq 0 ]; then
+          if timeout 10 bash -c "</dev/tcp/$UAT_SSH_HOST/$UAT_SSH_PORT"; then
             echo "=========================================="
-            echo "TCP 22 IS REACHABLE FROM GITHUB RUNNER"
+            echo "TCP 2222 IS REACHABLE FROM GITHUB RUNNER"
             echo "=========================================="
           else
             echo "=========================================="
-            echo "TCP 22 IS NOT REACHABLE FROM GITHUB RUNNER"
+            echo "TCP 2222 IS NOT REACHABLE FROM GITHUB RUNNER"
             echo "=========================================="
             exit 1
           fi
 
-
-      # --------------------------------------------------
-      # 8. SSH HANDSHAKE / AUTHENTICATION
-      # --------------------------------------------------
+      # 8. Test SSH authentication
       - name: Test SSH authentication
         run: |
           ssh \
@@ -121,10 +95,7 @@ jobs:
             "$UAT_SSH_USER@$UAT_SSH_HOST" \
             "echo 'SSH authentication successful'"
 
-
-      # --------------------------------------------------
       # 9. Deploy React build
-      # --------------------------------------------------
       - name: Deploy to server
         run: |
           rsync -avzr --delete \
