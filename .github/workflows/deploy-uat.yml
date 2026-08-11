@@ -10,10 +10,13 @@ concurrency:
   group: deploy-uat
   cancel-in-progress: true
 
+env:
+  UAT_DEPLOY_PATH: /var/www/tallyhosting
+
 jobs:
-  deploy:
-    name: Build & deploy to uat.tallyhosting.com
-    runs-on: [self-hosted, linux, uat]
+  build:
+    name: Build UAT
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
@@ -34,6 +37,24 @@ jobs:
       - name: Build for UAT
         run: npm run build:uat
 
-      - name: Deploy to /var/www/tallyhosting
-        run: |
-          rsync -avzr --delete dist/ /var/www/tallyhosting/
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: uat-dist
+          path: dist/
+          retention-days: 1
+
+  deploy:
+    name: Deploy to uat.tallyhosting.com
+    needs: build
+    runs-on: [self-hosted, linux, uat]
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: uat-dist
+          path: dist/
+
+      - name: Deploy to server folder
+        run: rsync -avzr --delete dist/ "${{ env.UAT_DEPLOY_PATH }}/"
