@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - uat
+
   workflow_dispatch:
 
 concurrency:
@@ -11,7 +12,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  # UAT server public IP: 163.223.144.228 
   UAT_SSH_HOST: 163.223.144.228
   UAT_SSH_USER: ubuntu
   UAT_SSH_PORT: "22"
@@ -19,40 +19,120 @@ env:
 
 jobs:
   deploy:
-    name: Build & deploy to uat.tallyhosting.com
+    name: Build & Deploy UAT
     runs-on: ubuntu-latest
 
     steps:
+
+      # --------------------------------------------------
+      # 1. Checkout
+      # --------------------------------------------------
       - name: Checkout code
         uses: actions/checkout@v4
 
+
+      # --------------------------------------------------
+      # 2. Node.js
+      # --------------------------------------------------
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: npm
 
+
+      # --------------------------------------------------
+      # 3. Install dependencies
+      # --------------------------------------------------
       - name: Install dependencies
         run: npm ci
 
+
+      # --------------------------------------------------
+      # 4. Lint
+      # --------------------------------------------------
       - name: Lint
         run: npm run lint
 
+
+      # --------------------------------------------------
+      # 5. Build UAT
+      # --------------------------------------------------
       - name: Build for UAT
         run: npm run build:uat
 
+
+      # --------------------------------------------------
+      # 6. Setup SSH key
+      # --------------------------------------------------
       - name: Setup SSH key
         run: |
           install -m 700 -d ~/.ssh
-          echo "${{ secrets.UAT_SSH_PRIVATE_KEY }}" | tr -d ' \t\r\n' | base64 --ignore-garbage -d > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null
-          eval "$(ssh-agent -s)"
-          ssh-add ~/.ssh/deploy_key
 
+          echo "${{ secrets.UAT_SSH_PRIVATE_KEY }}" \
+            | tr -d ' \t\r\n' \
+            | base64 --ignore-garbage -d \
+            > ~/.ssh/deploy_key
+
+          chmod 600 ~/.ssh/deploy_key
+
+          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null
+
+          echo "SSH private key loaded successfully."
+
+
+      # --------------------------------------------------
+      # 7. TEST NETWORK - NO SSH KEY INVOLVED
+      # --------------------------------------------------
+      - name: Test TCP 22 from GitHub Runner
+        run: |
+          echo "=========================================="
+          echo "Testing TCP connection"
+          echo "Host: $UAT_SSH_HOST"
+          echo "Port: $UAT_SSH_PORT"
+          echo "=========================================="
+
+          timeout 10 bash -c \
+            "</dev/tcp/$UAT_SSH_HOST/$UAT_SSH_PORT"
+
+          if [ $? -eq 0 ]; then
+            echo "=========================================="
+            echo "TCP 22 IS REACHABLE FROM GITHUB RUNNER"
+            echo "=========================================="
+          else
+            echo "=========================================="
+            echo "TCP 22 IS NOT REACHABLE FROM GITHUB RUNNER"
+            echo "=========================================="
+            exit 1
+          fi
+
+
+      # --------------------------------------------------
+      # 8. SSH HANDSHAKE / AUTHENTICATION
+      # --------------------------------------------------
+      - name: Test SSH authentication
+        run: |
+          ssh \
+            -i ~/.ssh/deploy_key \
+            -p "$UAT_SSH_PORT" \
+            -o BatchMode=yes \
+            -o StrictHostKeyChecking=accept-new \
+            -o ConnectTimeout=15 \
+            "$UAT_SSH_USER@$UAT_SSH_HOST" \
+            "echo 'SSH authentication successful'"
+
+
+      # --------------------------------------------------
+      # 9. Deploy React build
+      # --------------------------------------------------
       - name: Deploy to server
         run: |
           rsync -avzr --delete \
-            -e "ssh -p ${{ env.UAT_SSH_PORT }} -o StrictHostKeyChecking=accept-new -o ConnectTimeout=30" \
+            -e "ssh \
+              -i ~/.ssh/deploy_key \
+              -p $UAT_SSH_PORT \
+              -o BatchMode=yes \
+              -o StrictHostKeyChecking=accept-new \
+              -o ConnectTimeout=30" \
             dist/ \
-            "${{ env.UAT_SSH_USER }}@${{ env.UAT_SSH_HOST }}:${{ env.UAT_DEPLOY_PATH }}/"
+            "$UAT_SSH_USER@$UAT_SSH_HOST:$UAT_DEPLOY_PATH/"
