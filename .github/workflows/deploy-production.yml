@@ -1,0 +1,109 @@
+name: Deploy Production
+
+on:
+  push:
+    branches:
+      - main
+
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true
+
+env:
+  PRODUCTION_SSH_HOST: 163.223.145.89
+  PRODUCTION_SSH_USER: ubuntu
+  PRODUCTION_SSH_PORT: "2222"
+  PRODUCTION_DEPLOY_PATH: /var/www/projects/tallyhosting
+
+jobs:
+  deploy:
+    name: Build & Deploy Production
+    runs-on: ubuntu-latest
+
+    steps:
+
+      # 1. Checkout
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      # 3. Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # 4. Lint
+      - name: Lint
+        run: npm run lint
+
+      # 5. Build Production
+      - name: Build for Production
+        run: npm run build:production
+
+      # 6. Setup SSH key
+      - name: Setup SSH key
+        run: |
+          install -m 700 -d ~/.ssh
+
+          echo "${{ secrets.PRODUCTION_SSH_PRIVATE_KEY }}" \
+            | tr -d ' \t\r\n' \
+            | base64 --ignore-garbage -d \
+            > ~/.ssh/deploy_key
+
+          chmod 600 ~/.ssh/deploy_key
+
+          ssh-keygen -y -f ~/.ssh/deploy_key > /dev/null
+
+          echo "SSH private key loaded successfully."
+
+      # 7. Test TCP 2222 from GitHub Runner
+      - name: Test TCP 2222 from GitHub Runner
+        run: |
+          echo "=========================================="
+          echo "Testing TCP connection"
+          echo "Host: $PRODUCTION_SSH_HOST"
+          echo "Port: $PRODUCTION_SSH_PORT"
+          echo "=========================================="
+
+          if timeout 10 bash -c "</dev/tcp/$PRODUCTION_SSH_HOST/$PRODUCTION_SSH_PORT"; then
+            echo "=========================================="
+            echo "TCP 2222 IS REACHABLE FROM GITHUB RUNNER"
+            echo "=========================================="
+          else
+            echo "=========================================="
+            echo "TCP 2222 IS NOT REACHABLE FROM GITHUB RUNNER"
+            echo "=========================================="
+            exit 1
+          fi
+
+      # 8. Test SSH authentication
+      - name: Test SSH authentication
+        run: |
+          ssh \
+            -i ~/.ssh/deploy_key \
+            -p "$PRODUCTION_SSH_PORT" \
+            -o BatchMode=yes \
+            -o StrictHostKeyChecking=accept-new \
+            -o ConnectTimeout=15 \
+            "$PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST" \
+            "echo 'SSH authentication successful'"
+
+      # 9. Deploy React build
+      - name: Deploy to server
+        run: |
+          rsync -avzr --delete \
+            -e "ssh \
+              -i ~/.ssh/deploy_key \
+              -p $PRODUCTION_SSH_PORT \
+              -o BatchMode=yes \
+              -o StrictHostKeyChecking=accept-new \
+              -o ConnectTimeout=30" \
+            dist/ \
+            "$PRODUCTION_SSH_USER@$PRODUCTION_SSH_HOST:$PRODUCTION_DEPLOY_PATH/"
