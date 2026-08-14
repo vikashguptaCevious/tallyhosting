@@ -45,7 +45,7 @@ jobs:
 
       # 5. Build Production
       - name: Build for Production
-        run: npm run build:production
+        run: npm run build
 
       # 6. Setup SSH key
       - name: Setup SSH key
