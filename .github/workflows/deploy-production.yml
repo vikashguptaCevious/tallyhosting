@@ -13,7 +13,7 @@ concurrency:
 
 env:
   PRODUCTION_SSH_HOST: 163.223.145.89
-  PRODUCTION_SSH_USER: ubuntu
+  PRODUCTION_SSH_USER: root
   PRODUCTION_SSH_PORT: "2222"
   PRODUCTION_DEPLOY_PATH: /var/www/projects/tallyhosting
 
