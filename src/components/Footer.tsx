@@ -59,7 +59,7 @@ export function Footer() {
             <div className="lg:col-span-1">
               <Link to="/" className="inline-block mb-4">
                 <img
-                  src="/images/tallyhosting-logo.png"
+                  src="/images/footerimage.png"
                   alt="TallyHosting"
                   className={`h-12 sm:h-14 w-auto object-contain ${
                     isSaudi ? '[filter:hue-rotate(-125deg)_saturate(1.35)_brightness(0.95)]' : ''
