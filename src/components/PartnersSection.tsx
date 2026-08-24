@@ -74,8 +74,8 @@ const partners: Partner[] = [
     className: 'h-7 sm:h-8 lg:h-9',
   },
   {
-    name: 'TallyHosting',
-    src: '/images/tallyhosting-logo.png',
+    name: 'Tally',
+    src: '/images/tally-prime-logo.png',
     className: 'h-9 sm:h-10 lg:h-11',
   },
 ]
