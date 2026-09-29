@@ -468,6 +468,7 @@ export const footerData = {
         'About Us',
         'Careers',
         { label: 'Blog', href: '/blog' },
+        { label: 'Privacy Policy', href: '/privacy-policy' },
         { label: 'Contact', href: '/#contact' },
       ],
     },
