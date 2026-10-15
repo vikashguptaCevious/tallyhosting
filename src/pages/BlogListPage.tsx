@@ -9,6 +9,7 @@ import {
   type TallyHostingBlog,
 } from '../lib/blogsApi'
 import { useCountry } from '../context/CountryContext'
+import { BlogCoverImage } from '../components/BlogCoverImage'
 
 function BlogPostCard({
   blog,
@@ -26,25 +27,15 @@ function BlogPostCard({
     : 'bg-gradient-to-r from-[#8b5cf6] to-[#ec4899]'
 
   const imageBlock = (
-    <div className="relative min-h-[180px] overflow-hidden sm:min-h-[200px] lg:min-h-full">
-      {cover ? (
-        <img
-          src={cover}
-          alt=""
-          className="absolute inset-0 h-full w-full object-cover transition duration-500 group-hover:scale-[1.03]"
-          loading="lazy"
-        />
-      ) : (
-        <div
-          className={`absolute inset-0 flex items-center justify-center text-sm font-semibold ${
-            isSaudi
-              ? 'bg-gradient-to-br from-[#e8f5ec] to-[#bbf7d0] text-[#087a3c]'
-              : 'bg-gradient-to-br from-primary-light to-[#ddd6fe] text-primary'
-          }`}
-        >
-          TallyHosting
-        </div>
-      )}
+    <div className="relative aspect-[16/9] overflow-hidden lg:aspect-auto lg:min-h-[220px]">
+      <BlogCoverImage
+        src={cover}
+        alt={blog.title}
+        category={blog.category}
+        isSaudi={isSaudi}
+        className="h-full w-full"
+        imgClassName="transition duration-500 group-hover:scale-[1.03]"
+      />
 
       {dateLabel && (
         <div className="absolute right-2.5 top-2.5 inline-flex items-center gap-1.5 rounded-md bg-black/60 px-2 py-1 text-[10px] font-medium text-white backdrop-blur-sm sm:right-3 sm:top-3 sm:text-[11px]">
@@ -315,7 +306,7 @@ export function BlogListPage() {
                 className="animate-pulse overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
               >
                 <div className="grid grid-cols-1 lg:min-h-[220px] lg:grid-cols-[minmax(220px,34%)_1fr]">
-                  <div className="min-h-[180px] bg-gray-100" />
+                  <div className="aspect-[16/9] bg-gray-100 lg:aspect-auto lg:min-h-[220px]" />
                   <div className="space-y-3 px-5 py-5">
                     <div className="h-3 w-24 rounded bg-gray-100" />
                     <div className="h-5 w-4/5 rounded bg-gray-100" />

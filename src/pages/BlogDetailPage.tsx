@@ -9,6 +9,7 @@ import {
   type TallyHostingBlog,
 } from '../lib/blogsApi'
 import { useCountry } from '../context/CountryContext'
+import { BlogCoverImage } from '../components/BlogCoverImage'
 
 export function BlogDetailPage() {
   const { slug = '' } = useParams<{ slug: string }>()
@@ -159,14 +160,16 @@ export function BlogDetailPage() {
               )}
             </div>
 
-            {cover && (
-              <div className="mt-8 overflow-hidden rounded-2xl border border-gray-100 bg-gray-50">
-                <img src={cover} alt="" className="aspect-[16/9] w-full object-cover" />
-              </div>
-            )}
+            <BlogCoverImage
+              src={cover}
+              alt={blog.title}
+              category={blog.category}
+              isSaudi={isSaudi}
+              className="mt-8 aspect-[16/9] w-full rounded-2xl border border-gray-100 bg-gray-50"
+            />
 
             {displayTags.length > 0 && (
-              <div className={`flex flex-wrap gap-2 ${cover ? 'mt-4' : 'mt-6'}`}>
+              <div className="mt-4 flex flex-wrap gap-2">
                 {displayTags.map((tag) => (
                   <span
                     key={tag}
