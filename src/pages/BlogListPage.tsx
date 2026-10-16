@@ -27,7 +27,7 @@ function BlogPostCard({
     : 'bg-gradient-to-r from-[#8b5cf6] to-[#ec4899]'
 
   const imageBlock = (
-    <div className="relative aspect-[16/9] overflow-hidden lg:aspect-auto lg:min-h-[220px]">
+    <div className="relative aspect-[16/9] w-full overflow-hidden">
       <BlogCoverImage
         src={cover}
         alt={blog.title}
@@ -55,7 +55,7 @@ function BlogPostCard({
   )
 
   const textBlock = (
-    <div className="flex flex-col justify-center bg-white px-4 py-4 sm:px-5 sm:py-5 lg:px-6 lg:py-5">
+    <div className="flex min-w-0 flex-col justify-center bg-white px-4 py-4 sm:px-5 sm:py-5 lg:px-7 lg:py-6">
       {blog.author && (
         <p className="mb-2 flex items-center gap-1.5 text-xs text-gray-500 sm:text-sm">
           <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gray-100">
@@ -67,7 +67,7 @@ function BlogPostCard({
 
       <Link to={`/blog/${blog.slug}`} className="group/title min-w-0">
         <h2
-          className={`truncate text-base font-bold leading-snug text-navy transition sm:text-lg lg:text-xl ${
+          className={`line-clamp-2 break-words text-base font-bold leading-snug text-navy transition sm:text-lg lg:text-xl ${
             isSaudi ? 'group-hover/title:text-[#087a3c]' : 'group-hover/title:text-primary'
           }`}
           title={blog.title}
@@ -95,10 +95,10 @@ function BlogPostCard({
   return (
     <article className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-[0_12px_40px_rgba(15,23,42,0.08)] transition hover:shadow-[0_16px_48px_rgba(15,23,42,0.12)]">
       <div
-        className={`grid grid-cols-1 lg:min-h-[220px] ${
+        className={`grid grid-cols-1 lg:items-center ${
           imageOnLeft
-            ? 'lg:grid-cols-[minmax(220px,34%)_1fr]'
-            : 'lg:grid-cols-[1fr_minmax(220px,34%)] lg:[&>*:first-child]:order-2'
+            ? 'lg:grid-cols-[45%_minmax(0,1fr)]'
+            : 'lg:grid-cols-[minmax(0,1fr)_45%] lg:[&>*:first-child]:order-2'
         }`}
       >
         {imageBlock}
@@ -297,7 +297,7 @@ export function BlogListPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
+      <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8">
         {loading && (
           <div className="space-y-6">
             {Array.from({ length: 2 }).map((_, i) => (
@@ -305,8 +305,8 @@ export function BlogListPage() {
                 key={i}
                 className="animate-pulse overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm"
               >
-                <div className="grid grid-cols-1 lg:min-h-[220px] lg:grid-cols-[minmax(220px,34%)_1fr]">
-                  <div className="aspect-[16/9] bg-gray-100 lg:aspect-auto lg:min-h-[220px]" />
+                <div className="grid grid-cols-1 lg:grid-cols-[45%_minmax(0,1fr)] lg:items-center">
+                  <div className="aspect-[16/9] bg-gray-100" />
                   <div className="space-y-3 px-5 py-5">
                     <div className="h-3 w-24 rounded bg-gray-100" />
                     <div className="h-5 w-4/5 rounded bg-gray-100" />
