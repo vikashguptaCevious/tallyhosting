@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, Calendar, ChevronLeft, ChevronRight, Search, User } from 'lucide-react'
+import { Calendar, ChevronLeft, ChevronRight, Search, User } from 'lucide-react'
 import {
   BLOG_PAGE_LIMIT,
   formatBlogDate,
@@ -22,9 +22,6 @@ function BlogPostCard({
 }) {
   const cover = resolveBlogImageUrl(blog.coverImage)
   const dateLabel = formatBlogDate(blog.publishedAt)
-  const readMoreClass = isSaudi
-    ? 'bg-gradient-to-r from-[#0b8a47] to-[#22c55e]'
-    : 'bg-gradient-to-r from-[#8b5cf6] to-[#ec4899]'
 
   const imageBlock = (
     <div className="relative aspect-[16/9] w-full overflow-hidden">
@@ -44,13 +41,6 @@ function BlogPostCard({
         </div>
       )}
 
-      <Link
-        to={`/blog/${blog.slug}`}
-        className={`absolute bottom-2.5 right-2.5 inline-flex items-center gap-1 rounded-md px-3 py-1.5 text-[11px] font-semibold text-white shadow-md transition hover:brightness-110 sm:bottom-3 sm:right-3 sm:text-xs ${readMoreClass}`}
-      >
-        Read More
-        <ArrowRight className="h-3.5 w-3.5" aria-hidden />
-      </Link>
     </div>
   )
 
@@ -65,16 +55,14 @@ function BlogPostCard({
         </p>
       )}
 
-      <Link to={`/blog/${blog.slug}`} className="group/title min-w-0">
-        <h2
-          className={`line-clamp-2 break-words text-base font-bold leading-snug text-navy transition sm:text-lg lg:text-xl ${
-            isSaudi ? 'group-hover/title:text-[#087a3c]' : 'group-hover/title:text-primary'
-          }`}
-          title={blog.title}
-        >
-          {blog.title}
-        </h2>
-      </Link>
+      <h2
+        className={`line-clamp-2 break-words text-base font-bold leading-snug text-navy transition sm:text-lg lg:text-xl ${
+          isSaudi ? 'group-hover:text-[#087a3c]' : 'group-hover:text-primary'
+        }`}
+        title={blog.title}
+      >
+        {blog.title}
+      </h2>
 
       {blog.excerpt && (
         <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-gray-500 sm:text-sm">
@@ -94,7 +82,9 @@ function BlogPostCard({
 
   return (
     <article className="group overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-[0_12px_40px_rgba(15,23,42,0.08)] transition hover:shadow-[0_16px_48px_rgba(15,23,42,0.12)]">
-      <div
+      <Link
+        to={`/blog/${blog.slug}`}
+        aria-label={blog.title}
         className={`grid grid-cols-1 lg:items-center ${
           imageOnLeft
             ? 'lg:grid-cols-[45%_minmax(0,1fr)]'
@@ -103,7 +93,7 @@ function BlogPostCard({
       >
         {imageBlock}
         {textBlock}
-      </div>
+      </Link>
     </article>
   )
 }
