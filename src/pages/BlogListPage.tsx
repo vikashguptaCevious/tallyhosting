@@ -324,8 +324,7 @@ export function BlogListPage() {
           <div className="rounded-2xl border border-red-200 bg-red-50 px-6 py-10 text-center">
             <p className="text-sm font-semibold text-red-700 sm:text-base">{error}</p>
             <p className="mt-2 text-sm text-red-600/80">
-              Check that <code className="rounded bg-red-100 px-1.5 py-0.5 text-xs">VITE_CEVIOUS_API_BASE</code> is
-              set in your env file and restart Vite.
+              Please try again in a few minutes.
             </p>
           </div>
         )}
