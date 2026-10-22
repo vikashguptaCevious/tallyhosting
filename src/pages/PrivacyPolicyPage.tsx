@@ -20,6 +20,8 @@ import {
   privacySections,
   type PrivacySection,
 } from '../data/privacyPolicy'
+import { Seo } from '../components/Seo'
+import { breadcrumbSchema } from '../lib/seoSchemas'
 
 function HeroCloud({ className }: { className?: string }) {
   return (
@@ -254,6 +256,15 @@ export function PrivacyPolicyPage() {
 
   return (
     <main className="min-h-screen bg-[#f4f5f9]">
+      <Seo
+        title="Privacy Policy"
+        description="Learn how TallyHosting collects, uses, and protects your information when you use our Tally cloud hosting website and services."
+        canonicalPath="/privacy-policy"
+        jsonLd={breadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: 'Privacy Policy', path: '/privacy-policy' },
+        ])}
+      />
       {/* Hero */}
       <section className="relative overflow-hidden bg-navy pt-28 pb-16 sm:pt-32 sm:pb-20 lg:pb-24">
         <div

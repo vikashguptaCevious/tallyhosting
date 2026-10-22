@@ -10,6 +10,8 @@ import {
 } from '../lib/blogsApi'
 import { useCountry } from '../context/CountryContext'
 import { BlogCoverImage } from '../components/BlogCoverImage'
+import { absoluteUrl, Seo } from '../components/Seo'
+import { breadcrumbSchema } from '../lib/seoSchemas'
 
 function BlogPostCard({
   blog,
@@ -248,8 +250,38 @@ export function BlogListPage() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const pageTitle = debouncedQuery
+    ? `Search results for "${debouncedQuery}" - Tally Cloud Blog`
+    : page > 1
+      ? `Tally Cloud Hosting Blog - Page ${page}`
+      : 'Tally Cloud Hosting Blog - Tips, Guides & Updates'
+
   return (
     <main className="min-h-screen bg-[#f8f9fc]">
+      <Seo
+        title={pageTitle}
+        description="Read the TallyHosting blog for expert guides on Tally on Cloud, TallyPrime remote access, data security, backups and running your business accounting from anywhere."
+        canonicalPath="/blog"
+        noindex={!!debouncedQuery || page > 1}
+        jsonLd={[
+          {
+            '@context': 'https://schema.org',
+            '@type': 'Blog',
+            name: 'TallyHosting Blog',
+            url: absoluteUrl('/blog'),
+            blogPost: blogs.map((blog) => ({
+              '@type': 'BlogPosting',
+              headline: blog.title,
+              url: absoluteUrl(`/blog/${blog.slug}`),
+              ...(blog.publishedAt && { datePublished: blog.publishedAt }),
+            })),
+          },
+          breadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Blog', path: '/blog' },
+          ]),
+        ]}
+      />
       <section className="relative overflow-hidden bg-white pt-28 pb-8 sm:pt-32 sm:pb-10">
         <div
           className={`pointer-events-none absolute left-1/2 top-20 h-64 w-64 -translate-x-1/2 rounded-full blur-3xl ${

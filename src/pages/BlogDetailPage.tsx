@@ -10,6 +10,8 @@ import {
 } from '../lib/blogsApi'
 import { useCountry } from '../context/CountryContext'
 import { BlogCoverImage } from '../components/BlogCoverImage'
+import { absoluteUrl, DEFAULT_OG_IMAGE, Seo, SITE_NAME, toMetaDescription } from '../components/Seo'
+import { breadcrumbSchema } from '../lib/seoSchemas'
 
 export function BlogDetailPage() {
   const { slug = '' } = useParams<{ slug: string }>()
@@ -82,8 +84,64 @@ export function BlogDetailPage() {
     return Array.from(tagSet)
   }, [blog])
 
+  const canonicalPath = `/blog/${blog?.slug || slug}`
+  const metaDescription = toMetaDescription(blog?.excerpt || blog?.contentHtml || blog?.content)
+  // While the post loads, derive a readable title from the slug so the tab never shows a generic title.
+  const slugTitle = slug.replace(/[-_]+/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
+
   return (
     <main className="min-h-screen bg-white">
+      {blog ? (
+        <Seo
+          title={blog.title}
+          description={metaDescription || undefined}
+          canonicalPath={canonicalPath}
+          image={cover || DEFAULT_OG_IMAGE}
+          imageAlt={blog.title}
+          type="article"
+          keywords={displayTags}
+          article={{
+            publishedTime: blog.publishedAt || undefined,
+            author: blog.author || undefined,
+            section: blog.category || undefined,
+            tags: displayTags,
+          }}
+          jsonLd={[
+            {
+              '@context': 'https://schema.org',
+              '@type': 'BlogPosting',
+              headline: blog.title,
+              description: metaDescription || undefined,
+              image: [absoluteUrl(cover || DEFAULT_OG_IMAGE)],
+              datePublished: blog.publishedAt || undefined,
+              dateModified: blog.publishedAt || undefined,
+              author: blog.author
+                ? { '@type': 'Person', name: blog.author }
+                : { '@type': 'Organization', name: SITE_NAME },
+              publisher: {
+                '@type': 'Organization',
+                name: SITE_NAME,
+                logo: { '@type': 'ImageObject', url: absoluteUrl('/images/tallyhosting-logo.png') },
+              },
+              mainEntityOfPage: { '@type': 'WebPage', '@id': absoluteUrl(canonicalPath) },
+              articleSection: blog.category || undefined,
+              keywords: displayTags.length > 0 ? displayTags.join(', ') : undefined,
+              inLanguage: 'en-IN',
+            },
+            breadcrumbSchema([
+              { name: 'Home', path: '/' },
+              { name: 'Blog', path: '/blog' },
+              { name: blog.title, path: canonicalPath },
+            ]),
+          ]}
+        />
+      ) : (
+        <Seo
+          title={notFound ? 'Blog post not found' : slugTitle || 'Blog'}
+          canonicalPath={canonicalPath}
+          noindex={notFound || !!error}
+        />
+      )}
       <article className="mx-auto max-w-3xl px-4 pt-24 pb-10 sm:px-6 sm:pt-28 sm:pb-12 lg:px-8">
         <Link
           to="/blog"
