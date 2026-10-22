@@ -10,6 +10,13 @@ type BlogCoverImageProps = {
   className?: string
   /** Extra classes for the <img> (e.g. hover zoom). */
   imgClassName?: string
+  /**
+   * 'contain' fits the whole image inside the fixed-size wrapper over a blurred copy of itself.
+   * 'natural' drops the fixed size and shows the image at its own aspect ratio.
+   */
+  fit?: 'contain' | 'natural'
+  /** Load immediately (above-the-fold covers). */
+  eager?: boolean
 }
 
 function BlogCoverPlaceholder({ category, isSaudi }: { category?: string; isSaudi: boolean }) {
@@ -44,20 +51,52 @@ function CoverImg({
   category,
   isSaudi,
   imgClassName = '',
+  fit = 'contain',
+  eager = false,
 }: Omit<BlogCoverImageProps, 'className' | 'src'> & { src: string }) {
   const [imgFailed, setImgFailed] = useState(false)
 
-  if (imgFailed) return <BlogCoverPlaceholder category={category} isSaudi={isSaudi} />
+  if (imgFailed) {
+    return fit === 'natural' ? (
+      <div className="relative aspect-[16/9] w-full">
+        <BlogCoverPlaceholder category={category} isSaudi={isSaudi} />
+      </div>
+    ) : (
+      <BlogCoverPlaceholder category={category} isSaudi={isSaudi} />
+    )
+  }
+
+  const loadingProps = {
+    loading: eager ? ('eager' as const) : ('lazy' as const),
+    fetchPriority: eager ? ('high' as const) : undefined,
+    decoding: 'async' as const,
+    onError: () => setImgFailed(true),
+  }
+
+  if (fit === 'natural') {
+    return (
+      <img src={src} alt={alt} {...loadingProps} className={`block h-auto w-full ${imgClassName}`} />
+    )
+  }
 
   return (
-    <img
-      src={src}
-      alt={alt}
-      loading="lazy"
-      decoding="async"
-      onError={() => setImgFailed(true)}
-      className={`absolute inset-0 h-full w-full object-cover ${imgClassName}`}
-    />
+    <>
+      {/* Blurred copy fills the letterbox space so the full image can be shown without cropping. */}
+      <img
+        src={src}
+        alt=""
+        aria-hidden
+        loading={loadingProps.loading}
+        decoding="async"
+        className="absolute inset-0 h-full w-full scale-110 object-cover opacity-60 blur-xl"
+      />
+      <img
+        src={src}
+        alt={alt}
+        {...loadingProps}
+        className={`absolute inset-0 h-full w-full object-contain ${imgClassName}`}
+      />
+    </>
   )
 }
 
@@ -72,9 +111,11 @@ export function BlogCoverImage({
   isSaudi,
   className = 'aspect-[16/9]',
   imgClassName,
+  fit = 'contain',
+  eager = false,
 }: BlogCoverImageProps) {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden bg-gray-50 ${className}`}>
       {src ? (
         // Keyed by src so imgFailed resets whenever the cover URL changes.
         <CoverImg
@@ -84,7 +125,13 @@ export function BlogCoverImage({
           category={category}
           isSaudi={isSaudi}
           imgClassName={imgClassName}
+          fit={fit}
+          eager={eager}
         />
+      ) : fit === 'natural' ? (
+        <div className="relative aspect-[16/9] w-full">
+          <BlogCoverPlaceholder category={category} isSaudi={isSaudi} />
+        </div>
       ) : (
         <BlogCoverPlaceholder category={category} isSaudi={isSaudi} />
       )}

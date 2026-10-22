@@ -222,7 +222,9 @@ export function BlogDetailPage() {
               alt={blog.title}
               category={blog.category}
               isSaudi={isSaudi}
-              className="mt-8 aspect-[16/9] w-full rounded-2xl border border-gray-100 bg-gray-50"
+              className="mt-8 w-full rounded-2xl border border-gray-100"
+              fit="natural"
+              eager
             />
 
             {displayTags.length > 0 && (

@@ -351,8 +351,10 @@ body {
 }
 
 .blog-prose img {
+  display: block;
   max-width: 100%;
-  height: auto;
+  height: auto !important;
+  object-fit: contain;
   border-radius: 0.75rem;
   margin: 1.25em 0;
 }
