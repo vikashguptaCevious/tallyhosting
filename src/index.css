@@ -393,3 +393,22 @@ body {
   background: transparent;
   padding: 0;
 }
+
+/* Diwali hero — soft twinkle for lights, bokeh and sparkles */
+@keyframes diwali-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+.diwali-twinkle {
+  animation: diwali-twinkle 2.8s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .diwali-twinkle {
+    animation: none;
+  }
+}

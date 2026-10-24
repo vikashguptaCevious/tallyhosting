@@ -12,6 +12,7 @@ import { useCountry } from '../../context/CountryContext'
 import { DemoRequestModal } from '../DemoRequestModal'
 import { HeroVisual } from './HeroVisual'
 import { HeroStatsBar } from './HeroStatsBar'
+import { DiwaliHero } from './DiwaliHero'
 
 const iconMap: Record<string, LucideIcon> = {
   globe: Globe,
@@ -30,6 +31,17 @@ export function HeroSection() {
   const [demoOpen, setDemoOpen] = useState(false)
   const { content, countryId } = useCountry()
   const isSaudi = countryId === 'saudi-arabia'
+
+  if (!isSaudi) {
+    return (
+      <section id="home" className="relative overflow-x-clip pb-8 lg:pb-10">
+        {/* Navbar spacer */}
+        <div className="h-16 lg:h-[72px]" />
+        <DiwaliHero onQuote={() => setDemoOpen(true)} />
+        <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} />
+      </section>
+    )
+  }
 
   return (
     <section
