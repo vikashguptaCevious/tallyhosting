@@ -27,33 +27,29 @@
     "india": {
       "locale": "en",
       "dir": "ltr",
-      "badge": "ENTERPRISE-GRADE TALLY CLOUD",
+      "badge": "DIWALI DHAMAKA OFFER",
+      "badgeImage": "/diwaliimages/diya.png",
       "heading": {
-        "line1": "India's Most Secure",
-        "line2": "Tally Cloud Platform"
+        "line1": "Light Up Your Business",
+        "line2": "This Diwali Dhamaka"
       },
-      "description": "Enterprise-grade Tally Cloud with advanced security, automated backup, disaster recovery and expert support.",
+      "description": "Celebrate with exclusive savings on secure, reliable Tally Cloud hosting.",
+      "offerTag": "LIMITED-TIME FESTIVE SAVINGS",
       "featureIcons": [
-        { "label": "Run Tally Anywhere", "icon": "globe" },
-        { "label": "Securely", "icon": "shield" },
-        { "label": "Reliably", "icon": "shieldCheck" },
-        { "label": "Effortlessly", "icon": "rocket" }
+        { "label": "Secure Cloud Access", "icon": "shieldCheck" },
+        { "label": "Automatic Backup", "icon": "refresh" },
+        { "label": "Expert Support", "icon": "headset" }
       ],
       "cta": {
-        "primary": { "label": "Start 7-Day Free Trial", "href": "#contact" },
-        "secondary": { "label": "View Pricing", "href": "#pricing" }
+        "primary": { "label": "Claim Diwali Offer", "href": "#contact" },
+        "secondary": { "label": "View Plans", "href": "#pricing" }
       },
       "visualMode": "layered",
       "heroBgImage": "/images/Exact%20BG%20(1).webp",
-      "heroAbsoluteImage": "/images/absolute%20(1).webp",
+      "heroAbsoluteImage": "/diwaliimages/Diwali.webp",
       "heroCompositeImage": "",
       "sectionImage": "/images/hero%20img.webp",
-      "floatingCards": [
-        { "highlight": "HA-Cloud", "label": "Infrastructure", "icon": "cloud" },
-        { "highlight": "Tally Optimize", "label": "Performance", "icon": "tally" },
-        { "highlight": "2FA Security", "label": "Secure Access", "icon": "userShield" },
-        { "highlight": "Automatic Google", "label": "Backup", "icon": "google" }
-      ],
+      "floatingCards": [],
       "stats": [
         { "value": 25000, "suffix": "+", "label": "Cloud Users", "icon": "users" },
         { "value": 18, "suffix": "+", "label": "Years Experience", "icon": "award" },
@@ -77,11 +73,13 @@
       "locale": "en",
       "dir": "ltr",
       "badge": "ENTERPRISE-GRADE TALLY CLOUD",
+      "badgeImage": "",
       "heading": {
         "line1": "Saudi Arabia's Most Secure",
         "line2": "Tally Cloud Platform"
       },
       "description": "Enterprise-grade Tally Cloud with advanced security, automated backup, disaster recovery and expert support.",
+      "offerTag": "",
       "featureIcons": [
         { "label": "Run Tally Anywhere", "icon": "globe" },
         { "label": "Securely", "icon": "shield" },

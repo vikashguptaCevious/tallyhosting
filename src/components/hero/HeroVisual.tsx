@@ -223,13 +223,17 @@ export function HeroVisual() {
             <img
               src={content.heroAbsoluteImage}
               alt="Secure Tally Cloud VPS"
-              className="relative z-10 w-[70%] sm:w-[66%] lg:w-[60%] h-auto object-contain max-h-[240px] sm:max-h-[320px] lg:max-h-[380px] xl:max-h-[410px] translate-x-0 -translate-y-1 sm:-translate-x-8 sm:-translate-y-3 lg:-translate-x-10 lg:-translate-y-4 mx-auto drop-shadow-[0_20px_50px_rgba(123,97,255,0.25)]"
+              className={`relative z-10 h-auto object-contain mx-auto drop-shadow-[0_20px_50px_rgba(123,97,255,0.25)] ${
+                cards.length
+                  ? 'w-[70%] sm:w-[66%] lg:w-[60%] max-h-[240px] sm:max-h-[320px] lg:max-h-[380px] xl:max-h-[410px] translate-x-0 -translate-y-1 sm:-translate-x-8 sm:-translate-y-3 lg:-translate-x-10 lg:-translate-y-4'
+                  : 'w-[96%] lg:w-[94%] max-h-[300px] sm:max-h-[400px] lg:max-h-[470px] xl:max-h-[500px] -translate-y-1 lg:-translate-y-4'
+              }`}
               draggable={false}
             />
           </>
         )}
 
-        <FloatingCards cards={cards} isSaudi={isSaudi} />
+        {cards.length > 0 && <FloatingCards cards={cards} isSaudi={isSaudi} />}
       </div>
     </div>
   )

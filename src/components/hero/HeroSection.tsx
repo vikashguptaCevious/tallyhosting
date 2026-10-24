@@ -6,6 +6,8 @@ import {
   Shield,
   ShieldCheck,
   Rocket,
+  RefreshCw,
+  Headset,
   type LucideIcon,
 } from 'lucide-react'
 import { useCountry } from '../../context/CountryContext'
@@ -18,6 +20,8 @@ const iconMap: Record<string, LucideIcon> = {
   shield: Shield,
   shieldCheck: ShieldCheck,
   rocket: Rocket,
+  refresh: RefreshCw,
+  headset: Headset,
 }
 
 const fadeUp = (delay: number) => ({
@@ -95,7 +99,17 @@ export function HeroSection() {
                       : 'bg-primary/10 text-primary'
                   }`}
                 >
-                  <Shield className="w-4 h-4" strokeWidth={2.25} />
+                  {content.badgeImage ? (
+                    <img
+                      src={content.badgeImage}
+                      alt=""
+                      aria-hidden
+                      className="w-6 h-5 object-contain"
+                      draggable={false}
+                    />
+                  ) : (
+                    <Shield className="w-4 h-4" strokeWidth={2.25} />
+                  )}
                   {content.badge}
                 </motion.span>
 
@@ -153,18 +167,34 @@ export function HeroSection() {
                   >
                     {content.cta.secondary.label}
                   </a>
+                  {content.offerTag && (
+                    <span className="inline-flex items-center justify-center gap-2 self-center px-4 py-2 rounded-full border border-amber-300/80 bg-white/80 text-[11px] sm:text-xs font-bold leading-tight tracking-wide text-primary shadow-sm">
+                      <img
+                        src="/diwaliimages/diya.png"
+                        alt=""
+                        aria-hidden
+                        className="w-7 h-6 object-contain"
+                        draggable={false}
+                      />
+                      <span className="max-w-[9rem] text-left">{content.offerTag}</span>
+                    </span>
+                  )}
                 </motion.div>
 
                 <motion.div
                   {...fadeUp(0.25)}
-                  className="mt-6 sm:mt-7 lg:mt-8 grid grid-cols-4 gap-2 lg:flex lg:flex-wrap lg:items-center lg:justify-start lg:gap-x-7 lg:gap-y-3"
+                  className={`mt-6 sm:mt-7 lg:mt-8 grid gap-2 lg:flex lg:flex-wrap lg:items-center lg:justify-start lg:gap-x-7 lg:gap-y-3 ${
+                    content.featureIcons.length === 3 ? 'grid-cols-3' : 'grid-cols-4'
+                  }`}
                 >
-                  {content.featureIcons.map((item) => {
+                  {content.featureIcons.map((item, i) => {
                     const Icon = iconMap[item.icon]
                     return (
                       <div
                         key={item.label}
-                        className="flex flex-col items-center gap-1 text-center lg:inline-flex lg:flex-row lg:items-center lg:gap-2 lg:whitespace-nowrap lg:text-left"
+                        className={`flex flex-col items-center gap-1 text-center lg:inline-flex lg:flex-row lg:items-center lg:gap-2 lg:whitespace-nowrap lg:text-left ${
+                          content.offerTag && i > 0 ? 'lg:border-l lg:border-gray-300 lg:pl-7' : ''
+                        }`}
                       >
                         <Icon
                           className={`w-5 h-5 flex-shrink-0 ${
