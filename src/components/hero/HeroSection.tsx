@@ -13,6 +13,7 @@ import { DemoRequestModal } from '../DemoRequestModal'
 import { HeroVisual } from './HeroVisual'
 import { HeroStatsBar } from './HeroStatsBar'
 import { DiwaliHero } from './DiwaliHero'
+import { DIWALI_OFFER } from '../../config/env'
 
 const iconMap: Record<string, LucideIcon> = {
   globe: Globe,
@@ -32,7 +33,7 @@ export function HeroSection() {
   const { content, countryId } = useCountry()
   const isSaudi = countryId === 'saudi-arabia'
 
-  if (!isSaudi) {
+  if (DIWALI_OFFER && !isSaudi) {
     return (
       <section id="home" className="relative overflow-x-clip pb-8 lg:pb-10">
         {/* Navbar spacer */}

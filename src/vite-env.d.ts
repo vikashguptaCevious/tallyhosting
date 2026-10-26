@@ -7,6 +7,8 @@ interface ImportMetaEnv {
   readonly VITE_API_URL: string
   /** Cevious Cloud public API base — must end with /api/v1 (no trailing slash) */
   readonly VITE_CEVIOUS_API_BASE: string
+  /** "true" shows the festive Diwali hero instead of the regular one */
+  readonly VITE_DIWALI_OFFER?: string
 }
 
 interface ImportMeta {

@@ -39,6 +39,9 @@ export const appConfig = {
 
   /** Optional external API base (empty when using same-origin /api routes) */
   apiUrl: (import.meta.env.VITE_API_URL ?? '').trim().replace(/\/+$/, ''),
+
+  /** Festive Diwali hero toggle (VITE_DIWALI_OFFER=true) */
+  diwaliOffer: (import.meta.env.VITE_DIWALI_OFFER ?? '').trim().toLowerCase() === 'true',
 } as const
 
 /** Convenience aliases matching deployment naming */
@@ -46,3 +49,4 @@ export const CUSTOMER_PORTAL_URL = appConfig.customerPortalUrl
 export const WEBSITE_URL = appConfig.websiteUrl
 export const PARTNER_PORTAL_URL = appConfig.partnerPortalUrl
 export const API_URL = appConfig.apiUrl
+export const DIWALI_OFFER = appConfig.diwaliOffer
