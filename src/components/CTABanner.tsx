@@ -1,12 +1,9 @@
-import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { Headphones } from 'lucide-react'
-import { ctaBanner } from '../data/content'
+import { ctaBanner, DEMO_PAGE_PATH } from '../data/content'
 import { AnimatedSection } from './AnimatedSection'
-import { DemoRequestModal } from './DemoRequestModal'
 
 export function CTABanner() {
-  const [demoOpen, setDemoOpen] = useState(false)
-
   return (
     <section className="pt-4 pb-12 lg:pt-6 lg:pb-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -36,14 +33,13 @@ export function CTABanner() {
               {ctaBanner.buttons.map((btn) => {
                 if ('action' in btn && btn.action === 'demo') {
                   return (
-                    <button
+                    <Link
                       key={btn.label}
-                      type="button"
-                      onClick={() => setDemoOpen(true)}
+                      to={DEMO_PAGE_PATH}
                       className="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-white text-primary text-sm font-semibold rounded-xl hover:bg-gray-100 transition-colors"
                     >
                       {btn.label}
-                    </button>
+                    </Link>
                   )
                 }
 
@@ -67,7 +63,6 @@ export function CTABanner() {
         </AnimatedSection>
       </div>
 
-      <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     </section>
   )
 }

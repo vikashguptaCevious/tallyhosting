@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react'
+import { DIWALI_BURST_EVENT, type FireworksBurst } from '../../lib/fireworks'
 
 /**
  * Canvas fireworks + phuljhari (sparkler) for the Diwali hero.
@@ -36,7 +37,14 @@ const SPARKLER_COLORS = ['#ffb000', '#f59e0b', '#ff7a00', '#facc15', '#ff9f1c']
 const rand = (a: number, b: number) => a + Math.random() * (b - a)
 const pick = <T,>(arr: T[]) => arr[Math.floor(Math.random() * arr.length)]
 
-export function DiwaliFireworks({ className = '' }: { className?: string }) {
+export function DiwaliFireworks({
+  className = '',
+  ambientSparklers = false,
+}: {
+  className?: string
+  /** Keep lighting phuljhari along the edges after the opening show (page-wide canvas) */
+  ambientSparklers?: boolean
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
@@ -223,8 +231,22 @@ export function DiwaliFireworks({ className = '' }: { className?: string }) {
     start()
 
     // Gentle ambient bursts afterwards
+    // Phuljhari near a side edge so it never sits on top of the copy
+    const lightSparkler = (ms = rand(2500, 4000)) => {
+      const left = Math.random() < 0.5
+      sparklers.push({
+        fx: left ? rand(0.02, 0.12) : rand(0.88, 0.98),
+        fy: rand(0.2, 0.85),
+        until: performance.now() + ms,
+      })
+      start()
+    }
+
     const ambient = () => {
-      if (visible && !document.hidden) launch()
+      if (visible && !document.hidden) {
+        launch()
+        if (ambientSparklers && Math.random() < 0.7) lightSparkler()
+      }
       later(rand(3000, 5000), ambient)
     }
     later(6500, ambient)
@@ -237,14 +259,23 @@ export function DiwaliFireworks({ className = '' }: { className?: string }) {
     const onVisibility = () => start()
     document.addEventListener('visibilitychange', onVisibility)
 
+    // On-demand volleys (scroll reveals, plan clicks …) via burstFireworks()
+    const onBurst = (e: Event) => {
+      const { rockets = 0, sparklers: lit = 0 } = (e as CustomEvent<FireworksBurst>).detail ?? {}
+      for (let i = 0; i < rockets; i++) later(i * 220, () => launch())
+      for (let i = 0; i < lit; i++) later(i * 300, () => lightSparkler())
+    }
+    window.addEventListener(DIWALI_BURST_EVENT, onBurst)
+
     return () => {
       cancelAnimationFrame(raf)
       timers.forEach((t) => window.clearTimeout(t))
       ro.disconnect()
       io.disconnect()
       document.removeEventListener('visibilitychange', onVisibility)
+      window.removeEventListener(DIWALI_BURST_EVENT, onBurst)
     }
-  }, [])
+  }, [ambientSparklers])
 
   return <canvas ref={canvasRef} aria-hidden className={`pointer-events-none ${className}`} />
 }

@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, ChevronDown, Globe } from 'lucide-react'
 import { CUSTOMER_PORTAL_URL } from '../config/env'
-import { navLinks, partnerNav } from '../data/content'
+import { DEMO_PAGE_PATH, navLinks, partnerNav } from '../data/content'
 import { useCountry, type CountryId } from '../context/CountryContext'
 import { BecomePartnerModal } from './BecomePartnerModal'
-import { DemoRequestModal } from './DemoRequestModal'
 
 function CountryFlag({
   flagImg,
@@ -39,7 +38,6 @@ export function Navbar() {
   const [mobilePartnerOpen, setMobilePartnerOpen] = useState(false)
   const [countryOpen, setCountryOpen] = useState(false)
   const [partnerModalOpen, setPartnerModalOpen] = useState(false)
-  const [demoModalOpen, setDemoModalOpen] = useState(false)
   const partnerRef = useRef<HTMLDivElement>(null)
   const countryRef = useRef<HTMLDivElement>(null)
   const lastScrollY = useRef(0)
@@ -224,9 +222,8 @@ export function Navbar() {
             >
               Login
             </a>
-            <button
-              type="button"
-              onClick={() => setDemoModalOpen(true)}
+            <Link
+              to={DEMO_PAGE_PATH}
               className={`px-5 py-2.5 text-white text-sm font-semibold rounded-lg transition-colors whitespace-nowrap ${
                 isSaudi
                   ? 'bg-[#087a3c] hover:bg-[#066b34]'
@@ -234,7 +231,7 @@ export function Navbar() {
               }`}
             >
               Start 7-Day Free Trial
-            </button>
+            </Link>
 
             <div ref={countryRef} className="relative">
               <button
@@ -413,12 +410,9 @@ export function Navbar() {
                   >
                     Login
                   </a>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setMobileOpen(false)
-                      setDemoModalOpen(true)
-                    }}
+                  <Link
+                    to={DEMO_PAGE_PATH}
+                    onClick={() => setMobileOpen(false)}
                     className={`block w-full px-5 py-2.5 text-white text-sm font-semibold rounded-lg text-center transition-colors ${
                       isSaudi
                         ? 'bg-[#087a3c] hover:bg-[#066b34]'
@@ -426,7 +420,7 @@ export function Navbar() {
                     }`}
                   >
                     Start 7-Day Free Trial
-                  </button>
+                  </Link>
 
                   <div className="space-y-1.5 pt-1">
                     {options.map((option) => (
@@ -459,7 +453,6 @@ export function Navbar() {
       </nav>
 
       <BecomePartnerModal open={partnerModalOpen} onClose={() => setPartnerModalOpen(false)} />
-      <DemoRequestModal open={demoModalOpen} onClose={() => setDemoModalOpen(false)} />
     </motion.header>
   )
 }

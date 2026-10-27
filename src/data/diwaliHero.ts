@@ -24,17 +24,12 @@ export interface DiwaliSlide {
   tagline?: { text: string; highlight: string }
 }
 
-export const DIWALI_SLIDE_INTERVAL_MS = 5000
+export const DIWALI_SLIDE_INTERVAL_MS = 3000
 
 export const diwaliSlides: DiwaliSlide[] = [
   {
     id: 'dhamaka',
-    titleImage: { src: '/diwali/dhamaka-title.webp', alt: 'Diwali Dhamaka' },
-    subtitle: {
-      text: 'Festive cloud solutions',
-      small: 'for modern businesses',
-      style: 'centered',
-    },
+    titleImage: { src: '/diwali/dhamaka-70-off.webp', alt: 'Diwali Dhamaka — up to 70% off' },
   },
   {
     id: 'cloud-plus-299',
@@ -47,12 +42,5 @@ export const diwaliSlides: DiwaliSlide[] = [
       bleed: '6%',
     },
     regularPrice: '₹699',
-  },
-  {
-    id: 'brighter-70',
-    showRibbon: true,
-    heading: { lines: ['Make Your', 'Business Brighter', 'This Diwali!'], highlight: [1] },
-    subtitle: { text: 'Festive cloud offers for smart businesses', style: 'line' },
-    offerImage: { src: '/diwali/offer-70.webp', alt: 'Up to 70% off', aspect: '1400/380', bleed: '5.5%' },
   },
 ]

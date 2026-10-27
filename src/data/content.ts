@@ -295,6 +295,9 @@ export const ctaBanner = {
   ],
 }
 
+/** Standalone page that hosts the demo request form */
+export const DEMO_PAGE_PATH = '/request-demo'
+
 export const demoForm = {
   badge: 'BOOK A DEMO',
   title: 'Request a Demo',

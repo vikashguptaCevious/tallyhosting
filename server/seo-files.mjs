@@ -5,6 +5,8 @@ const STATIC_ROUTES = [
   { path: '/', changefreq: 'weekly', priority: '1.0' },
   { path: '/blog', changefreq: 'daily', priority: '0.8' },
   { path: '/privacy-policy', changefreq: 'yearly', priority: '0.3' },
+  { path: '/request-demo', changefreq: 'yearly', priority: '0.6' },
+  { path: '/diwali-dhamaka-compaign', changefreq: 'weekly', priority: '0.7' },
 ]
 
 const PAGE_LIMIT = 50

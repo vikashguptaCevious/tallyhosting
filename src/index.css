@@ -274,6 +274,11 @@ body {
   font-size: 14px;
 }
 
+/* Diwali claim page — matches its 44px inputs */
+.campaign-phone-input.react-international-phone-input-container {
+  --react-international-phone-height: 44px;
+}
+
 .demo-phone-input .demo-phone-input__field:focus,
 .demo-phone-input .react-international-phone-input:focus {
   outline: none;

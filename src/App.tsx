@@ -9,6 +9,11 @@ import { HomePage } from './pages/HomePage'
 import { BlogListPage } from './pages/BlogListPage'
 import { BlogDetailPage } from './pages/BlogDetailPage'
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage'
+import { DiwaliCampaignPage } from './pages/DiwaliCampaignPage'
+import { DiwaliClaimPage } from './pages/DiwaliClaimPage'
+import { RequestDemoPage } from './pages/RequestDemoPage'
+import { DEMO_PAGE_PATH } from './data/content'
+import { DIWALI_CAMPAIGN_PATH, DIWALI_CLAIM_PATH } from './data/diwaliCampaign'
 
 function ScrollToTopOnNavigate() {
   const { pathname } = useLocation()
@@ -32,6 +37,13 @@ function App() {
             <Route path="/blog" element={<BlogListPage />} />
             <Route path="/blog/:slug" element={<BlogDetailPage />} />
             <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+            <Route path={DEMO_PAGE_PATH} element={<RequestDemoPage />} />
+            <Route path={DIWALI_CAMPAIGN_PATH} element={<DiwaliCampaignPage />} />
+            <Route path={DIWALI_CLAIM_PATH} element={<DiwaliClaimPage />} />
+            <Route
+              path="/diwali-dhamaka-campaign"
+              element={<Navigate to={DIWALI_CAMPAIGN_PATH} replace />}
+            />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
           <Footer />

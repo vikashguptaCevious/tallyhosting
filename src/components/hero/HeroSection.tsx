@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   ArrowRight,
@@ -9,11 +9,11 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import { useCountry } from '../../context/CountryContext'
-import { DemoRequestModal } from '../DemoRequestModal'
 import { HeroVisual } from './HeroVisual'
 import { HeroStatsBar } from './HeroStatsBar'
 import { DiwaliHero } from './DiwaliHero'
 import { DIWALI_OFFER } from '../../config/env'
+import { DEMO_PAGE_PATH } from '../../data/content'
 
 const iconMap: Record<string, LucideIcon> = {
   globe: Globe,
@@ -29,7 +29,6 @@ const fadeUp = (delay: number) => ({
 })
 
 export function HeroSection() {
-  const [demoOpen, setDemoOpen] = useState(false)
   const { content, countryId } = useCountry()
   const isSaudi = countryId === 'saudi-arabia'
 
@@ -38,8 +37,7 @@ export function HeroSection() {
       <section id="home" className="relative overflow-x-clip pb-8 lg:pb-10">
         {/* Navbar spacer */}
         <div className="h-16 lg:h-[72px]" />
-        <DiwaliHero onQuote={() => setDemoOpen(true)} />
-        <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} />
+        <DiwaliHero />
       </section>
     )
   }
@@ -144,9 +142,8 @@ export function HeroSection() {
                   {...fadeUp(0.2)}
                   className="mt-5 sm:mt-6 lg:mt-7 flex flex-col sm:flex-row justify-center lg:justify-start gap-3"
                 >
-                  <button
-                    type="button"
-                    onClick={() => setDemoOpen(true)}
+                  <Link
+                    to={DEMO_PAGE_PATH}
                     className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 text-white text-sm sm:text-base font-semibold rounded-xl transition-all hover:shadow-lg ${
                       isSaudi
                         ? 'bg-[#087a3c] hover:bg-[#066b34] hover:shadow-[#087a3c]/25'
@@ -155,7 +152,7 @@ export function HeroSection() {
                   >
                     {content.cta.primary.label}
                     <ArrowRight className="w-4 h-4" />
-                  </button>
+                  </Link>
                   <a
                     href={content.cta.secondary.href}
                     className={`inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white border text-navy text-sm sm:text-base font-semibold rounded-xl transition-all ${
@@ -211,7 +208,6 @@ export function HeroSection() {
         </div>
       </div>
 
-      <DemoRequestModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     </section>
   )
 }
