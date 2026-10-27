@@ -30,6 +30,7 @@ import {
 import { breadcrumbSchema } from '../lib/seoSchemas'
 import { Countdown } from '../components/campaign/OfferCountdown'
 import { burstFireworks } from '../lib/fireworks'
+import { rememberCampaignSource } from '../lib/campaignLeads'
 
 const IMG = {
   badge: '/diwali/dhamaka-70-off.webp',
@@ -334,6 +335,11 @@ function useSectionBursts() {
 export function DiwaliCampaignPage() {
   const { search, hash } = useLocation()
   useSectionBursts()
+
+  // First landing keeps its UTM + referrer for the lead, even after moving on to /claim
+  useEffect(() => {
+    rememberCampaignSource()
+  }, [])
 
   // "Back to Diwali offers" from the claim page lands on #plans
   useEffect(() => {

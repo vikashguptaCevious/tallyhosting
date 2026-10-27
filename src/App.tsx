@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar'
 import { Footer } from './components/Footer'
 import { ScrollToTop } from './components/Widgets'
 import { ToastHost } from './components/ToastHost'
+import { ThankYouHost } from './components/ThankYouHost'
 import { CountryProvider } from './context/CountryContext'
 import { HomePage } from './pages/HomePage'
 import { BlogListPage } from './pages/BlogListPage'
@@ -49,6 +50,7 @@ function App() {
           <Footer />
           <ScrollToTop />
           <ToastHost />
+          <ThankYouHost />
         </div>
       </CountryProvider>
     </BrowserRouter>

@@ -10,6 +10,7 @@ import {
   validateReferralCode,
 } from '../lib/ceviousDemoApi'
 import { showToast } from '../lib/toast'
+import { showThankYou } from '../lib/thankYou'
 
 interface DemoRequestFormProps {
   /** Called after the request is accepted by the API */
@@ -273,7 +274,12 @@ export function DemoRequestForm({ onSuccess, onCancel }: DemoRequestFormProps) {
       setErrors({})
       resetReferralUi()
       onSuccess()
-      showToast(result.message || 'Demo request submitted successfully', 'success')
+      showThankYou({
+        title: 'Thank you!',
+        message:
+          result.message ||
+          'Your demo request has been received. Our team will contact you shortly to schedule your demo.',
+      })
     } catch (error) {
       if (error instanceof DemoApiError) {
         if (error.code === 'INVALID_REFERRAL_CODE' || error.fieldErrors.referralCode) {

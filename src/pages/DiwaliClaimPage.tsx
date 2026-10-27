@@ -1,5 +1,5 @@
-import { useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
+import { useEffect, useState } from 'react'
+import { Link, Navigate, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
   Check,
@@ -26,7 +26,11 @@ import {
   type CampaignPlan,
   type CampaignPlanId,
 } from '../data/diwaliCampaign'
-import type { CampaignLeadInput } from '../lib/campaignLeads'
+import {
+  rememberCampaignSource,
+  type CampaignLeadInput,
+  type CampaignLeadSuccess,
+} from '../lib/campaignLeads'
 import { burstFireworks } from '../lib/fireworks'
 
 const gradientText = 'bg-gradient-to-r from-[#8a2be2] to-[#a533e8] bg-clip-text text-transparent'
@@ -224,9 +228,16 @@ function OrderSummary({ plan }: { plan: CampaignPlan }) {
 export function DiwaliClaimPage() {
   const [params, setParams] = useSearchParams()
   const planParam = params.get('plan')
-  const planId: CampaignPlanId = isPlanId(planParam) ? planParam : 'plus'
-  const plan = campaignPlans.find((p) => p.id === planId) ?? campaignPlans[0]
-  const [submitted, setSubmitted] = useState<CampaignLeadInput | null>(null)
+  const plan = campaignPlans.find((p) => p.id === planParam)
+  const [submitted, setSubmitted] = useState<{
+    customer: CampaignLeadInput
+    result: CampaignLeadSuccess
+  } | null>(null)
+
+  // Direct landings on /claim still need their UTM + referrer recorded
+  useEffect(() => {
+    rememberCampaignSource()
+  }, [])
 
   // Plan lives in the URL so a shared / refreshed link keeps the same selection
   const changePlan = (id: CampaignPlanId) =>
@@ -239,8 +250,8 @@ export function DiwaliClaimPage() {
       { replace: true },
     )
 
-  const handleSuccess = (customer: CampaignLeadInput) => {
-    setSubmitted(customer)
+  const handleSuccess = (customer: CampaignLeadInput, result: CampaignLeadSuccess) => {
+    setSubmitted({ customer, result })
     burstFireworks({ rockets: 6, sparklers: 3 })
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -250,6 +261,10 @@ export function DiwaliClaimPage() {
   backParams.delete('plan')
   const backQuery = backParams.toString()
   const backHref = `${DIWALI_CAMPAIGN_PATH}${backQuery ? `?${backQuery}` : ''}`
+
+  // No (or unknown) ?plan= → back to the plan picker instead of guessing a plan
+  if (!plan || !isPlanId(planParam)) return <Navigate to={`${backHref}#plans`} replace />
+  const planId: CampaignPlanId = planParam
 
   return (
     <main className="bg-[#fbf9ff]">
@@ -320,17 +335,25 @@ export function DiwaliClaimPage() {
                   <PartyPopper className="h-8 w-8" />
                 </div>
                 <h2 className="mt-5 text-2xl font-bold text-navy">
-                  Thank you, {submitted.name.split(' ')[0]}!
+                  Thank you, {submitted.customer.name.split(' ')[0]}!
                 </h2>
+                <p className="mt-2 max-w-md font-medium text-navy">{submitted.result.message}</p>
                 <p className="mt-2 max-w-md text-gray-600">
-                  Your <strong>{plan.name}</strong> plan at{' '}
+                  <strong>{plan.name}</strong> plan at{' '}
                   <strong>
                     {plan.currency}
                     {plan.price}/{plan.period}
                   </strong>{' '}
-                  is reserved. We'll call you on <strong>{submitted.mobile}</strong> and send
-                  details to <strong>{submitted.email}</strong>.
+                  — our team will call you shortly on <strong>{submitted.customer.mobile}</strong>.
                 </p>
+                {submitted.result.id && (
+                  <p className="mt-3 text-xs text-gray-500">
+                    Reference:{' '}
+                    <span className="font-mono font-semibold text-gray-700">
+                      {submitted.result.id.slice(0, 8).toUpperCase()}
+                    </span>
+                  </p>
+                )}
                 <div className="mt-6 flex items-center gap-2 rounded-xl bg-[#f6f2ff] px-4 py-3 text-sm text-[#4b1a8f]">
                   <Clock className="h-4 w-4 flex-shrink-0" />
                   Expect a call from our expert within a few hours

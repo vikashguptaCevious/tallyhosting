@@ -7,6 +7,7 @@ import 'react-international-phone/style.css'
 import { partnerForm } from '../data/content'
 import { submitBitrixLead } from '../lib/bitrix'
 import { showToast } from '../lib/toast'
+import { showThankYou } from '../lib/thankYou'
 
 interface BecomePartnerModalProps {
   open: boolean
@@ -73,7 +74,10 @@ export function BecomePartnerModal({ open, onClose }: BecomePartnerModalProps) {
       await submitBitrixLead(payload)
       setForm(initialForm)
       onClose()
-      showToast('Thanks! Our partnership team will reach out shortly.', 'success')
+      showThankYou({
+        title: 'Thank you!',
+        message: 'Your partnership request has been received. Our partnership team will reach out shortly.',
+      })
     } catch (error) {
       console.error('Become a Partner form submission failed:', error)
       showToast(

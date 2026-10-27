@@ -3,6 +3,7 @@ import { Mail, Phone, MapPin } from 'lucide-react'
 import { contactSection } from '../data/content'
 import { submitBitrixLead } from '../lib/bitrix'
 import { showToast } from '../lib/toast'
+import { showThankYou } from '../lib/thankYou'
 import { AnimatedSection } from './AnimatedSection'
 
 export function ContactSection() {
@@ -28,7 +29,10 @@ export function ContactSection() {
       await submitBitrixLead(payload)
       form.reset()
       setSubmitted(true)
-      showToast(contactSection.successMessage, 'success')
+      showThankYou({
+        title: 'Thank you!',
+        message: 'Your enquiry has been received. Our team will get back to you shortly.',
+      })
       setTimeout(() => setSubmitted(false), 4000)
     } catch (error) {
       console.error('Contact form submission failed:', error)
