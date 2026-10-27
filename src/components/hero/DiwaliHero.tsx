@@ -57,7 +57,7 @@ export function SlideContent({ slide }: { slide: DiwaliSlide }) {
         <img
           src={slide.titleImage.src}
           alt={slide.titleImage.alt}
-          className="mx-auto w-full max-w-[360px] drop-shadow-[0_14px_30px_rgba(110,40,200,0.35)] sm:max-w-[440px] lg:mx-0 lg:max-w-[420px] xl:max-w-[470px]"
+          className="mx-auto w-full max-w-[360px] drop-shadow-[0_14px_30px_rgba(110,40,200,0.35)] sm:max-w-[440px] lg:mx-0 lg:max-w-[420px] lg:-translate-x-[6%] xl:max-w-[470px]"
           draggable={false}
         />
       )}
