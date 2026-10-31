@@ -3,8 +3,12 @@
  * Edit text / images here; slides rotate in this order.
  * Every field is optional, so a slide shows only what it defines.
  */
+import type { CampaignPlanId } from './diwaliCampaign'
+
 export interface DiwaliSlide {
   id: string
+  /** Plan preselected on the claim page when this slide is clicked */
+  plan: CampaignPlanId
   /** Small golden "Diwali Dhamaka Offers" ribbon on top */
   showRibbon?: boolean
   /** Large title artwork (replaces text heading) */
@@ -29,10 +33,12 @@ export const DIWALI_SLIDE_INTERVAL_MS = 3000
 export const diwaliSlides: DiwaliSlide[] = [
   {
     id: 'dhamaka',
+    plan: 'plus',
     titleImage: { src: '/diwali/dhamaka-70-off.webp', alt: 'Diwali Dhamaka — up to 70% off' },
   },
   {
     id: 'cloud-plus-299',
+    plan: 'plus',
     showRibbon: true,
     heading: { lines: ['Tally on', 'Cloud Plus'], highlight: [1] },
     offerImage: {

@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { Link, useLocation, useSearchParams } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import {
-  Check,
   ChevronDown,
   ChevronRight,
   Cloud,
@@ -29,6 +28,7 @@ import {
 } from '../data/diwaliCampaign'
 import { breadcrumbSchema } from '../lib/seoSchemas'
 import { Countdown } from '../components/campaign/OfferCountdown'
+import { PlanFeatureList } from '../components/campaign/PlanFeatureList'
 import { burstFireworks } from '../lib/fireworks'
 import { rememberCampaignSource } from '../lib/campaignLeads'
 
@@ -167,7 +167,7 @@ function PlansSection({ claimHref }: { claimHref: (id: CampaignPlanId) => string
               >
                 {plan.popular && (
                   <div className="bg-gradient-to-r from-[#f59e0b] via-[#ffb000] to-[#f59e0b] py-2 text-center text-xs font-extrabold uppercase tracking-wider text-[#3b1a00]">
-                    ✨ Most loved this Diwali
+                    ✨ Diwali Dhamaka
                   </div>
                 )}
 
@@ -183,7 +183,7 @@ function PlansSection({ claimHref }: { claimHref: (id: CampaignPlanId) => string
                   </div>
 
                   <div className="mt-5">
-                    <span className="text-sm font-semibold text-gray-400 line-through decoration-[#e0245e] decoration-2">
+                    <span className="text-xl font-bold text-gray-500 line-through decoration-[#e0245e] decoration-2">
                       {plan.currency}
                       {plan.regularPrice}
                     </span>
@@ -196,14 +196,11 @@ function PlansSection({ claimHref }: { claimHref: (id: CampaignPlanId) => string
                     </div>
                   </div>
 
-                  <ul className="mb-8 mt-6 flex-1 space-y-3">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2.5 text-sm text-gray-600">
-                        <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-[#7b2ff0]" strokeWidth={2.5} />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  <PlanFeatureList
+                    features={plan.features}
+                    className="mb-8 mt-6 flex-1"
+                    accentClass="text-[#7b2ff0]"
+                  />
 
                   <Link
                     to={claimHref(plan.id)}

@@ -15,6 +15,7 @@ import {
 import { DIWALI_OFFER } from '../config/env'
 import { useCountry } from '../context/CountryContext'
 import { AnimatedSection } from './AnimatedSection'
+import { PlanFeatureList } from './campaign/PlanFeatureList'
 
 /** One card's worth of display data — regular plans and Diwali plans both map to this */
 type PlanCard = {
@@ -99,7 +100,7 @@ export function PricingSection() {
                       isSaudi ? 'bg-[#087a3c]' : 'bg-primary'
                     }`}
                   >
-                    {isDiwali ? '✨ Most Loved This Diwali' : 'Most Popular'}
+                    {isDiwali ? '✨ Diwali Dhamaka' : 'Most Popular'}
                   </div>
                 )}
 
@@ -129,19 +130,11 @@ export function PricingSection() {
                     <span className="text-sm text-gray-500">/{plan.period}</span>
                   </div>
 
-                  <ul className="space-y-3 flex-1 mb-8">
-                    {plan.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2.5 text-sm text-gray-600">
-                        <Check
-                          className={`w-4 h-4 flex-shrink-0 mt-0.5 ${
-                            isSaudi ? 'text-[#087a3c]' : 'text-primary'
-                          }`}
-                          strokeWidth={2.5}
-                        />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
+                  <PlanFeatureList
+                    features={plan.features}
+                    className="flex-1 mb-8"
+                    accentClass={isSaudi ? 'text-[#087a3c]' : 'text-primary'}
+                  />
 
                   {plan.to ? (
                     <Link to={plan.to} className={ctaClass(plan.popular)}>

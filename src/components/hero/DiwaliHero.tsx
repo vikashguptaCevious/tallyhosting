@@ -10,7 +10,7 @@ import {
   DIWALI_SLIDE_INTERVAL_MS,
   type DiwaliSlide,
 } from '../../data/diwaliHero'
-import { DIWALI_CAMPAIGN_PATH } from '../../data/diwaliCampaign'
+import { DIWALI_CLAIM_PATH } from '../../data/diwaliCampaign'
 
 const IMG = {
   ribbon: '/diwali/dhamaka-banner.webp',
@@ -146,8 +146,9 @@ function OfferSlider() {
     return () => window.clearTimeout(id)
   }, [active, count])
 
-  // Campaign page opens on the same banner the visitor clicked
-  const offerHref = `${DIWALI_CAMPAIGN_PATH}?offer=${diwaliSlides[active].id}`
+  // Straight to the claim form with the slide's plan picked; `offer` keeps the clicked banner
+  // on the claim page's "Back to Diwali offers" link
+  const offerHref = `${DIWALI_CLAIM_PATH}?offer=${diwaliSlides[active].id}&plan=${diwaliSlides[active].plan}`
 
   const go = (dir: number) => setActive((i) => (i + dir + count) % count)
 
@@ -166,7 +167,7 @@ function OfferSlider() {
     >
       <h1 className="sr-only">Diwali Dhamaka Offers on Tally Cloud Hosting</h1>
 
-      {/* All slides share one grid cell → height never jumps. Whole offer opens the campaign page;
+      {/* All slides share one grid cell → height never jumps. Whole offer opens the claim page;
           tabIndex -1 keeps the CTA below as the single keyboard stop for the same link. */}
       <Link
         to={offerHref}
