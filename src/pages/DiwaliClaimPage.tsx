@@ -128,7 +128,7 @@ function PlanPicker({
           >
             {p.popular && (
               <span className="absolute -top-2.5 right-3 rounded-full bg-gradient-to-r from-[#f59e0b] to-[#ffb000] px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wide text-[#3b1a00]">
-                Most loved
+                DIWALI DHAMAKA
               </span>
             )}
             <div className="flex items-center justify-between">
